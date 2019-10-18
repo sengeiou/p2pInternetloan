@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.p2pInternetloan.sys.dao.PermissionDao">
+
+    <resultMap type="com.p2pInternetloan.sys.entity.Permission" id="PermissionMap">
+        <result property="perid" column="perid" jdbcType="INTEGER"/>
+        <result property="pername" column="pername" jdbcType="VARCHAR"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="permission" column="permission" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PermissionMap">
+        select
+          perid, pername, pid, permission
+        from permission
+        where perid = #{perid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PermissionMap">
+        select
+          perid, pername, pid, permission
+        from permission
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PermissionMap">
+        select
+          perid, pername, pid, permission
+        from permission
+        <where>
+            <if test="perid != null">
+                and perid = #{perid}
+            </if>
+            <if test="pername != null and pername != ''">
+                and pername = #{pername}
+            </if>
+            <if test="pid != null">
+                and pid = #{pid}
+            </if>
+            <if test="permission != null and permission != ''">
+                and permission = #{permission}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="perid" useGeneratedKeys="true">
+        insert into permission(pername, pid, permission)
+        values (#{pername}, #{pid}, #{permission})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update permission
+        <set>
+            <if test="pername != null and pername != ''">
+                pername = #{pername},
+            </if>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="permission != null and permission != ''">
+                permission = #{permission},
+            </if>
+        </set>
+        where perid = #{perid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from permission where perid = #{perid}
+    </delete>
+    
+</mapper>
