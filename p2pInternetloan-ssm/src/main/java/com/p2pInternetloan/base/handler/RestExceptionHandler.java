@@ -1,6 +1,7 @@
 package com.p2pInternetloan.base.handler;
 
 import com.p2pInternetloan.base.utils.ReturnFormat;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -79,6 +80,12 @@ public class RestExceptionHandler{
         ex.printStackTrace();
         return ReturnFormat.retParam(1005, null);
     }
+
+
+
+
+
+
     //400错误
     @ExceptionHandler({HttpMessageNotReadableException.class})
     @ResponseBody
@@ -124,5 +131,15 @@ public class RestExceptionHandler{
         System.out.println("500...");
         return ReturnFormat.retParam(406, null);
     }
+
+
+    //jwt解析异常
+    @ExceptionHandler(ExpiredJwtException.class)
+    @ResponseBody
+    public String noSuchMethodExceptionHandler(ExpiredJwtException ex) {
+        ex.printStackTrace();
+        return ReturnFormat.retParam(3001, null);
+    }
+
 }
 

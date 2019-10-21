@@ -1,42 +1,35 @@
 package com.p2pInternetloan.sys.dao;
 
+import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.sys.entity.Menu;
 import com.p2pInternetloan.sys.entity.Permission;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
  * (Permission)表数据库访问层
  *
- * @author makejava
- * @since 2019-10-17 16:33:34
+ * @author cpc
+ * @since 2019-10-19 21:18:15
  */
 public interface PermissionDao {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param perid 主键
+     * @param perId 主键
      * @return 实例对象
      */
-    Permission queryById(Integer perid);
+    Permission queryById(Integer perId);
 
     /**
-     * 查询指定行数据
+     * 通过query对象查询
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param  query 分页查询对象 
      * @return 对象列表
      */
-    List<Permission> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
-
-
-    /**
-     * 通过实体作为筛选条件查询
-     *
-     * @param permission 实例对象
-     * @return 对象列表
-     */
-    List<Permission> queryAll(Permission permission);
+    List<Permission> queryPager(Query query);
 
     /**
      * 新增数据
@@ -57,9 +50,17 @@ public interface PermissionDao {
     /**
      * 通过主键删除数据
      *
-     * @param perid 主键
+     * @param perId 主键
      * @return 影响行数
      */
-    int deleteById(Integer perid);
+    int deleteById(Integer perId);
+
+    /**
+     * 查询用户菜单（查询指定父菜单下的子菜单）
+     * @param pid
+     * @param userId
+     * @return
+     */
+    List<Menu> queryChildern(@Param("pid") Integer pid, @Param("userId")Integer userId);
 
 }

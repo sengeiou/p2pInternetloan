@@ -1,18 +1,20 @@
 package com.p2pInternetloan.sys.service.impl;
 
-import com.p2pInternetloan.sys.entity.Role;
+import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.sys.dao.RoleDao;
+import com.p2pInternetloan.sys.entity.Role;
 import com.p2pInternetloan.sys.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (Role)表服务实现类
  *
- * @author makejava
- * @since 2019-10-17 16:33:34
+ * @author cpc
+ * @since 2019-10-20 08:15:40
  */
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {
@@ -22,24 +24,23 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 通过ID查询单条数据
      *
-     * @param roleid 主键
+     * @param roleId 主键
      * @return 实例对象
      */
     @Override
-    public Role queryById(Integer roleid) {
-        return this.roleDao.queryById(roleid);
+    public Role queryById(Integer roleId) {
+        return this.roleDao.queryById(roleId);
     }
 
     /**
-     * 查询多条数据
+     * 通过query对象查询
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param  query 分页查询对象 
      * @return 对象列表
      */
     @Override
-    public List<Role> queryAllByLimit(int offset, int limit) {
-        return this.roleDao.queryAllByLimit(offset, limit);
+    public List<Role> queryPager(Query query) {
+        return this.roleDao.queryPager(query);
     }
 
     /**
@@ -49,9 +50,8 @@ public class RoleServiceImpl implements RoleService {
      * @return 实例对象
      */
     @Override
-    public Role insert(Role role) {
-        this.roleDao.insert(role);
-        return role;
+    public int insert(Role role) {
+        return this.roleDao.insert(role);
     }
 
     /**
@@ -61,19 +61,30 @@ public class RoleServiceImpl implements RoleService {
      * @return 实例对象
      */
     @Override
-    public Role update(Role role) {
-        this.roleDao.update(role);
-        return this.queryById(role.getRoleid());
+    public int update(Role role) {
+        return this.roleDao.update(role);
     }
 
     /**
      * 通过主键删除数据
      *
-     * @param roleid 主键
+     * @param roleId 主键
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer roleid) {
-        return this.roleDao.deleteById(roleid) > 0;
+    public int deleteById(Integer roleId) {
+        return this.roleDao.deleteById(roleId);
     }
+
+    @Override
+    public Role queryByName(String roleName) {
+        return this.roleDao.queryByName(roleName);
+    }
+
+    @Override
+    public List<Map> getRoleSelect() {
+        return this.roleDao.getRoleSelect();
+    }
+
+
 }

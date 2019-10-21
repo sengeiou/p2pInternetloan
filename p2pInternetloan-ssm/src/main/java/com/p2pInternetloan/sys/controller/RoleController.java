@@ -1,23 +1,28 @@
 package com.p2pInternetloan.sys.controller;
 
+import com.p2pInternetloan.base.utils.PageUtils;
+import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.base.utils.R;
 import com.p2pInternetloan.sys.entity.Role;
 import com.p2pInternetloan.sys.service.RoleService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (Role)表控制层
  *
- * @author makejava
- * @since 2019-10-17 16:33:34
+ * @author cpc
+ * @since 2019-10-20 08:15:40
  */
 @RestController
-@RequestMapping("role")
+@Api(description ="角色请求处理")
+@RequestMapping("/sys/role")
 public class RoleController {
-
     /**
      * 服务对象
      */
@@ -25,14 +30,79 @@ public class RoleController {
     private RoleService roleService;
 
     /**
-     * 通过主键查询单条数据
+     * 通过query对象查询
      *
-     * @param id 主键
-     * @return 单条数据
+     * @param params
+     * @return 对象列表
      */
-    @GetMapping("selectOne")
-    public Role selectOne(Integer id) {
-        return this.roleService.queryById(id);
+    @ApiOperation(value = "角色查询")
+    @GetMapping("queryPager")
+    public PageUtils queryPager(@RequestParam Map<String, Object> params) {
+        Query query = new Query(params);
+        List<Role> list = this.roleService.queryPager(query);
+        return new PageUtils(list, query.getTotal());
     }
 
+
+    /**
+     * 添加角色
+     * @param role
+     * @return
+     */
+    @ApiOperation(value = "角色添加")
+    @PostMapping("add")
+    public R add(Role role){
+        //判断角色是否重名
+        if(this.roleService.queryByName(role.getRoleName()) != null){
+            return R.error(-2 , "角色名重复");
+        }
+        return R.update(this.roleService.insert(role));
+    }
+
+
+    /**
+     * 修改角色
+     * @param role
+     * @return
+     */
+    @ApiOperation(value = "角色修改")
+    @PostMapping("update")
+    public R update(Role role){
+        //判断角色是否重名
+        if(this.roleService.queryByName(role.getRoleName()) != null) {
+            return R.error(-2, "角色名重复");
+        }
+        return R.update(this.roleService.update(role));
+    }
+
+    /**
+     * 修改角色状态
+     * @param role
+     * @return
+     */
+    @ApiOperation(value = " 修改角色状态")
+    @PostMapping("editStatu")
+    public R editStatu(Role role){
+        return R.update(this.roleService.update(role));
+    }
+
+    /**
+     * 获取角色下拉
+     * @return
+     */
+    @ApiOperation(value = "获取角色下拉")
+    @GetMapping("getRoleSelect")
+    public List<Map> getRoleSelect(){
+        return this.roleService.getRoleSelect();
+    }
+
+    /**
+     * 删除角色
+     * @return
+     */
+    @ApiOperation(value = "删除角色")
+    @PostMapping("del/{roleId}")
+    public R del(@PathVariable("roleId") Integer roleId){
+        return R.update(this.roleService.deleteById(roleId));
+    }
 }

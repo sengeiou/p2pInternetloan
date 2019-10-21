@@ -5,17 +5,18 @@
 		<div class="logobox">
 			<img class="logoimg" src="../assets/img/logo.png" alt="">
 		</div>
-		<el-menu-item index="/Home">
+		<el-menu-item index="/BackstageHome">
 			<i class="el-icon-s-home"></i>
 			<span>首页</span>
 		</el-menu-item>
 		<el-submenu v-for="n in treeNodeLst" :key="'ley-'+n.id" :index="'index-'+n.id">
 			<template slot="title">
 				<i :class="n.icon"></i>
-				<span>{{n.text}}</span>
+				<span>{{n.perName}}</span>
 			</template>
-			<el-menu-item v-for="n1 in n.childern" :key="'key-'+n1.id" @click="showName(n1.text)" :index="n1.url">
-				{{n1.text}}
+			<el-menu-item v-for="n1 in n.childern" :key="'key-'+n1.id" @click="showName(n1.perName)" :index="n1.url">
+        <i :class="n1.icon"></i>
+        <span>{{n1.perName}}</span>
 			</el-menu-item>
 		</el-submenu>
 	</el-menu>
@@ -45,19 +46,16 @@
 			}
 		},
 		created:function(){
-			let url=this.axios.urls.SYSTEM_TREENODE;
+			let url= this.axios.urls.SYSTEM_TREENODE;
 			this.axios.post(url,{}).then(resp=>{
-				this.treeNodeLst=resp.data.rows;
-				console.log(this.treeNodeLst);
+			    console.log(resp.data);
+				this.treeNodeLst=resp.data;
 			}).catch(resp=>{
-
 			});
 			//设置登录最初的页面
 			this.$router.push({
-				path:'/Home'
+				path:'/BackstageHome'
 			});
-
-
 		}
 	}
 </script>

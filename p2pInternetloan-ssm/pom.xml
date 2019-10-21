@@ -5,18 +5,18 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.cyzt</groupId>
-  <artifactId>p2p-Internet-loan</artifactId>
+  <artifactId>p2pInternetloan-ssm</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>p2p-Internet-loan Maven Webapp</name>
+  <name>p2pInternetloan-ssm Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
         <!--添加jar包依赖-->
         <!--1.spring 5.0.2.RELEASE相关-->
@@ -168,8 +168,6 @@
       </dependency>
 
 
-
-
       <!--5.其他-->
       <dependency>
           <groupId>junit</groupId>
@@ -275,22 +273,32 @@
           <artifactId>shiro-core</artifactId>
           <version>1.3.2</version>
       </dependency>
-
       <dependency>
           <groupId>org.apache.shiro</groupId>
           <artifactId>shiro-web</artifactId>
           <version>1.3.2</version>
       </dependency>
-
       <dependency>
           <groupId>org.apache.shiro</groupId>
           <artifactId>shiro-spring</artifactId>
           <version>1.3.2</version>
       </dependency>
+
+      <!-- 这是导入导出-->
+      <dependency>
+          <groupId>org.apache.poi</groupId>
+          <artifactId>poi</artifactId>
+          <version>3.15-beta2</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.poi</groupId>
+          <artifactId>poi-ooxml</artifactId>
+          <version>3.15-beta2</version>
+      </dependency>
   </dependencies>
 
   <build>
-    <finalName>p2p-Internet-loan</finalName>
+    <finalName>p2pInternetloan-ssm</finalName>
       <resources>
           <!--解决mybatis-generator-maven-plugin运行时没有将XxxMapper.xml文件放入target文件夹的问题-->
           <resource>

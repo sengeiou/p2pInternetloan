@@ -49,10 +49,22 @@ public class R extends HashMap<String, Object> {
         return new R();
     }
 
+
+    /**
+     * 这是更具状态来觉得返回信息，如果 大于 1 成功 如果小于 1 失败
+     * @param n
+     * @return
+     */
+    public static R update(int n) {
+        return n > 0? R.ok("操作成功") : R.error("操作失败");
+    }
+
     @Override
     public R put(String key, Object value) {
         super.put(key, value);
         return this;
     }
+
+
 }
 

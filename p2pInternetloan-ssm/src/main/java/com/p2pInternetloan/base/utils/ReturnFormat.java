@@ -63,6 +63,9 @@ public class ReturnFormat {
         messageMap.put("2021", "无操作权限");
         messageMap.put("2022", "RSA解密失败,密文数据已损坏");
         messageMap.put("2023", "请重新登录");
+
+        messageMap.put("3001", "jwt字符串解析异常");
+
     }
     public static String retParam(int status,Object data) {
         //这是获取对应的 状态吗并且返沪

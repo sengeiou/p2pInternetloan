@@ -22,6 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2//重要！
 @EnableWebMvc
 @ComponentScan(basePackages = "com.p2pInternetloan.base.controller")//扫描control所在的package请修改为你control所在package
+//如果要访问的话直接访问 http://localhost:8080/项目名称/swagger-ui.html 就看到文档了
 public class SwaggerConfig {
 
     @Bean
@@ -39,9 +40,13 @@ public class SwaggerConfig {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
+                //大标题
                 .title("p2p网贷项目接口文档")
+                //描述
                 .description("p2p网贷项目接口测试")
+                // 版本号
                 .version("1.0.0")
+                
                 .termsOfServiceUrl("")
                 .license("")
                 .licenseUrl("")

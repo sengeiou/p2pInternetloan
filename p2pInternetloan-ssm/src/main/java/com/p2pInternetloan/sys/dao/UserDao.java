@@ -2,14 +2,15 @@ package com.p2pInternetloan.sys.dao;
 
 import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.sys.entity.User;
-import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
+import java.util.Set;
 
 /**
  * (User)表数据库访问层
  *
- * @author makejava
- * @since 2019-10-17 16:33:34
+ * @author cpc
+ * @since 2019-10-19 17:34:51
  */
 public interface UserDao {
 
@@ -22,22 +23,35 @@ public interface UserDao {
     User queryById(Integer userid);
 
     /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
+     * 根据用户名查询用户对象
+     * @param userName
+     * @return
      */
-    List<User> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    User queryByName(String userName);
 
 
     /**
-     * 通过实体作为筛选条件查询
+     *根据用户id获取到所有角色
+     * @param userId
+     * @return
+     */
+    public Set<String> getRolesByUserId(Integer userId);
+
+    /**
+     * 根据用户id获取所有权限
+     * @param userId
+     * @return
+     */
+    public Set<String> getPersByUserId(Integer userId);
+
+
+    /**
+     * 通过query对象查询
      *
-     * @param user 实例对象
+     * @param  query 分页查询对象 
      * @return 对象列表
      */
-    List<User> queryAll(User user);
+    List<User> queryPager(Query query);
 
     /**
      * 新增数据
@@ -65,10 +79,10 @@ public interface UserDao {
 
 
     /**
-     * 测试分页查询
-     * @param query
+     * 修改用户密码
+     * @param user
      * @return
      */
-    List<User> queryPager(Query query);
+    int updatePwd(User user);
 
 }

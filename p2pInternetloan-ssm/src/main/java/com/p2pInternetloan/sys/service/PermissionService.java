@@ -1,32 +1,27 @@
 package com.p2pInternetloan.sys.service;
 
+import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.sys.entity.Menu;
 import com.p2pInternetloan.sys.entity.Permission;
+
 import java.util.List;
 
 /**
  * (Permission)表服务接口
  *
- * @author makejava
- * @since 2019-10-17 16:33:34
+ * @author cpc
+ * @since 2019-10-19 21:18:15
  */
 public interface PermissionService {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param perid 主键
+     * @param perId 主键
      * @return 实例对象
      */
-    Permission queryById(Integer perid);
+    Permission queryById(Integer perId);
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Permission> queryAllByLimit(int offset, int limit);
 
     /**
      * 新增数据
@@ -35,6 +30,15 @@ public interface PermissionService {
      * @return 实例对象
      */
     Permission insert(Permission permission);
+
+    /**
+     * 通过query对象查询
+     *
+     * @param  query 分页查询对象 
+     * @return 对象列表
+     */
+    List<Permission> queryPager(Query query);
+
 
     /**
      * 修改数据
@@ -47,9 +51,16 @@ public interface PermissionService {
     /**
      * 通过主键删除数据
      *
-     * @param perid 主键
+     * @param perId 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer perid);
+    boolean deleteById(Integer perId);
+
+
+    /**
+     * 获取用户权限菜单
+     * @return
+     */
+    List<Menu> queryUserMenu(Integer userId);
 
 }

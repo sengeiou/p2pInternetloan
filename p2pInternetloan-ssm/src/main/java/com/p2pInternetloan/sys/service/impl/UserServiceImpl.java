@@ -1,19 +1,20 @@
 package com.p2pInternetloan.sys.service.impl;
 
 import com.p2pInternetloan.base.utils.Query;
-import com.p2pInternetloan.sys.entity.User;
 import com.p2pInternetloan.sys.dao.UserDao;
+import com.p2pInternetloan.sys.entity.User;
 import com.p2pInternetloan.sys.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 /**
  * (User)表服务实现类
  *
- * @author makejava
- * @since 2019-10-17 16:33:34
+ * @author cpc
+ * @since 2019-10-19 17:34:51
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -32,15 +33,14 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 查询多条数据
+     * 通过query对象查询
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param  query 分页查询对象 
      * @return 对象列表
      */
     @Override
-    public List<User> queryAllByLimit(int offset, int limit) {
-        return this.userDao.queryAllByLimit(offset, limit);
+    public List<User> queryPager(Query query) {
+        return this.userDao.queryPager(query);
     }
 
     /**
@@ -50,9 +50,8 @@ public class UserServiceImpl implements UserService {
      * @return 实例对象
      */
     @Override
-    public User insert(User user) {
-        this.userDao.insert(user);
-        return user;
+    public int insert(User user) {
+        return this.userDao.insert(user);
     }
 
     /**
@@ -62,10 +61,10 @@ public class UserServiceImpl implements UserService {
      * @return 实例对象
      */
     @Override
-    public User update(User user) {
-        this.userDao.update(user);
-        return this.queryById(user.getUserid());
+    public int update(User user) {
+        return this.userDao.update(user);
     }
+
 
     /**
      * 通过主键删除数据
@@ -74,12 +73,22 @@ public class UserServiceImpl implements UserService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer userid) {
-        return this.userDao.deleteById(userid) > 0;
+    public int deleteById(Integer userid) {
+        return this.userDao.deleteById(userid);
     }
 
     @Override
-    public List<User> queryPager(Query query) {
-        return userDao.queryPager(query);
+    public Set<String> getPersByUserId(Integer userId) {
+        return this.userDao.getRolesByUserId(userId);
+    }
+
+    @Override
+    public User queryByName(String userName) {
+        return this.userDao.queryByName(userName);
+    }
+
+    @Override
+    public Set<String> getRolesByUserId(Integer userId) {
+        return this.userDao.getRolesByUserId(userId);
     }
 }

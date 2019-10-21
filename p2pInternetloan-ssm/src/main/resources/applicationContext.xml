@@ -7,11 +7,12 @@
 
     <!--这是引入两个propertie的配置方式-->
     <context:property-placeholder ignore-unresolvable="true" location="classpath:jdbc.properties,classpath:redis.properties" />
-    <!--    导入springmvc配置文件-->
-<!--    <import resource="applicationContext-web.xml"></import>-->
     <!--  这是导入mybatis的配置  -->
     <import resource="applicationContext-mybatis.xml"></import>
     <!--这是引入reids配置-->
-<!--    <import resource="applicationContext-redis.xml"></import>-->
-
+    <import resource="applicationContext-redis.xml"></import>
+    <!--整合shiro的配置文件-->
+    <import resource="applicationContext-shiro.xml"></import>
+    <!--    导入springmvc配置文件-->
+    <import resource="applicationContext-web.xml"></import>
 </beans>

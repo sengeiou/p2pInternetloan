@@ -14,7 +14,6 @@
     <!--两个bean，这两个bean是spring MVC为@Controllers分发请求所必须的。并提供了数据绑定支持，-->
     <!--@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson）-->
 <!--    <mvc:annotation-driven></mvc:annotation-driven>-->
-
     <mvc:annotation-driven >
         <!-- 消息转换器 -->
         <mvc:message-converters register-defaults="true">
@@ -50,17 +49,17 @@
     <mvc:resources location="/js/" mapping="/js/**"/>
 
 
-<!--    &lt;!&ndash;    注册拦截器&ndash;&gt;-->
-<!--    <mvc:interceptors>-->
-<!--        &lt;!&ndash;这是解决跨域请求问题&ndash;&gt;-->
-<!--        <mvc:interceptor>-->
-<!--            &lt;!&ndash; 拦截的方法 &ndash;&gt;-->
-<!--            <mvc:mapping path="/**" />-->
-<!--            &lt;!&ndash; 具体的拦截器 &ndash;&gt;-->
-<!--            <bean id="corsInterceptor" class="com.p2pInternetloan.base.interceptor.CorsInterceptor">-->
-<!--            </bean>-->
-<!--        </mvc:interceptor>-->
-<!--    </mvc:interceptors>-->
+    <!--    注册拦截器-->
+    <mvc:interceptors>
+        <!--这是解决跨域请求问题-->
+        <mvc:interceptor>
+            <!-- 拦截的方法 -->
+            <mvc:mapping path="/**" />
+            <!-- 具体的拦截器 -->
+            <bean id="corsInterceptor" class="com.p2pInternetloan.base.interceptor.CorsInterceptor">
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- 使用Annotation自动注册Bean,扫描@Controller和@ControllerAdvice-->
     <context:component-scan base-package="com.p2pInternetloan" use-default-filters="false">
@@ -69,4 +68,27 @@
         <!--控制器增强，使一个Contoller成为全局的异常处理类，类中用@ExceptionHandler方法注解的方法可以处理所有Controller发生的异常-->
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
     </context:component-scan>
+
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"></property>
+    </bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!--    springmvc整合 shiro 实现注解式权限-->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <!--                当用户没有权限会调转到 unauthorized.jsp页面-->
+                <prop key="org.apache.shiro.authz.UnauthorizedException">
+                    unauthorized
+                </prop>
+            </props>
+        </property>
+        <property name="defaultErrorView" value="unauthorized"/>
+    </bean>
+
 </beans>

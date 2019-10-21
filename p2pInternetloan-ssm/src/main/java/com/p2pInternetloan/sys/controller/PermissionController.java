@@ -1,19 +1,27 @@
 package com.p2pInternetloan.sys.controller;
 
-import com.p2pInternetloan.sys.entity.Permission;
+import com.p2pInternetloan.sys.entity.Menu;
 import com.p2pInternetloan.sys.service.PermissionService;
-import org.springframework.web.bind.annotation.*;
+import com.p2pInternetloan.sys.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * (Permission)表控制层
  *
- * @author makejava
- * @since 2019-10-17 16:33:34
+ * @author cpc
+ * @since 2019-10-19 21:18:15
  */
 @RestController
-@RequestMapping("permission")
+@Api(description ="权限&菜单 请求处理")
+@RequestMapping("/sys/permission")
 public class PermissionController {
     /**
      * 服务对象
@@ -21,15 +29,32 @@ public class PermissionController {
     @Resource
     private PermissionService permissionService;
 
+
     /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
+     * 用户请求对象
      */
-    @GetMapping("selectOne")
-    public Permission selectOne(Integer id) {
-        return this.permissionService.queryById(id);
+    @Resource
+    private UserService userService;
+
+
+    /**
+     * 获取用户菜单页
+     * @param request
+     * @return
+     */
+    @ApiOperation(value = "获取用户菜单", notes = "这里会根据前台放在请求头中的 jwt 令牌来获取相关下拉菜单")
+    @GetMapping("queryUserMenu")
+    public List<Menu> queryUserMenu(HttpServletRequest request) {
+//        String jwt = request.getHeader(CommonConstant.JWT_HEADER_KEY);
+//        //获取用户id
+//        Claims claims = JwtUtils.parseJwt(jwt);
+//        String userName = (String) claims.get("userName");
+//        return permissionService.queryUserMenu(userService.queryByName(userName).getUserId());
+        return permissionService.queryUserMenu(1);
     }
+
+
+
+
 
 }

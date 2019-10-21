@@ -1,42 +1,34 @@
 package com.p2pInternetloan.sys.dao;
 
+import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.sys.entity.Role;
-import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * (Role)表数据库访问层
  *
- * @author makejava
- * @since 2019-10-17 16:33:34
+ * @author cpc
+ * @since 2019-10-20 08:15:40
  */
 public interface RoleDao {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param roleid 主键
+     * @param roleId 主键
      * @return 实例对象
      */
-    Role queryById(Integer roleid);
+    Role queryById(Integer roleId);
 
     /**
-     * 查询指定行数据
+     * 通过query对象查询
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param  query 分页查询对象 
      * @return 对象列表
      */
-    List<Role> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
-
-
-    /**
-     * 通过实体作为筛选条件查询
-     *
-     * @param role 实例对象
-     * @return 对象列表
-     */
-    List<Role> queryAll(Role role);
+    List<Role> queryPager(Query query);
 
     /**
      * 新增数据
@@ -57,9 +49,23 @@ public interface RoleDao {
     /**
      * 通过主键删除数据
      *
-     * @param roleid 主键
+     * @param roleId 主键
      * @return 影响行数
      */
-    int deleteById(Integer roleid);
+    int deleteById(Integer roleId);
+
+    /**
+     * 查询指定角色名的角色
+     * @param roleName
+     * @return
+     */
+    Role queryByName(String roleName);
+
+
+    /**
+     * 获取角色下拉
+     * @return
+     */
+    List<Map> getRoleSelect();
 
 }
