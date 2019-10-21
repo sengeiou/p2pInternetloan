@@ -2,8 +2,8 @@ package com.p2pInternetloan.sys.entity;
 
 import com.p2pInternetloan.base.aspect.annotation.Dict;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (User)实体类

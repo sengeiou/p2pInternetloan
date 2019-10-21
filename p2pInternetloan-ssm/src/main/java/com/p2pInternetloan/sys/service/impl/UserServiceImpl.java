@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<String> getPersByUserId(Integer userId) {
-        return this.userDao.getRolesByUserId(userId);
+        return this.userDao.getPersByUserId(userId);
     }
 
     @Override

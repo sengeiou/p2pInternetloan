@@ -42,6 +42,26 @@
     <bean id="myStatelessFilter" class="com.p2pInternetloan.sys.shiro.MyStatelessShiroFilter"/>
 
     <!-- Shiro的Web过滤器 -->
+<!--    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">-->
+<!--        <property name="securityManager" ref="securityManager"/>-->
+<!--        <property name="filters">-->
+<!--            <util:map>-->
+<!--                <entry key="statelessAuth" value-ref="myStatelessFilter"/>-->
+<!--            </util:map>-->
+<!--        </property>-->
+<!--        <property name="loginUrl" value="/user/login"/>-->
+<!--        <property name="unauthorizedUrl" value="/unauthorized"/>-->
+<!--        <property name="filterChainDefinitions">-->
+<!--            <value>-->
+<!--                /=anon-->
+<!--                /sys/user/login=anon-->
+<!--                /sys/user/verificationCode=anon-->
+<!--                /unauthorized=anon-->
+<!--            </value>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+    <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="filters">
@@ -49,14 +69,16 @@
                 <entry key="statelessAuth" value-ref="myStatelessFilter"/>
             </util:map>
         </property>
-        <property name="loginUrl" value="/user/login"/>
+        <property name="loginUrl" value="/sys/user/login"/>
         <property name="unauthorizedUrl" value="/unauthorized"/>
         <property name="filterChainDefinitions">
             <value>
                 /=anon
                 /sys/user/login=anon
-                /sys/user/verificationCode=anon
                 /unauthorized=anon
+                /user/**=statelessAuth,roles[user]
+                /admin/**=statelessAuth,roles[admin]
+                /**=statelessAuth
             </value>
         </property>
     </bean>

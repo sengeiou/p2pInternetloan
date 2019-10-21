@@ -4,6 +4,7 @@ import com.p2pInternetloan.base.constant.CommonConstant;
 import com.p2pInternetloan.base.utils.PageUtils;
 import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.R;
+import com.p2pInternetloan.base.utils.RedisUtil;
 import com.p2pInternetloan.sys.entity.User;
 import com.p2pInternetloan.sys.service.UserService;
 import com.p2pInternetloan.sys.utils.ImageUtil;
@@ -13,7 +14,9 @@ import com.p2pInternetloan.sys.utils.VerifyCodeUtil;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresGuest;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
@@ -44,6 +47,10 @@ public class UserController {
      */
     @Resource
     private UserService userService;
+
+    @Autowired(required = false)
+    private RedisUtil redisUtil;
+
 
     /**
      *redis模板
@@ -94,6 +101,10 @@ public class UserController {
             String jwt = JwtUtils.createJwt(hashMap, CommonConstant.JWT_WEB_TTL);
             //将用户名和密码放入到请求头域中
             response.setHeader(CommonConstant.JWT_HEADER_KEY, jwt);
+            //将jwt令牌保持到 redis中
+            redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + jwt, jwt);
+            //这里设置失效时长
+            redisUtil.expire(CommonConstant.PREFIX_USER_TOKEN + jwt, JwtUtils.JWT_WEB_TTL / 1000);
             //返回请求成功
             return R.ok("登录成功");
         } else{
@@ -177,6 +188,7 @@ public class UserController {
      */
     @PostMapping("del/{userId}")
     @ApiOperation(value = "删除后台管理员", notes = "这里使用的时 del/用户id的方式来是删除")
+    @RequiresPermissions(value = {"sys:user:view","sys:role:view"},logical = Logical.OR)
     public R del(@PathVariable("userId") Integer userId){
         return R.update(userService.deleteById(userId));
     }

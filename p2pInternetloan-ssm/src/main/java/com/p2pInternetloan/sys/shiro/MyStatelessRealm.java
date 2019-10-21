@@ -78,9 +78,15 @@ public class MyStatelessRealm extends AuthorizingRealm {
         // 设置用户拥有的权限集合，比如“sys:role:add,sys:user:add”
         Set<String> permissionSet = userService.getPersByUserId(user.getUserId());
         info.addStringPermissions(permissionSet);
+
+        System.out.println("-----------------------------------------测试测试测试");
+        System.out.println(permissionSet.contains("sys:user:view"));
+        System.out.println(permissionSet.contains("sys:role:view"));
+
         //返回就好了
         return info;
     }
+
 
 
 
@@ -158,6 +164,7 @@ public class MyStatelessRealm extends AuthorizingRealm {
             //检验通过
             return true;
         }
+        //可能是还没有放入到redis中这里就判断一下施工方
         //这是检验失败
         return false;
     }

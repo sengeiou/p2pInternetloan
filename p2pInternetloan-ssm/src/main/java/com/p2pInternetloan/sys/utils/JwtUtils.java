@@ -154,7 +154,7 @@ public class JwtUtils {
     public static String getUserName(String token) {
 		try {
 			DecodedJWT jwt = JWT.decode(token);
-			return jwt.getClaim("username").asString();
+			return jwt.getClaim("userName").asString();
 		} catch (JWTDecodeException e) {
 			return null;
 		}
