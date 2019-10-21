@@ -61,34 +61,12 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-<!--    &lt;!&ndash; 使用Annotation自动注册Bean,扫描@Controller和@ControllerAdvice&ndash;&gt;-->
-<!--    <context:component-scan base-package="com.p2pInternetloan" use-default-filters="false">-->
-<!--        &lt;!&ndash; base-package 如果多个，用“,”分隔 &ndash;&gt;-->
-<!--        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />-->
-<!--        &lt;!&ndash;控制器增强，使一个Contoller成为全局的异常处理类，类中用@ExceptionHandler方法注解的方法可以处理所有Controller发生的异常&ndash;&gt;-->
-<!--        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />-->
-<!--    </context:component-scan>-->
-
-
-    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-          depends-on="lifecycleBeanPostProcessor">
-        <property name="proxyTargetClass" value="true"></property>
-    </bean>
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager"/>
-    </bean>
-
-    <!--    springmvc整合 shiro 实现注解式权限-->
-    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="exceptionMappings">
-            <props>
-                <!--                当用户没有权限会调转到 unauthorized.jsp页面-->
-                <prop key="org.apache.shiro.authz.UnauthorizedException">
-                    unauthorized
-                </prop>
-            </props>
-        </property>
-        <property name="defaultErrorView" value="unauthorized"/>
-    </bean>
+    <!-- 使用Annotation自动注册Bean,扫描@Controller和@ControllerAdvice-->
+    <context:component-scan base-package="com.p2pInternetloan" use-default-filters="false">
+        <!-- base-package 如果多个，用“,”分隔 -->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+        <!--控制器增强，使一个Contoller成为全局的异常处理类，类中用@ExceptionHandler方法注解的方法可以处理所有Controller发生的异常-->
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+    </context:component-scan>
 
 </beans>

@@ -188,7 +188,7 @@ public class UserController {
      */
     @PostMapping("del/{userId}")
     @ApiOperation(value = "删除后台管理员", notes = "这里使用的时 del/用户id的方式来是删除")
-    @RequiresPermissions(value = {"sys:user:view","sys:role:view"},logical = Logical.OR)
+    @RequiresPermissions(value = {"sys:user:viewd","sys:role:vddiew"},logical = Logical.OR)
     public R del(@PathVariable("userId") Integer userId){
         return R.update(userService.deleteById(userId));
     }

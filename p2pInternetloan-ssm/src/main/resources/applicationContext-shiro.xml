@@ -85,4 +85,25 @@
 
     <!-- Shiro生命周期，保证实现了Shiro内部lifecycle函数的bean执行 -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+
+    <!--    springmvc整合 shiro 实现注解式权限-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"></property>
+    </bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <!--                当用户没有权限会调转到 unauthorized.jsp页面-->
+                <prop key="org.apache.shiro.authz.UnauthorizedException">
+                    unauthorized
+                </prop>
+            </props>
+        </property>
+        <property name="defaultErrorView" value="unauthorized"/>
+    </bean>
 </beans>
