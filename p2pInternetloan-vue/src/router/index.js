@@ -36,6 +36,8 @@ import BackstageMain from "@/views/backstage/BackstageMain";
 import UserManagement from "@/views/backstage/system_management/UserManagement";
 import RoleManagement from "@/views/backstage/system_management/RoleManagement";
 import MenuManagement from "@/views/backstage/system_management/MenuManagement";
+//数据字段
+import DataDictionary from "../views/backstage/system_management/DataDictionary";
 
 ////////////       这是后台的页面导入 （结束） /////////////////////////////////////////
 
@@ -57,7 +59,7 @@ export default new Router({
       component: Login
     },
     {
-      path: '/',
+      path: '/sd',
       name: 'Main',
       component: Main,
       children:[
@@ -87,7 +89,7 @@ export default new Router({
     /////////////////////// 这是前台路由挂载 （结束） ///////////////////////
     /////////////////////// 这是后台路由挂载 （开始） ///////////////////////
      {
-      path: '/BackstageMain',
+      path: '/',
       name: 'BackstageMain',
       component: BackstageMain,
       children:[
@@ -109,6 +111,10 @@ export default new Router({
           path: '/MenuManagement',
           name: 'MenuManagement',
           component: MenuManagement
+        }, {
+          path: '/DataDictionary',
+          name: 'DataDictionary',
+          component: DataDictionary
         }
       ]
     }

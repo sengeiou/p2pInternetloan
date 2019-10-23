@@ -28,13 +28,13 @@
                 and id = #{id}
             </if>
             <if test="sn != null and sn != ''">
-                and sn = #{sn}
+                and sn like concat('%', #{sn}, '%')
             </if>
             <if test="title != null and title != ''">
-                and title = #{title}
+                and title like concat('%', #{title}, '%')
             </if>
             <if test="description != null and description != ''">
-                and description = #{description}
+                and description like concat('%', #{description}, '%')
             </if>
         </where>
     </select>

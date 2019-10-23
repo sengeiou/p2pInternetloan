@@ -41,7 +41,7 @@ window.vm = new Vue({
 	components: {
 		App
 	},
-	template: '<App/>',
+	template: '<App/>'
 })
 
 /*window.clearVuexAlong(local = true, session = true);*/
