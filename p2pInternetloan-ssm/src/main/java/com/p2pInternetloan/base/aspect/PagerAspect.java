@@ -28,7 +28,6 @@ public class PagerAspect {
      */
     @Around("execution( * com.p2pInternetloan..service.impl.*.*Pager(..))")
     public Object invoke(ProceedingJoinPoint args) throws Throwable {
-        System.out.println("分页成功");
         //获取产生列表
         Object[] params = args.getArgs();
         Query query = null;

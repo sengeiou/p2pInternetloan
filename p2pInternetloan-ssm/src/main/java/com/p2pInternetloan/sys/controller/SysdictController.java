@@ -18,7 +18,7 @@ import java.util.Map;
  * @since 2019-10-21 11:46:05
  */
 @RestController
-@RequestMapping("sysdict")
+@RequestMapping("sys/dict")
 public class SysdictController {
     /**
      * 服务对象
