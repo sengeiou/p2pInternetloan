@@ -58,7 +58,7 @@ export default new Router({
       component: Login
     },
     {
-      path: '/sd',
+      path: '/',
       name: 'Main',
       component: Main,
       children:[
@@ -88,7 +88,7 @@ export default new Router({
     /////////////////////// 这是前台路由挂载 （结束） ///////////////////////
     /////////////////////// 这是后台路由挂载 （开始） ///////////////////////
      {
-      path: '/',
+      path: '/ds',
       name: 'BackstageMain',
       component: BackstageMain,
       children:[
