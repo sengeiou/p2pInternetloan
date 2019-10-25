@@ -16,16 +16,17 @@ import Investment from "../views/front_desk/investment/Investment";
 import PersonalCenterMain from "../views/front_desk/personal_center/PersonalCenterMain";
 //关于我们
 import AboutUs from "../views/front_desk/AboutUs/AboutUs";
-
-
 //注册
 import Register from "../views/front_desk/Register";
 //登录
 import Login from "../views/front_desk/Login";
 
+
 ////////////       这是前台的页面导入 （结束） /////////////////////////////////////////
 
-
+////////////       这是个人中心的页面导入 (开始） /////////////////////////////////////////
+import test from "../views/front_desk/personal_center/account_management/test";
+////////////       这是个人中心的页面导入 （结束） /////////////////////////////////////////
 
 ////////////       这是后台的页面导入 （开始） /////////////////////////////////////////
 import BackstageLogin from '@/views/backstage/BackstageLogin'
@@ -77,7 +78,14 @@ export default new Router({
         },{
           path: '/PersonalCenterMain',
           name: 'PersonalCenterMain',
-          component: PersonalCenterMain
+          component: PersonalCenterMain,
+          children:[
+            {
+              path: '/test',
+              name: 'test',
+              component: test
+            }
+          ]
         },{
           path: '/AboutUs',
           name: 'AboutUs',

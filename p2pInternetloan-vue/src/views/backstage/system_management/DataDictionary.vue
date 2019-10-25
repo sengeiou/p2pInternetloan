@@ -1,5 +1,5 @@
 <template>
-  <div  style="padding: 20px;">
+  <div  style="padding: 20px;background-color: #FFFFFF">
     <el-form class="demo-form-inline" style="margin-top: 10px;background:#FFFFFF;padding-top: 10px; height: 50px;padding-left: 10px;" :inline="true">
       <el-form-item label="字典名称">
         <el-input v-model="queryParams.title" placeholder="请输入字典名称">

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="background-color: #F6F6F6">
 	  <router-view/>
   </div>
 </template>
@@ -24,7 +24,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    widows: 100%;
+    width: 100%;
     height: 100%;
 }
 </style>

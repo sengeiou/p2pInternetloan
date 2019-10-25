@@ -2,10 +2,7 @@
   <div>
     <!--这是导航体条-->
     <FrontTopNav></FrontTopNav>
-    <el-main class="main-center">
-      <router-view></router-view>
-    </el-main>
-
+    <router-view></router-view>
   </div>
 </template>
 
