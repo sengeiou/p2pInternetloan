@@ -11,7 +11,7 @@
       </el-carousel>
       <!--这是轮播图 end-->
 
-      <el-col :span="24">
+      <el-col :span="24" style="">
         <el-row style="margin-top: 18px;">
           <el-col style="text-indent: 48px; font-size: 36px;" :span="8">
             <i class="el-icon-s-flag" style="text-indent: 9px;">投资理财</i>

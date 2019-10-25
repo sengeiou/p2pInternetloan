@@ -1,5 +1,6 @@
 package com.p2pInternetloan.borrowing.controller;
 
+import com.p2pInternetloan.base.utils.R;
 import com.p2pInternetloan.borrowing.entity.BidRequest;
 import com.p2pInternetloan.borrowing.service.BidRequestService;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.List;
  * (BidRequest)表控制层
  *
  * @author cpc
- * @since 2019-10-23 15:13:05
+ * @since 2019-10-25 11:14:57
  */
 @RestController
 @RequestMapping("bidRequest")
@@ -23,6 +24,8 @@ public class BidRequestController {
      */
     @Resource
     private BidRequestService bidRequestService;
+
+
 
     /**
      * 分页查询
@@ -37,8 +40,6 @@ public class BidRequestController {
          return new PageUtils(list, query.getTotal());
     }
 
-
-
-
     
+
 }

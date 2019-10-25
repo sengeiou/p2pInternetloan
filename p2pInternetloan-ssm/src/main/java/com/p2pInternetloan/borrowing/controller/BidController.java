@@ -33,6 +33,7 @@ public class BidController {
     @GetMapping("queryPager")
     public  PageUtils queryPager(@RequestParam Map<String, Object> params) {
          Query query = new Query(params);
+
          List<Bid> list = bidService.queryPager(query);
          return new PageUtils(list, query.getTotal());
     }

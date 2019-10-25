@@ -13,7 +13,7 @@ import com.p2pInternetloan.base.utils.Query;
  * (BidRequest)表服务实现类
  *
  * @author cpc
- * @since 2019-10-23 15:13:05
+ * @since 2019-10-25 11:14:57
  */
 @Service("bidRequestService")
 public class BidRequestServiceImpl implements BidRequestService {
@@ -27,7 +27,7 @@ public class BidRequestServiceImpl implements BidRequestService {
      * @return 实例对象
      */
     @Override
-    public BidRequest queryById(Long id) {
+    public BidRequest queryById(Integer id) {
         return this.bidRequestDao.queryById(id);
     }
 
@@ -71,7 +71,7 @@ public class BidRequestServiceImpl implements BidRequestService {
      * @return 是否成功
      */
     @Override
-    public int deleteById(Long id) {
+    public int deleteById(Integer id) {
         return this.bidRequestDao.deleteById(id);
     }
 }

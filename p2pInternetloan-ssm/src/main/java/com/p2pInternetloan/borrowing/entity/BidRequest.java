@@ -1,5 +1,6 @@
 package com.p2pInternetloan.borrowing.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -7,12 +8,12 @@ import java.io.Serializable;
  * (BidRequest)实体类
  *
  * @author makejava
- * @since 2019-10-23 15:13:05
+ * @since 2019-10-25 11:14:57
  */
 public class BidRequest implements Serializable {
-    private static final long serialVersionUID = 641060597359733060L;
+    private static final long serialVersionUID = 887907629173220082L;
     //id
-    private Long id;
+    private Integer id;
     //还款方式
 //(0 一次付清 ，1 等额本息 ，2 等额本金)
 
@@ -26,10 +27,10 @@ public class BidRequest implements Serializable {
 
     private Integer bidRequestState;
     //贷款总额
-    private Double bidRequestAmount;
+    private BigDecimal bidRequestAmount;
     //贷款的年化利率
 
-    private Double currentRate;
+    private BigDecimal currentRate;
     //还款月数
 
     private Integer monthesReturn;
@@ -38,9 +39,9 @@ public class BidRequest implements Serializable {
     private Integer bidCount;
     //总利息
 
-    private Double totalRewardAmount;
+    private BigDecimal totalRewardAmount;
     //当前收到的投资总额
-    private Double currentSum;
+    private BigDecimal currentSum;
     //借款标题
 
     private String title;
@@ -51,10 +52,10 @@ public class BidRequest implements Serializable {
     private String note;
     //投标截止日期
 
-    private Object disableDate;
+    private Date disableDate;
     //借款人id
 
-    private Long membersId;
+    private Integer membersId;
     //发标时间天数
     private Integer disableDays;
     //发布时间
@@ -69,17 +70,17 @@ public class BidRequest implements Serializable {
     private Date applyTime;
     //审核人
 
-    private Long auditorId;
+    private Integer auditorId;
     //申请人id
 
-    private Long applierId;
+    private Integer applierId;
 
     
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     
@@ -107,19 +108,19 @@ public class BidRequest implements Serializable {
         this.bidRequestState = bidRequestState;
     }
     
-    public Double getBidRequestAmount() {
+    public BigDecimal getBidRequestAmount() {
         return bidRequestAmount;
     }
 
-    public void setBidRequestAmount(Double bidRequestAmount) {
+    public void setBidRequestAmount(BigDecimal bidRequestAmount) {
         this.bidRequestAmount = bidRequestAmount;
     }
     
-    public Double getCurrentRate() {
+    public BigDecimal getCurrentRate() {
         return currentRate;
     }
 
-    public void setCurrentRate(Double currentRate) {
+    public void setCurrentRate(BigDecimal currentRate) {
         this.currentRate = currentRate;
     }
     
@@ -139,19 +140,19 @@ public class BidRequest implements Serializable {
         this.bidCount = bidCount;
     }
     
-    public Double getTotalRewardAmount() {
+    public BigDecimal getTotalRewardAmount() {
         return totalRewardAmount;
     }
 
-    public void setTotalRewardAmount(Double totalRewardAmount) {
+    public void setTotalRewardAmount(BigDecimal totalRewardAmount) {
         this.totalRewardAmount = totalRewardAmount;
     }
     
-    public Double getCurrentSum() {
+    public BigDecimal getCurrentSum() {
         return currentSum;
     }
 
-    public void setCurrentSum(Double currentSum) {
+    public void setCurrentSum(BigDecimal currentSum) {
         this.currentSum = currentSum;
     }
     
@@ -179,19 +180,19 @@ public class BidRequest implements Serializable {
         this.note = note;
     }
     
-    public Object getDisableDate() {
+    public Date getDisableDate() {
         return disableDate;
     }
 
-    public void setDisableDate(Object disableDate) {
+    public void setDisableDate(Date disableDate) {
         this.disableDate = disableDate;
     }
     
-    public Long getMembersId() {
+    public Integer getMembersId() {
         return membersId;
     }
 
-    public void setMembersId(Long membersId) {
+    public void setMembersId(Integer membersId) {
         this.membersId = membersId;
     }
     
@@ -235,19 +236,19 @@ public class BidRequest implements Serializable {
         this.applyTime = applyTime;
     }
     
-    public Long getAuditorId() {
+    public Integer getAuditorId() {
         return auditorId;
     }
 
-    public void setAuditorId(Long auditorId) {
+    public void setAuditorId(Integer auditorId) {
         this.auditorId = auditorId;
     }
     
-    public Long getApplierId() {
+    public Integer getApplierId() {
         return applierId;
     }
 
-    public void setApplierId(Long applierId) {
+    public void setApplierId(Integer applierId) {
         this.applierId = applierId;
     }
 

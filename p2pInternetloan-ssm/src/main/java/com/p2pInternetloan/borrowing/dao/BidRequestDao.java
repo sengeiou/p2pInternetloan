@@ -9,7 +9,7 @@ import java.util.List;
  * (BidRequest)表数据库访问层
  *
  * @author cpc
- * @since 2019-10-23 15:13:05
+ * @since 2019-10-25 11:14:57
  */
 public interface BidRequestDao {
 
@@ -19,7 +19,7 @@ public interface BidRequestDao {
      * @param id 主键
      * @return 实例对象
      */
-    BidRequest queryById(Long id);
+    BidRequest queryById(Integer id);
 
     /**
      * 通过query对象查询
@@ -51,6 +51,8 @@ public interface BidRequestDao {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int deleteById(Integer id);
+
+
 
 }

@@ -8,7 +8,7 @@ import com.p2pInternetloan.base.utils.Query;
  * (BidRequest)表服务接口
  *
  * @author cpc
- * @since 2019-10-23 15:13:05
+ * @since 2019-10-25 11:14:57
  */
 public interface BidRequestService {
 
@@ -18,7 +18,7 @@ public interface BidRequestService {
      * @param id 主键
      * @return 实例对象
      */
-    BidRequest queryById(Long id);
+    BidRequest queryById(Integer id);
 
 
     /**
@@ -52,6 +52,6 @@ public interface BidRequestService {
      * @param id 主键
      * @return 删除行数
      */
-    int deleteById(Long id);
+    int deleteById(Integer id);
 
 }
