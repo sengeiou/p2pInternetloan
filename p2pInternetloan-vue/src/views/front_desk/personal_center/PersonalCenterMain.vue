@@ -1,5 +1,5 @@
 <template>
-    <el-main> 
+    <el-main>
       <el-row>
         <el-col :span="5">
           <el-menu class="el-menu-vertical-demo"  router="true">
