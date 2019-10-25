@@ -36,12 +36,4 @@ public class BidController {
          List<Bid> list = bidService.queryPager(query);
          return new PageUtils(list, query.getTotal());
     }
-
-
-
-
-
-
-
-
 }
