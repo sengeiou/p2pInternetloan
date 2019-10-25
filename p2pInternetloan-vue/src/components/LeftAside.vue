@@ -48,7 +48,6 @@
 		created:function(){
 			let url= this.axios.urls.SYSTEM_TREENODE;
 			this.axios.post(url,{}).then(resp=>{
-			    console.log(resp.data);
 				this.treeNodeLst=resp.data;
 			}).catch(resp=>{
 			});

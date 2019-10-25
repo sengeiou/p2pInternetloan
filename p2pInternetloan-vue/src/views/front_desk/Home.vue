@@ -2,15 +2,17 @@
     <div>
       <!--这是轮播图 start-->
       <el-carousel :autoplay="  true" :loop="true">
-        <el-carousel-item>
-          我是内容 1
+        <el-carousel-item >
+          <img src="../../images/test.jpg">
         </el-carousel-item>
         <el-carousel-item>
-          我是内容 2
+          <img src="../../images/test.jpg">
+        </el-carousel-item>
+        <el-carousel-item>
+          <img src="../../images/test.jpg">
         </el-carousel-item>
       </el-carousel>
       <!--这是轮播图 end-->
-
       <el-col :span="24">
         <el-row style="margin-top: 18px;">
           <el-col style="text-indent: 48px; font-size: 36px;" :span="8">
