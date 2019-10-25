@@ -12,7 +12,6 @@
           <img src="../../images/test.jpg">
         </el-carousel-item>
       </el-carousel>
-
       <!--这是轮播图 end-->
       <el-col :span="24">
         <el-row style="margin-top: 18px;">
