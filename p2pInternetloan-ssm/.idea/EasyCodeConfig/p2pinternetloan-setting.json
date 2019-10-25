@@ -1,0 +1,24 @@
+{
+  "name" : "Setting",
+  "comment" : null,
+  "fullColumn" : [ {
+    "name" : "key",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "custom" : false,
+    "ext" : { }
+  }, {
+    "name" : "value",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "custom" : false,
+    "ext" : { }
+  } ],
+  "pkColumn" : null,
+  "otherColumn" : null,
+  "savePackageName" : "com.p2pInternetloan.setting",
+  "savePath" : "./src/main/java/com/p2pInternetloan/setting",
+  "saveModelName" : "p2pInternetloan-ssm"
+}
