@@ -18,6 +18,7 @@ public class R extends HashMap<String, Object> {
         put("msg", "操作成功");
     }
 
+
     public static R error() {
         return error(500, "操作失败");
     }
@@ -58,6 +59,7 @@ public class R extends HashMap<String, Object> {
     public static R update(int n) {
         return n > 0? R.ok("操作成功") : R.error("操作失败");
     }
+
 
     @Override
     public R put(String key, Object value) {
