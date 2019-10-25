@@ -7,10 +7,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="379243db-edf6-4c43-8c8f-9b58102a3733" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/EasyCodeConfig/p2pinternetloan-members.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/EasyCodeConfig/p2pinternetloan-members_account.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/EasyCodeConfig/p2pinternetloan-members_detail.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/EasyCodeConfig/p2pinternetloan-money_recharge.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/EasyCodeConfig/p2pinternetloan-money_withdraw.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/EasyCodeConfig/p2pinternetloan-setting.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/artifacts/p2pInternetloan_ssm_war.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/artifacts/p2pInternetloan_ssm_war_exploded.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/0593bcab-fdcd-4756-87d6-62198b3abc72.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_7.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_7.xml" afterDir="false" />
@@ -89,14 +97,9 @@
       <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/p2pInternetloan-ssm.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_jstl_1_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_jstl_1_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/p2pInternetloan/base/interceptor/CorsInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/p2pInternetloan/base/interceptor/CorsInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/p2pInternetloan/setting/controller/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/p2pInternetloan/setting/dao/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/p2pInternetloan/setting/service/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/jdbc.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/redis.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/redis.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -171,8 +174,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/assets/MoneyWithdrawDao.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
+            <state relative-caret-position="-830">
+              <caret line="64" column="23" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -437,12 +440,12 @@
       <workItem from="1571706946876" duration="9452000" />
       <workItem from="1571728239280" duration="15706000" />
       <workItem from="1571812651844" duration="19176000" />
-      <workItem from="1571906962456" duration="23010000" />
+      <workItem from="1571906962456" duration="23479000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69633000" />
+    <option name="totallyTimeSpent" value="70102000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-10" y="0" width="1551" height="839" extended-state="0" />
@@ -879,8 +882,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/assets/MoneyWithdrawDao.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
+        <state relative-caret-position="-830">
+          <caret line="64" column="23" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
         </state>
       </provider>
     </entry>
