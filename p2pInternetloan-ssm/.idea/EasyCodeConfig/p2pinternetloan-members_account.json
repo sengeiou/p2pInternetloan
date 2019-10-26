@@ -60,7 +60,7 @@
   } ],
   "pkColumn" : null,
   "otherColumn" : null,
-  "savePackageName" : "com.p2pInternetloan.assets",
-  "savePath" : "./src/main/java/com/p2pInternetloan/assets",
+  "savePackageName" : "com.p2pInternetloan.members",
+  "savePath" : "./src/main/java/com/p2pInternetloan/members",
   "saveModelName" : "p2pInternetloan-ssm"
 }

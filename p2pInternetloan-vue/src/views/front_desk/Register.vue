@@ -1,22 +1,40 @@
 <template>
-	<div class="login-wrap">
-		<el-form class="login-container">
-			<h1 class="title">用户注册</h1>
-			<el-form-item label="">
-				<el-input type="text" v-model="userName"  autocomplete="off"></el-input>
-			</el-form-item>
-			<el-form-item label="">
-				<el-input type="password" v-model="passWord" placeholder="用户密码" autocomplete="off"></el-input>
-			</el-form-item>
-			<el-form-item label="">
-				<el-input type="password" v-model="passWord1" placeholder="确认密码" autocomplete="off"></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" style="width: 48%;" @click="doRegister">注册</el-button>
-				<el-button type="primary" style="width: 48%;" @click="gotoLogin">返回登录</el-button>
-			</el-form-item>
-		</el-form>
-	</div>
+  <el-main>
+    <el-card class="box-card">
+      <div class="clearfix" slot="header">
+        <span>用户注册</span>
+        <div style="float: right; padding: 3px 0">已有账号,请
+          <el-link type="primary" href="#/Login">登录</el-link>
+        </div>
+      </div>
+      <el-form style="width:50%" label-width="100px">
+        <el-form-item label="用户名">
+          <el-input placeholder="请输入内容">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input placeholder="请输入内容">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="验证码">
+          <el-input placeholder="请输入内容">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="电话号码">
+          <el-input placeholder="请输入内容">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="短信验证码">
+          <el-input class="input-with-select" placeholder="请输入内容" v-model="input3">
+            <el-button style="color: rgb(255, 120, 0); background-color: rgb(255, 255, 255);" slot="append">发送验证码</el-button>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button style="width:100%;background: rgb(255, 120, 0);color: rgb(255, 255, 255);">提交</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+  </el-main>
 </template>
 
 <script>
@@ -39,7 +57,7 @@
 				})
 			},
 			doRegister:function(){
-					
+
 			}
 		}
 	}
@@ -58,7 +76,7 @@
 		background-position: center right;
 		background-size: 100%;
 	}
-	
+
 	.login-container {
 		border-radius: 10px;
 		margin: 0px auto;
@@ -69,7 +87,7 @@
 		text-align: left;
 		box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.1);
 	}
-	
+
 	.title {
 		margin: 0px auto 40px auto;
 		text-align: center;

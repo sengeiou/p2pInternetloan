@@ -53,20 +53,22 @@
 
     <!-- 使用Annotation自动注册Bean,扫描@Controller和@ControllerAdvice-->
     <context:component-scan base-package="com.p2pInternetloan" use-default-filters="false">
-        <!-- base-package 如果多个，用“,”分隔 --> <!--    注册拦截器-->
-        <mvc:interceptors>
-            <!--这是解决跨域请求问题-->
-            <mvc:interceptor>
-                <!-- 拦截的方法 -->
-                <mvc:mapping path="/**" />
-                <!-- 具体的拦截器 -->
-                <bean id="corsInterceptor" class="com.p2pInternetloan.base.interceptor.CorsInterceptor">
-                </bean>
-            </mvc:interceptor>
-        </mvc:interceptors>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
         <!--控制器增强，使一个Contoller成为全局的异常处理类，类中用@ExceptionHandler方法注解的方法可以处理所有Controller发生的异常-->
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
     </context:component-scan>
+
+
+    <!-- base-package 如果多个，用“,”分隔 --> <!--    注册拦截器-->
+    <mvc:interceptors>
+        <!--这是解决跨域请求问题-->
+        <mvc:interceptor>
+            <!-- 拦截的方法 -->
+            <mvc:mapping path="/**" />
+            <!-- 具体的拦截器 -->
+            <bean id="corsInterceptor" class="com.p2pInternetloan.base.interceptor.CorsInterceptor">
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>

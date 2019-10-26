@@ -1,10 +1,10 @@
 package com.p2pInternetloan.assets.service;
 
-import com.p2pInternetloan.assets.entity.MembersAccount;
 import com.p2pInternetloan.assets.entity.MoneyRecharge;
-import java.util.List;
 import com.p2pInternetloan.base.utils.Query;
-import com.p2pInternetloan.base.utils.R;
+import com.p2pInternetloan.members.entity.MembersAccount;
+
+import java.util.List;
 
 /**
  * (MoneyRecharge)表服务接口
@@ -56,5 +56,5 @@ public interface MoneyRechargeService {
      */
     int deleteById(Integer id);
 
-    int updateAmount(MembersAccount membersAccount,MoneyRecharge moneyRecharge);
+    int updateAmount(MembersAccount membersAccount, MoneyRecharge moneyRecharge);
 }
