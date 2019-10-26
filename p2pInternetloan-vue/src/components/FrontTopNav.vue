@@ -3,8 +3,8 @@
     <el-row style="height:30px">
       <el-col style="font-size: 12px;" :span="12">咨询热线：400-668-6698服务时间：9:00 - 18:00</el-col>
       <el-col style="font-size: 20px;text-align: right;" :span="12">
-        <el-link style="bottom: 0px; font-weight: bold; margin-bottom: 0px; margin-left: 0px; margin-right: 20px;">免费注册</el-link>
-        <el-link style="bottom: 0px; font-weight: bold; margin-left: 29px; margin-right: 10px;">登录</el-link>
+        <el-link href="#/Register" style="bottom: 0px; font-weight: bold; margin-bottom: 0px; margin-left: 0px; margin-right: 20px;">免费注册</el-link>
+        <el-link href="#/Login" style="bottom: 0px; font-weight: bold; margin-left: 29px; margin-right: 10px;">登录</el-link>
       </el-col>
     </el-row>
     <el-form style="background-color: rgb(255, 255, 255);" label-width="100px">
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import commonUtils from "../api/commonUtils";
     export default {
         name: "FrontTopNav",
         methods:{
@@ -30,7 +31,7 @@
                 let path = this.activeIndex;
                 this.$router.push({ path: path });
             }
-        }
+        },
     }
 </script>
 

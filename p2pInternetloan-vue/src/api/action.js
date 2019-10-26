@@ -32,6 +32,22 @@ export default {
   ///////////// 系统模块请求配置  end /////////////
 
   ///////////// 会员模块请求配置  start /////////////
+  "MEMBERS_MEN_QUERYPAGER":"/members/mem/queryPager",
+  "MEMBERS_MEN_ADD":"/members/mem/add",
+  "MEMBERS_MEN_UPDATE":"/members/mem/update",
+  "MEMBERS_MEN_DEL":"/members/mem/del",
+
+
+  //会员账户管理
+  // membersAccount/account
+  "MEMBERS_ACCOUNT_QUERYPAGER":"/membersAccount/account/queryPager",
+
+
+
+
+
+
+
   ///////////// 会员模块请求配置  end /////////////
 
   ///////////// 业务模块请求配置  start /////////////
