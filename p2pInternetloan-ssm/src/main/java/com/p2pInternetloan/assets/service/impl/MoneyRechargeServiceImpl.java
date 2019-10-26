@@ -1,17 +1,15 @@
 package com.p2pInternetloan.assets.service.impl;
 
-import com.p2pInternetloan.assets.dao.MembersAccountDao;
-import com.p2pInternetloan.assets.entity.MembersAccount;
-import com.p2pInternetloan.assets.entity.MoneyRecharge;
 import com.p2pInternetloan.assets.dao.MoneyRechargeDao;
-import com.p2pInternetloan.assets.service.MembersAccountService;
+import com.p2pInternetloan.assets.entity.MoneyRecharge;
 import com.p2pInternetloan.assets.service.MoneyRechargeService;
-import com.p2pInternetloan.base.utils.R;
+import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.members.dao.MembersAccountDao;
+import com.p2pInternetloan.members.entity.MembersAccount;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import com.p2pInternetloan.base.utils.Query;
 
 /**
  * (MoneyRecharge)表服务实现类
@@ -88,7 +86,7 @@ public class MoneyRechargeServiceImpl implements MoneyRechargeService {
      * @return
      */
     @Override
-    public int updateAmount(MembersAccount membersAccount,MoneyRecharge moneyRecharge){
+    public int updateAmount(MembersAccount membersAccount, MoneyRecharge moneyRecharge){
         this.membersAccountDao.update(membersAccount);
         this.moneyRechargeDao.update(moneyRecharge);
         return 1;

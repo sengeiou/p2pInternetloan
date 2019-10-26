@@ -1,16 +1,17 @@
 package com.p2pInternetloan.assets.controller;
 
-import com.p2pInternetloan.assets.entity.MembersAccount;
 import com.p2pInternetloan.assets.entity.MoneyRecharge;
-import com.p2pInternetloan.assets.service.MembersAccountService;
 import com.p2pInternetloan.assets.service.MoneyRechargeService;
-import com.p2pInternetloan.base.utils.R;
-import org.springframework.web.bind.annotation.*;
-import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.PageUtils;
-import java.util.Map;
+import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.base.utils.R;
+import com.p2pInternetloan.members.entity.MembersAccount;
+import com.p2pInternetloan.members.service.MembersAccountService;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (MoneyRecharge)表控制层   充值记录
@@ -19,7 +20,7 @@ import java.util.List;
  * @since 2019-10-24 19:12:17
  */
 @RestController
-@RequestMapping("moneyRecharge")
+@RequestMapping("assets/moneyRecharge")
 public class MoneyRechargeController {
     /**
      * 服务对象
@@ -51,7 +52,7 @@ public class MoneyRechargeController {
      * @return
      */
     @PostMapping("setAmount")
-    public R setAmount(MembersAccount membersAccount,MoneyRecharge moneyRecharge){
+    public R setAmount(MembersAccount membersAccount, MoneyRecharge moneyRecharge){
         this.membersAccountService.update(membersAccount);
         this.moneyRechargeService.update(moneyRecharge);
         return R.update(this.moneyRechargeService.updateAmount(membersAccount,moneyRecharge));

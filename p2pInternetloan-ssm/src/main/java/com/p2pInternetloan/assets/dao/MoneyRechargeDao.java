@@ -1,9 +1,9 @@
 package com.p2pInternetloan.assets.dao;
 
-import com.p2pInternetloan.assets.entity.MembersAccount;
 import com.p2pInternetloan.assets.entity.MoneyRecharge;
-import org.apache.ibatis.annotations.Param;
 import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.members.entity.MembersAccount;
+
 import java.util.List;
 
 /**

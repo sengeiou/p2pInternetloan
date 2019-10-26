@@ -2,13 +2,14 @@ package com.p2pInternetloan.assets.controller;
 
 import com.p2pInternetloan.assets.entity.MoneyWithdraw;
 import com.p2pInternetloan.assets.service.MoneyWithdrawService;
+import com.p2pInternetloan.base.utils.PageUtils;
+import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.R;
 import org.springframework.web.bind.annotation.*;
-import com.p2pInternetloan.base.utils.Query;
-import com.p2pInternetloan.base.utils.PageUtils;
-import java.util.Map;
+
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (MoneyWithdraw)表控制层   提现记录
@@ -17,7 +18,7 @@ import java.util.List;
  * @since 2019-10-24 17:02:01
  */
 @RestController
-@RequestMapping("moneyWithdraw")
+@RequestMapping("assets/moneyWithdraw")
 public class MoneyWithdrawController {
     /**
      * 服务对象
