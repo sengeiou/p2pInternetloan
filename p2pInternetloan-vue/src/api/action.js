@@ -37,6 +37,10 @@ export default {
   "MEMBERS_MEN_UPDATE":"/members/mem/update",
   "MEMBERS_MEN_DEL":"/members/mem/del",
 
+  //会员材料认证
+"MEMBERS_MAT_QUERYPAGER":"/membersMaterials/mat/queryPager",
+
+
 
   //会员账户管理
   // membersAccount/account

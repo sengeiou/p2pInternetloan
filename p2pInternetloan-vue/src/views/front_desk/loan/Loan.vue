@@ -56,43 +56,11 @@
 </template>
 
 <script>
-   import commonUtils from "../../../api/commonUtils";
     export default {
-        name: "Loan",
-        methods:{
-            //这是申请信用贷
-            toLoanApplication(loadRouter){
-                commonUtils.toRouter(loadRouter);
-            }
-        },
-        created() {
-            commonUtils.init(this);
-        }
+        name: "Loan"
     }
 </script>
 
 <style scoped>
 
-  .text {
-    font-size: 14px;
-  }
-
-  .item {
-    margin-bottom: 18px;
-  }
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
-  }
-
-  .box-card {
-    width: 480px;
-  }
-  .el-card__header{
-
-  }
 </style>

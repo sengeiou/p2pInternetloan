@@ -13,7 +13,7 @@
     <!--2) 此标签默认注册DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->
     <!--两个bean，这两个bean是spring MVC为@Controllers分发请求所必须的。并提供了数据绑定支持，-->
     <!--@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson）-->
-    <!--    <mvc:annotation-driven></mvc:annotation-driven>-->
+<!--    <mvc:annotation-driven></mvc:annotation-driven>-->
     <mvc:annotation-driven >
         <!-- 消息转换器 -->
         <mvc:message-converters register-defaults="true">

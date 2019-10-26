@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2019-10-25 15:29:52
  */
 @RestController
-@RequestMapping("membersMaterials")
+@RequestMapping("membersMaterials/mat")
 public class MembersMaterialsController {
     /**
      * 服务对象

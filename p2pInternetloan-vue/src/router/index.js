@@ -25,10 +25,13 @@ import PersonalCenterMain from "../views/front_desk/personal_center/PersonalCent
 import AccountManagement from "../views/front_desk/personal_center/account_management/AccountManagement";
 //关于我们
 import AboutUs from "../views/front_desk/AboutUs/AboutUs";
+
+
 //注册
 import Register from "../views/front_desk/Register";
 //登录
 import Login from "../views/front_desk/Login";
+
 
 ////////////       这是前台的页面导入 （结束） /////////////////////////////////////////
 
@@ -61,6 +64,16 @@ Vue.use(Router)
 export default new Router({
   routes: [
     /////////////////////// 这是前台路由挂载 （开始） ///////////////////////
+    {
+      path: '/Register',
+      name: 'Register',
+      component: Register
+    },
+    {
+      path: '/Login',
+      name: 'Login',
+      component: Login
+    },
     {
       path: '/',
       name: 'Main',
