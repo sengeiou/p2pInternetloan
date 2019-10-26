@@ -27,7 +27,7 @@
             FrontTopNav
         },
         created() {
-            this.$router.push({ path: "/Home" });
+            this.$router.push({ path: "/CreditLoan" });
         }
     }
 </script>

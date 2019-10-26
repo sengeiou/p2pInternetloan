@@ -1,75 +1,65 @@
-<el-container>
-  <el-main style="left: 0px; position: relative; top: 32px;">
-    <el-menu style="width: 100%;" mode="horizontal">
-      <el-menu-item style="height: 50px;" index>晚上好，tg_gpdt0139 喝一杯下午茶，让心情放松一下~</el-menu-item>
-      <el-menu-item style="width: 40%; height: 50px;" index>
-      </el-menu-item>
-      <el-menu-item style="height: 50px;" index>上次登录时间： 2015-09-11 14:05:07</el-menu-item>
-    </el-menu>
-    <el-row>
-      <el-col :span="8">
-        <el-card header="可用余额">
-          <strong>{{msg}}</strong>
-          <strong>元</strong>
-        </el-card>
-      </el-col>
-      <el-col :span="8">
-        <el-card header="代收利息">
-          <strong>00</strong>
-          <strong>元</strong>
-        </el-card>
-      </el-col>
-      <el-col :span="8">
-        <el-card header="代收本金">
-          <strong>00</strong>
-          <strong>元</strong>
-        </el-card>
-      </el-col>
-      <el-col :span="8">
-        <el-card header="账户授信额度">
-          <strong>00</strong>
-          <strong>元</strong>
-        </el-card>
-      </el-col>
-      <el-col :span="8">
-        <el-card header="累计收益">
-          <!--<strong style="color: rgb(204, 0, 0);">00</strong>-->
-          <!--<strong style="color: rgb(204, 0, 0);">元</strong>-->
-          <strong>00</strong>
-          <strong>元</strong>
-        </el-card>
-      </el-col>
-    </el-row>
-    <el-tabs style="position: relative; left: 13px; color: rgb(57, 61, 73);" value="first">
-      <el-tab-pane name="1" style="left: 20px;" label="回款计划">
-      </el-tab-pane>
-      <el-tab-pane name="2" label="资金记录">
-      </el-tab-pane>
-      <el-tab-pane name="3" label="投资记录">
-      </el-tab-pane>
+<template>
+  <div>
+    <el-card class="box-card">
+      <div class="clearfix" slot="header">
+        <span>晚上好，tg_gpdt0139 喝一杯下午茶，让心情放松一下~</span>
+        <span style="float: right; padding: 3px 0" type="text">上次登录时间： 2015-09-11 14:05:07</span>
+      </div>
+      <el-row :gutter="25">
+        <el-col :span="8">
+          <el-card class="box-card" style="background-color: rgb(73, 147, 244);">
+            <p>账户总额
+              <i class="el-icon-wallet"></i>
+            </p>
+            <strong>80</strong>元</el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card class="box-card" style="background-color:  rgb(73, 147, 244);">
+            <p>代收利息
+              <i class="el-icon-info"></i>
+            </p>
+            <strong>80</strong>元</el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card class="box-card" style="background-color:  rgb(73, 147, 244);">
+            <p>代收本金
+              <i class="el-icon-warning"></i>
+            </p>
+            <strong>80</strong>元</el-card>
+        </el-col>
+      </el-row>
+      <el-row style="margin-top: 17px;" :gutter="25">
+        <el-col :span="8">
+          <el-card class="box-card" style="background-color:  rgb(73, 147, 244);">
+            <p>账户授信额度
+              <i class="el-icon-user"></i>
+            </p>
+            <strong>80</strong>元</el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card class="box-card" style="background-color:  rgb(73, 147, 244);">
+            <p>累计收益
+              <i class="el-icon-s-claim"></i>
+            </p>
+            <strong>80</strong>元</el-card>
+        </el-col> 
+      </el-row>
+    </el-card>
+    <el-tabs style="padding-top: 0px; margin-top: 25px;" type="border-card">
+      <el-tab-pane label="回款计划">回款计划</el-tab-pane>
+      <el-tab-pane label="资金记录">资金记录</el-tab-pane>
+      <el-tab-pane label="投资记录">投资记录</el-tab-pane>
     </el-tabs>
-  </el-main>
-  <el-footer>
-  </el-footer>
-</el-container>
+  </div>
+</template>
 
 <script>
-    // new Vue({
-    //     el: "#app",
-    //     data() {
-    //         return {
-    //             msg: 'hello vue',
-    //
-    //         };
-    //     }
-    // });
-
     export default {
-        el: "#app",
-        data: function () {
-            return {
-                msg: "qqqqqqqqqq"
-            }
-        }
+        name: "AccountManagement"
     }
 </script>
+
+<style scoped>
+
+</style>
+
