@@ -107,7 +107,27 @@ export default {
       case 5:
         this.let_this[dataNameArr[0]][dataNameArr[1]][dataNameArr[2]][dataNameArr[3]][dataNameArr[4]] = value;
     }
-    }
+  },
 
+  /**
+   * 跳转到指定路由
+   * @param routerPath 路由路径
+   */
+  toRouter(routerPath){
+    //跳转路由
+    this.let_this.$router.push({
+      path:routerPath
+    })
+  },
+  /**
+   * 这是将对象中所有属性设置为统一值
+   * @param obj 目标对象
+   * @param value 这是要设置的值
+   */
+  setAll(obj, value){
+    for(var name in obj){
+      obj[name] = value;
+    }
+  }
 }
 
