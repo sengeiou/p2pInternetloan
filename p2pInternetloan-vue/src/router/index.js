@@ -24,6 +24,11 @@ import Register from "../views/front_desk/Register";
 //登录
 import Login from "../views/front_desk/Login";
 
+//会员账户管理
+// import AccountManngement from "../views/front_desk/AccountManngement"
+
+import AccountManngement from "../views/front_desk/personal_center/account_management/AccountManagement";
+
 ////////////       这是前台的页面导入 （结束） /////////////////////////////////////////
 
 
@@ -38,6 +43,12 @@ import RoleManagement from "@/views/backstage/system_management/RoleManagement";
 import MenuManagement from "@/views/backstage/system_management/MenuManagement";
 //数据字段
 import DataDictionary from "../views/backstage/system_management/DataDictionary";
+
+//实名认证
+import identification from "../views/backstage/member_management/identity_review/identification";
+
+//管理认证
+import management from "../views/backstage/member_management/management/management";
 
 ////////////       这是后台的页面导入 （结束） /////////////////////////////////////////
 
@@ -83,6 +94,10 @@ export default new Router({
           path: '/AboutUs',
           name: 'AboutUs',
           component: AboutUs
+        },{
+          path: '/AccountManngement',
+          name: 'AccountManngement',
+          component: AccountManngement
         }
       ]
     },
@@ -115,6 +130,14 @@ export default new Router({
           path: '/DataDictionary',
           name: 'DataDictionary',
           component: DataDictionary
+        }, {
+          path: '/identification',
+          name: 'identification',
+          component: identification
+        }, {
+          path: '/management',
+          name: 'management',
+          component: management
         }
       ]
     }

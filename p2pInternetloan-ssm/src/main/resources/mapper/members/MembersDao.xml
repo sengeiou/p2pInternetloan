@@ -4,15 +4,15 @@
     
      <!-- 数据库与实体的映射对象 -->
     <resultMap type="com.p2pInternetloan.members.entity.Members" id="MembersMap">
-        <result property="id" column="id" jdbcType="LONG INTEGER"/>
+        <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
         <result property="certificationScore" column="certification_score" jdbcType="INTEGER"/>
         <result property="isIdentityAuthentication" column="is_identity_authentication" jdbcType="INTEGER"/>
         <result property="membersState" column="members_state" jdbcType="INTEGER"/>
-        <result property="rate" column="rate" jdbcType="NUMERIC"/>
+        <result property="rate" column="rate" jdbcType="OTHER"/>
         <result property="rateTime" column="rate_time" jdbcType="OTHER"/>
-        <result property="bidRequestId" column="bid_request_id" jdbcType="LONG INTEGER"/>
+        <result property="bidRequestId" column="bid_request_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->

@@ -13,7 +13,7 @@ import com.p2pInternetloan.base.utils.Query;
  * (Members)表服务实现类
  *
  * @author cpc
- * @since 2019-10-23 14:21:23
+ * @since 2019-10-25 16:10:56
  */
 @Service("membersService")
 public class MembersServiceImpl implements MembersService {
@@ -27,7 +27,7 @@ public class MembersServiceImpl implements MembersService {
      * @return 实例对象
      */
     @Override
-    public Members queryById(Long id) {
+    public Members queryById(Integer id) {
         return this.membersDao.queryById(id);
     }
 
@@ -71,7 +71,7 @@ public class MembersServiceImpl implements MembersService {
      * @return 是否成功
      */
     @Override
-    public int deleteById(Long id) {
+    public int deleteById(Integer id) {
         return this.membersDao.deleteById(id);
     }
 }

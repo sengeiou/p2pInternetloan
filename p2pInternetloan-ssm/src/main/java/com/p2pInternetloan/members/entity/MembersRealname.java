@@ -7,12 +7,12 @@ import java.io.Serializable;
  * (MembersRealname)实体类
  *
  * @author makejava
- * @since 2019-10-23 14:21:24
+ * @since 2019-10-23 15:51:06
  */
 public class MembersRealname implements Serializable {
-    private static final long serialVersionUID = 698576575517237251L;
+    private static final long serialVersionUID = 178478305468496632L;
     //id
-    private Long id;
+    private Integer id;
     //真实姓名
     private String realname;
     //性别
@@ -38,17 +38,17 @@ public class MembersRealname implements Serializable {
     //申请时间
     private Date applyTime;
     //审核人id
-    private Long auditorId;
+    private Integer auditorId;
     //申请人id
 
-    private Long membersId;
+    private Integer membersId;
 
     
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     
@@ -140,19 +140,19 @@ public class MembersRealname implements Serializable {
         this.applyTime = applyTime;
     }
     
-    public Long getAuditorId() {
+    public Integer getAuditorId() {
         return auditorId;
     }
 
-    public void setAuditorId(Long auditorId) {
+    public void setAuditorId(Integer auditorId) {
         this.auditorId = auditorId;
     }
     
-    public Long getMembersId() {
+    public Integer getMembersId() {
         return membersId;
     }
 
-    public void setMembersId(Long membersId) {
+    public void setMembersId(Integer membersId) {
         this.membersId = membersId;
     }
 

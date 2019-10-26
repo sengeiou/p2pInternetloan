@@ -9,7 +9,7 @@ import java.util.List;
  * (Members)表数据库访问层
  *
  * @author cpc
- * @since 2019-10-23 14:21:23
+ * @since 2019-10-25 16:10:56
  */
 public interface MembersDao {
 
@@ -19,7 +19,7 @@ public interface MembersDao {
      * @param id 主键
      * @return 实例对象
      */
-    Members queryById(Long id);
+    Members queryById(Integer id);
 
     /**
      * 通过query对象查询
@@ -51,6 +51,6 @@ public interface MembersDao {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int deleteById(Integer id);
 
 }

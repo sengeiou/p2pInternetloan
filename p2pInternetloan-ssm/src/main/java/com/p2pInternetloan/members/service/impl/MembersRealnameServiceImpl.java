@@ -13,7 +13,7 @@ import com.p2pInternetloan.base.utils.Query;
  * (MembersRealname)表服务实现类
  *
  * @author cpc
- * @since 2019-10-23 14:21:24
+ * @since 2019-10-23 15:51:06
  */
 @Service("membersRealnameService")
 public class MembersRealnameServiceImpl implements MembersRealnameService {
@@ -27,7 +27,7 @@ public class MembersRealnameServiceImpl implements MembersRealnameService {
      * @return 实例对象
      */
     @Override
-    public MembersRealname queryById(Long id) {
+    public MembersRealname queryById(Integer id) {
         return this.membersRealnameDao.queryById(id);
     }
 
@@ -71,7 +71,18 @@ public class MembersRealnameServiceImpl implements MembersRealnameService {
      * @return 是否成功
      */
     @Override
-    public int deleteById(Long id) {
+    public int deleteById(Integer id) {
         return this.membersRealnameDao.deleteById(id);
     }
+
+
+    /**
+     * 修改状态
+     * @param state
+     * @return
+     */
+    @Override
+    public int Changestatus(Integer state) {return this.membersRealnameDao.Changestatus(state);}
+
+
 }

@@ -1,7 +1,7 @@
 package com.p2pInternetloan.members.controller;
 
-import com.p2pInternetloan.members.entity.Members;
-import com.p2pInternetloan.members.service.MembersService;
+import com.p2pInternetloan.members.entity.MembersDetail;
+import com.p2pInternetloan.members.service.MembersDetailService;
 import org.springframework.web.bind.annotation.*;
 import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.PageUtils;
@@ -10,19 +10,19 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * (Members)表控制层
+ * (MembersDetail)表控制层
  *
  * @author cpc
- * @since 2019-10-25 16:10:56
+ * @since 2019-10-26 16:09:20
  */
 @RestController
-@RequestMapping("members/")
-public class MembersController {
+@RequestMapping("membersDetail")
+public class MembersDetailController {
     /**
      * 服务对象
      */
     @Resource
-    private MembersService membersService;
+    private MembersDetailService membersDetailService;
 
     /**
      * 分页查询
@@ -33,7 +33,7 @@ public class MembersController {
     @GetMapping("queryPager")
     public  PageUtils queryPager(@RequestParam Map<String, Object> params) {
          Query query = new Query(params);
-         List<Members> list = membersService.queryPager(query);
+         List<MembersDetail> list = membersDetailService.queryPager(query);
          return new PageUtils(list, query.getTotal());
     }
 }

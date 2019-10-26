@@ -1,17 +1,18 @@
 package com.p2pInternetloan.members.entity;
 
+import java.math.BigDecimal;
 import java.io.Serializable;
 
 /**
  * (Members)实体类
  *
  * @author makejava
- * @since 2019-10-23 14:21:23
+ * @since 2019-10-25 16:10:56
  */
 public class Members implements Serializable {
-    private static final long serialVersionUID = -61709004424700033L;
+    private static final long serialVersionUID = -39066927715741719L;
     //id
-    private Long id;
+    private Integer id;
     //用户名
 
     private String name;
@@ -27,19 +28,19 @@ public class Members implements Serializable {
 
     private Integer membersState;
     //活期日利率（待删除）
-    private Double rate;
+    private BigDecimal rate;
     //
 //活期日获利时间
     private Object rateTime;
     //bid_request_id
-    private Long bidRequestId;
+    private Integer bidRequestId;
 
     
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     
@@ -83,11 +84,11 @@ public class Members implements Serializable {
         this.membersState = membersState;
     }
     
-    public Double getRate() {
+    public BigDecimal getRate() {
         return rate;
     }
 
-    public void setRate(Double rate) {
+    public void setRate(BigDecimal rate) {
         this.rate = rate;
     }
     
@@ -99,11 +100,11 @@ public class Members implements Serializable {
         this.rateTime = rateTime;
     }
     
-    public Long getBidRequestId() {
+    public Integer getBidRequestId() {
         return bidRequestId;
     }
 
-    public void setBidRequestId(Long bidRequestId) {
+    public void setBidRequestId(Integer bidRequestId) {
         this.bidRequestId = bidRequestId;
     }
 

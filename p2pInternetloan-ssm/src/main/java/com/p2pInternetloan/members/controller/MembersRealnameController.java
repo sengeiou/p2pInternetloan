@@ -1,7 +1,10 @@
 package com.p2pInternetloan.members.controller;
 
+import com.p2pInternetloan.base.utils.R;
 import com.p2pInternetloan.members.entity.MembersRealname;
 import com.p2pInternetloan.members.service.MembersRealnameService;
+import com.p2pInternetloan.sys.entity.Sysdictitem;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.PageUtils;
@@ -13,10 +16,11 @@ import java.util.List;
  * (MembersRealname)表控制层
  *
  * @author cpc
- * @since 2019-10-23 14:21:24
+ * @since 2019-10-23 15:51:06
  */
+
 @RestController
-@RequestMapping("membersRealname")
+@RequestMapping("members/mem")
 public class MembersRealnameController {
     /**
      * 服务对象
@@ -36,4 +40,45 @@ public class MembersRealnameController {
          List<MembersRealname> list = membersRealnameService.queryPager(query);
          return new PageUtils(list, query.getTotal());
     }
+
+    /**
+     * 添加字段项
+     * @param membersrealname
+     * @return
+     */
+    @PostMapping("add")
+    public R add(MembersRealname membersrealname){
+        return R.update(this.membersRealnameService.insert(membersrealname));
+    }
+
+    /**
+     * 添加字段项
+     * @param
+     * @return
+     */
+    @PostMapping("update")
+    public R update(MembersRealname membersRealname){
+        return R.update(this.membersRealnameService.update(membersRealname));
+    }
+
+
+//    /**
+//     * 删除字典项
+//     * @param id
+//     * @return
+//     */
+//    @PostMapping("del/{id}")
+//    @RequiresPermissions(value = {"member:user:view"})
+//    public R del(@PathVariable("id") Integer id){
+//        return R.update(this.membersRealnameService.deleteById(id));
+//    }
+
+
+
+
+
+
+
+
+
 }

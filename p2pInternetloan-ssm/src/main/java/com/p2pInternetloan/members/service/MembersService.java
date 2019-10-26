@@ -8,7 +8,7 @@ import com.p2pInternetloan.base.utils.Query;
  * (Members)表服务接口
  *
  * @author cpc
- * @since 2019-10-23 14:21:23
+ * @since 2019-10-25 16:10:56
  */
 public interface MembersService {
 
@@ -18,7 +18,7 @@ public interface MembersService {
      * @param id 主键
      * @return 实例对象
      */
-    Members queryById(Long id);
+    Members queryById(Integer id);
 
 
     /**
@@ -52,6 +52,6 @@ public interface MembersService {
      * @param id 主键
      * @return 删除行数
      */
-    int deleteById(Long id);
+    int deleteById(Integer id);
 
 }

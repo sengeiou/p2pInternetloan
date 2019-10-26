@@ -4,7 +4,7 @@
     
      <!-- 数据库与实体的映射对象 -->
     <resultMap type="com.p2pInternetloan.members.entity.MembersRealname" id="MembersRealnameMap">
-        <result property="id" column="id" jdbcType="LONG INTEGER"/>
+        <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="realname" column="realname" jdbcType="VARCHAR"/>
         <result property="sex" column="sex" jdbcType="VARCHAR"/>
         <result property="bornDate" column="born_date" jdbcType="TIMESTAMP"/>
@@ -16,8 +16,8 @@
         <result property="remark" column="remark" jdbcType="VARCHAR"/>
         <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
         <result property="applyTime" column="apply_time" jdbcType="TIMESTAMP"/>
-        <result property="auditorId" column="auditor_id" jdbcType="LONG INTEGER"/>
-        <result property="membersId" column="members_id" jdbcType="LONG INTEGER"/>
+        <result property="auditorId" column="auditor_id" jdbcType="INTEGER"/>
+        <result property="membersId" column="members_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
@@ -130,6 +130,9 @@
             </if>
         </set>
         where id = #{id}
+    </update>
+    <update id="Changestatus">
+        update members_realname set state=
     </update>
 
     <!--通过主键删除-->
