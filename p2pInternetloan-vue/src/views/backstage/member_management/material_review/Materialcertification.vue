@@ -27,8 +27,8 @@
       </el-table-column>
       <el-table-column prop="state" label="状态" min-width="3">
       </el-table-column>
-      <el-table-column prop="remark" label="审核说明" min-width="3">
-      </el-table-column>
+<!--      <el-table-column prop="remark" label="审核备注" min-width="3">-->
+<!--      </el-table-column>-->
       <el-table-column prop="auditTime" label="审核时间" min-width="3">
       </el-table-column>
       <el-table-column prop="applyTime" label="申请时间" min-width="3">
@@ -147,8 +147,6 @@
     export default {
         name: "DataDictionary",
         data:function(){
-
-            test:"";
             return {
                 //这是下拉框 数据动态绑定
                 options: [{
@@ -165,8 +163,6 @@
                 queryParams: {
                     //定义搜索维度
                     state:null,
-                    realname:null,
-                    address:null,
                     applyTime:null,
                     // 分页
                     page: 1,

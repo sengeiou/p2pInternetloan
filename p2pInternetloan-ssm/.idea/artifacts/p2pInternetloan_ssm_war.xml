@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="p2pInternetloan-ssm:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>p2pInternetloan-ssm</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="p2pInternetloan-ssm.war">
+      <element id="artifact" artifact-name="p2pInternetloan-ssm:war exploded" />
+    </root>
+  </artifact>
+</component>
