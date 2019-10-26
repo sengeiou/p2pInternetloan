@@ -1,5 +1,5 @@
 <template>
-  <div  style="padding: 20px;">
+  <div  style="padding: 20px;background-color: #FFFFFF">
     <el-form class="demo-form-inline" style="margin-top: 10px;background:#FFFFFF;padding-top: 10px; height: 50px;padding-left: 10px;" :inline="true">
       <el-form-item label="字典名称">
         <el-input v-model="queryParams.title" placeholder="请输入字典名称">
@@ -27,7 +27,7 @@
       </el-table-column>
       <el-table-column label="操作" min-width="3">
         <template slot-scope="scope">
-          <el-button @click="" type="text" size="small"  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button @click="" type="text" size="small"  @click="handleEdit(scope.row, 'dictForm', 'dictDialogFormVisible', 'dictDialogTitle')">编辑</el-button>
           <el-button type="text" size="small" @click="showSysdictItem(scope.$index, scope.row)">字典配置</el-button>
           <el-button type="text" size="small"  @click="del(scope.$index, scope.row)">删除</el-button>
         </template>
@@ -41,7 +41,7 @@
 
 
     <!--这是添加和修改弹出-->
-    <el-dialog top="25vh" width="45%" :title="dictDialogTitle" :visible.visible="dictDialogFormVisible" @close="doCancel">
+    <el-dialog top="25vh" width="45%" :title="dictDialogTitle" :visible.visible="dictDialogFormVisible" @close="doCancel('dictDialogFormVisible', 'dictForm')">
       <el-form :model="dictForm" :rules="dictRules" ref="dictForm">
         <el-form-item label="字典名称" prop="title" :label-width="formLabelWidth">
           <el-input v-model="dictForm.title" autocomplete="off"></el-input>
@@ -54,7 +54,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="doCancel">关闭</el-button>
+        <el-button @click="doCancel('dictDialogFormVisible', 'dictForm')">关闭</el-button>
         <el-button type="primary" @click="doSubmit">确 定</el-button>
       </div>
     </el-dialog>
@@ -90,7 +90,7 @@
           </el-table-column>
           <el-table-column label="操作" min-width="3">
             <template slot-scope="scope">
-              <el-button @click="" type="text" size="small"  @click="handleEditDictItem(scope.$index, scope.row)">编辑</el-button>
+              <el-button @click="" type="text" size="small"  @click="handleEdit(scope.row, 'dictItemForm', 'dictItemDialogFormVisible', 'dictItemDialogTitle')">编辑</el-button>
               <el-button type="text" size="small"  @click="delDictItem(scope.$index, scope.row)">删除</el-button>
             </template>
           </el-table-column>
@@ -107,7 +107,7 @@
 
 
     <!--这是字典项添加和修改弹出-->
-    <el-dialog top="20vh" width="50%" :title="dictItemDialogTitle" :visible="dictItemDialogFormVisible" @close="doCancelDictItem">
+    <el-dialog top="20vh" width="50%" :title="dictItemDialogTitle" :visible="dictItemDialogFormVisible" @close="doCancel('dictItemDialogFormVisible', 'dictItemForm')">
       <el-form :model="dictItemForm" :rules="dictItemRules" ref="dictItemForm">
         <el-form-item label="名称" prop="title" :label-width="formLabelWidthDictItem">
           <el-input v-model="dictItemForm.title" autocomplete="off"></el-input>
@@ -123,7 +123,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="doCancelDictItem">关闭</el-button>
+        <el-button @click="doCancel('dictItemDialogFormVisible', 'dictItemForm')">关闭</el-button>
         <el-button type="primary" @click="doSubmitDictItem">确 定</el-button>
       </div>
     </el-dialog>
@@ -132,6 +132,8 @@
 </template>
 
 <script>
+    //这是导入工具包
+    import commonUtils from "../../../api/commonUtils";
 
     export default {
         name: "DataDictionary",
@@ -252,15 +254,6 @@
                 this.dictDialogTitle = "添加";
                 this.dictDialogFormVisible = true;
             },
-            //修改前期调用方法，给表单回显对应数据 并打开弹出
-            handleEdit: function(id, row) {
-                this.dictDialogTitle = "修改";
-                this.dictForm.id = row.id;
-                this.dictForm.sn = row.sn;
-                this.dictForm.title = row.title;
-                this.dictForm.description = row.description;
-                this.dictDialogFormVisible = true;
-            },
             //一页的数量发送变化的时候调用此方法
             handleSizeChange: function(rwos) {
                 this.queryParams.page = 1;
@@ -286,6 +279,7 @@
                         } else {
                             url = this.axios.urls.SYSTEM_DICT_ADD;
                         }
+
                         //发送请求
                         this.axios.post(url, this.dictForm).then(response => {
                             //如果是操作失败
@@ -296,7 +290,7 @@
                                 });
                             } else {
                                 //这里是操作成功
-                                this.doClearForm();
+                                commonUtils.doClearForm('dictForm')
                                 this.dictDialogFormVisible = false;
                                 //重新查找
                                 this.search();
@@ -326,39 +320,18 @@
                 }).then(() => {
                     //删除
                     var url = this.axios.urls.SYSTEM_DICT_DEl + row.id;
-                    this.axios.post(url, {}).then(response => {
-                        if (response.data.code == 500) {
-                            this.$message({
-                                message: response.data.msg,
-                                type: 'warning'
-                            });
-                        } else {
-                            this.$message({
-                                message: response.data.msg,
-                                type: 'success'
-                            });
-                            this.search();
-                        }
-
-                    }).catch(function(error) {
-                        console.log(error);
-                    });
+                    //这是调用请求的方法
+                    commonUtils.doAjaxPost(url, {}, this.search);
                 }).catch(() => {});
             },
-            //清空表单是数据
-            doClearForm: function() {
-                this.dictForm.id = null;
-                this.dictForm.sn = null;
-                this.dictForm.title = null;
-                this.dictForm.description = null;
-                //清空表单验证
-                this.$refs['dictForm'].resetFields();
+            //这是修改前期调用
+            handleEdit: function(row, formDataName, showDialogDataName, dialogTitleDataName) {
+                commonUtils.handleEdit(row , formDataName, showDialogDataName, dialogTitleDataName)
             },
             //清空表单数据，并且关闭弹出
-            doCancel: function() {
-                this.doClearForm();
-                //关闭弹出
-                this.dictDialogFormVisible = false;
+            doCancel: function(closeDialogDataName, refForm) {
+                //这是清空表单的方法
+                commonUtils.doCancel(closeDialogDataName, refForm);
             },
             /////////这是字典项操作的所有方法  都在此处了//////////////
             showSysdictItem: function(id, row){
@@ -390,18 +363,7 @@
             handleAddDictItem: function() {
                 this.dictItemDialogTitle = "添加";
                 this.dictItemDialogFormVisible = true;
-                this.doClearFormDictItem();
-            },
-            //修改前期调用方法，给表单回显对应数据 并打开弹出
-            handleEditDictItem: function(id, row) {
-                this.dictItemDialogTitle = "修改";
-                this.dictItemForm.id = row.id;
-                this.dictItemForm.parentid = row.parentid;
-                this.dictItemForm.title = row.title;
-                this.dictItemForm.value = row.value;
-                this.dictItemForm.sequence = row.sequence;
-                this.dictItemForm.description = row.description;
-                this.dictItemDialogFormVisible = true;
+                commonUtils.doClearForm('');
             },
             //一页的数量发送变化的时候调用此方法
             handleSizeChangeDictItem: function(rwos) {
@@ -428,7 +390,6 @@
                             url = this.axios.urls.SYSTEM_DICT_ITEM_ADD;
                         }
                         this.dictItemForm.parentid = this.dictItemQueryParams.parentid;
-
                         //发送请求
                         this.axios.post(url, this.dictItemForm).then(response => {
                             //如果是操作失败
@@ -439,7 +400,7 @@
                                 });
                             } else {
                                 //这里是操作成功
-                                this.doCancelDictItem();
+                                this.doCancel('dictItemDialogFormVisible', 'dictItemForm')
                                 this.dictDialogFormVisible = false;
                                 //重新查找
                                 this.searchDictItem()
@@ -469,40 +430,8 @@
                 }).then(() => {
                     //删除
                     var url = this.axios.urls.SYSTEM_DICT_ITEM_DEl + row.id;
-                    this.axios.post(url, {}).then(response => {
-                        if (response.data.code == 500) {
-                            this.$message({
-                                message: response.data.msg,
-                                type: 'warning'
-                            });
-                        } else {
-                            this.$message({
-                                message: response.data.msg,
-                                type: 'success'
-                            });
-                            this.onQueryDictItem();
-                        }
-
-                    }).catch(function(error) {
-                        console.log(error);
-                    });
+                    commonUtils.doAjaxPost(url, {}, this.onQueryDictItem);
                 }).catch(() => {});
-            },
-            //清空表单是数据
-            doClearFormDictItem: function() {
-                //清空表单验证
-                this.$refs['dictItemForm'].resetFields();
-                this.dictItemForm.id = null;
-                this.dictItemForm.title = null;
-                this.dictItemForm.value = null;
-                this.dictItemForm.sequence = null;
-                this.dictItemForm.description = null;
-            },
-            //清空表单数据，并且关闭弹出
-            doCancelDictItem: function() {
-                this.doClearFormDictItem();
-                //关闭弹出
-                this.dictItemDialogFormVisible = false;
             },
             //这是当抽屉要关闭了
             handleCloseDrawer:function(done){
@@ -513,6 +442,9 @@
         },
         created() {
             this.onQuery();
+            //初始化常用工具类(将 this 指针传入到 commonUtils 中 )
+            commonUtils.init(this);
+
         }
     }
 </script>
@@ -520,5 +452,6 @@
 <style scoped>
   .sys-dict-item-drawer{
     width: 900px;
+
   }
 </style>

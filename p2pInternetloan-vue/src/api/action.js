@@ -28,6 +28,7 @@ export default {
   "SYSTEM_DICT_ITEM_ADD":"/sys/dictitem/add",
   "SYSTEM_DICT_ITEM_UPDATE":"/sys/dictitem/update",
   "SYSTEM_DICT_ITEM_DEl":"/sys/dictitem/del/",
+  "SYSTEM_DICT_ITEM_GET_SELECT":"/sys/dictitem/getSelect",
   ///////////// 系统模块请求配置  end /////////////
 
   ///////////// 会员模块请求配置  start /////////////

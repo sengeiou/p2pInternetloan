@@ -1,22 +1,15 @@
 <template>
   <div>
-    <div class="template-tabs">
-      <el-tabs  v-model="activeIndex" @tab-click="tabClick" style="line-height: 68px;background-color: rgb(248, 248, 248)">
-        <el-tab-pane label="" name=""></el-tab-pane>
-        <el-tab-pane label="首页" name="/Home"></el-tab-pane>
-        <el-tab-pane label="我要投资" name="/Investment"></el-tab-pane>
-        <el-tab-pane label="我要借贷" name="/Loan"></el-tab-pane>
-        <el-tab-pane label="个人中心" name="/PersonalCenterMain"></el-tab-pane>
-        <el-tab-pane label="关于我们" name="/AboutUs"></el-tab-pane>
-      </el-tabs>
-    </div>
-    <el-main class="main-center">
-      <router-view></router-view>
-    </el-main>
+    <!--这是导航体条-->
+    <FrontTopNav></FrontTopNav>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+    //导入组件
+    import FrontTopNav from "../../components/FrontTopNav";
+
     export default {
         name: "Main",
         data:function(){
@@ -29,6 +22,9 @@
                 let path = this.activeIndex;
                 this.$router.push({ path: path });
             }
+        },
+        components:{
+            FrontTopNav
         },
         created() {
             this.$router.push({ path: "/Home" });
