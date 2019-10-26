@@ -9,6 +9,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +50,7 @@ public class SysdictitemController {
     @PostMapping("add")
     public R add(Sysdictitem sysdictitem){
         return R.update(this.sysdictitemService.insert(sysdictitem));
+
     }
 
 
