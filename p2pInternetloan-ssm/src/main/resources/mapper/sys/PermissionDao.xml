@@ -17,8 +17,8 @@
 
 
     <resultMap type="com.p2pInternetloan.sys.entity.Menu" id="MenuMap">
-        <result property="perId" column="per_id" jdbcType="INTEGER"/>
-        <result property="perName" column="per_name" jdbcType="VARCHAR"/>
+        <result property="id" column="per_id" jdbcType="INTEGER"/>
+        <result property="text" column="per_name" jdbcType="VARCHAR"/>
         <result property="pid" column="pid" jdbcType="INTEGER"/>
         <result property="icon" column="icon" jdbcType="VARCHAR"/>
         <result property="url" column="url" jdbcType="VARCHAR"/>
@@ -73,10 +73,25 @@
     </select>
 <!--    查询用户的权限菜单（父菜单下的子菜单）-->
     <select id="queryChildern" resultMap="MenuMap">
-        select p.* from user u, user_role ur,role_permission rp,permission p
-           where u.user_id = ur.user_id and ur.role_id = rp.role_id and rp.per_id = p.per_id
-           and u.user_id = #{userId} and p.pid = #{pid} and p.type in (1, 2)
+        select * from permission where per_id in (
+            select per_id from role_permission where role_id in (
+                select role_id from user_role where user_id = #{userId}
+            )
+        ) and pid = #{pid} and type in (1,2) ORDER BY sort
     </select>
+
+    <select id="queryModules" resultMap="MenuMap">
+            select * from permission where pid = #{pid}
+    </select>
+
+<!--    这是查找出角色对应的权限id-->
+    <select id="queryIdByRole" resultType="java.lang.Integer">
+             select per_id from role_permission where role_id = #{roleId}
+    </select>
+
+
+
+
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="perId" useGeneratedKeys="true">

@@ -131,5 +131,7 @@
 </script>
 
 <style scoped>
-
+  * {
+    
+  }
 </style>

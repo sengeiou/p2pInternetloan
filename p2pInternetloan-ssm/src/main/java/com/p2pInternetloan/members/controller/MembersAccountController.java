@@ -2,12 +2,10 @@ package com.p2pInternetloan.members.controller;
 
 import com.p2pInternetloan.base.utils.PageUtils;
 import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.base.utils.R;
 import com.p2pInternetloan.members.entity.MembersAccount;
 import com.p2pInternetloan.members.service.MembersAccountService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -40,4 +38,26 @@ public class MembersAccountController {
          List<MembersAccount> list = membersAccountService.queryPager(query);
          return new PageUtils(list, query.getTotal());
     }
+
+    /**
+     * 单个查询
+     * @param id
+     * @return
+     */
+    @GetMapping("queryById")
+    public MembersAccount queryById(Integer id){
+        return this.membersAccountService.queryById(id);
+    }
+
+    /**
+     * 修改字段项
+     * @param membersAccount
+     * @return
+     */
+    @PostMapping("update")
+    public R update(MembersAccount membersAccount){
+        return R.update(this.membersAccountService.update(membersAccount));
+    }
+
+
 }

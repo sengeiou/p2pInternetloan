@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card class="box-card">
+    <el-card class="box-card" >
       <div class="clearfix" slot="header">
         <span>晚上好，tg_gpdt0139 喝一杯下午茶，让心情放松一下~</span>
         <span style="float: right; padding: 3px 0" type="text">上次登录时间： 2015-09-11 14:05:07</span>
@@ -42,7 +42,7 @@
               <i class="el-icon-s-claim"></i>
             </p>
             <strong>80</strong>元</el-card>
-        </el-col> 
+        </el-col>
       </el-row>
     </el-card>
     <el-tabs style="padding-top: 0px; margin-top: 25px;" type="border-card">
@@ -55,7 +55,32 @@
 
 <script>
     export default {
-        name: "AccountManagement"
+        name: "AccountManagement",
+        data:function () {
+            return{
+
+            }
+        },
+        methods:{
+            //根据id查单个所有
+            search: function() {
+                let url = this.axios.urls.MEMBERS_ACCOUNT_QUERYBYID;
+                this.certified();
+                // let params = this.queryParams;
+                //查询动画
+                this.loading = true;
+                //向后端请求数据
+                this.axios.get(url,{params:params}).then(response => {
+                    this.dataList = response.data.data
+                    this.queryParams.total = response.data.total;
+                    //数据查询到了关闭查询动画
+                    this.loading = false;
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            },
+        }
+
     }
 </script>
 

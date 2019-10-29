@@ -2,6 +2,8 @@ package com.p2pInternetloan.sys.dao;
 
 import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.sys.entity.Role;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -63,9 +65,48 @@ public interface RoleDao {
 
 
     /**
+     * 根据指定的角色编码查询角色
+     * @param coding
+     * @return
+     */
+    Role queryByCoding(String coding);
+
+
+    /**
      * 获取角色下拉
      * @return
      */
     List<Map> getRoleSelect();
+
+    /**
+     * 获取用户所拥有的角色
+     * @return
+     */
+    List<Map> getUserRole(Integer userId);
+
+    /**
+     * 获取角色的最大Id
+     * @return
+     */
+    Integer getMaxId();
+
+
+    /**
+     * 添加角色权限绑定
+     * @param roleId
+     * @param perId
+     * @return
+     */
+    @Insert("insert into role_permission(role_id, per_id) values (#{roleId}, #{perId})")
+    int addRolePermission(@Param("roleId") Integer roleId, @Param("perId") Integer perId);
+
+    /**
+     * 这是删除角色权限绑定 更具角色id来删除
+     * @param roleId 角色id
+     * @return
+     */
+    int delRolePermissionByRoleId(Integer roleId);
+
+
 
 }

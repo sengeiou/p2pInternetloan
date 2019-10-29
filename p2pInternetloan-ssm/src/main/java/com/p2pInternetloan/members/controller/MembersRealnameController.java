@@ -1,16 +1,15 @@
 package com.p2pInternetloan.members.controller;
 
+import com.p2pInternetloan.base.utils.PageUtils;
+import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.R;
 import com.p2pInternetloan.members.entity.MembersRealname;
 import com.p2pInternetloan.members.service.MembersRealnameService;
-import com.p2pInternetloan.sys.entity.Sysdictitem;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
-import com.p2pInternetloan.base.utils.Query;
-import com.p2pInternetloan.base.utils.PageUtils;
-import java.util.Map;
+
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (MembersRealname)表控制层
@@ -46,13 +45,15 @@ public class MembersRealnameController {
      * @param membersrealname
      * @return
      */
-    @PostMapping("add")
+//    @PostMapping("add")
+    @RequestMapping("add")
     public R add(MembersRealname membersrealname){
+        System.out.println(membersrealname);
         return R.update(this.membersRealnameService.insert(membersrealname));
     }
 
     /**
-     * 添加字段项
+     * 修改字段项
      * @param
      * @return
      */

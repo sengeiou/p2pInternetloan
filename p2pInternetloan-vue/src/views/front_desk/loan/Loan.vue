@@ -56,8 +56,19 @@
 </template>
 
 <script>
+    import commonUtils from "../../../api/commonUtils";
     export default {
-        name: "Loan"
+        name: "Loan",
+        methods:{
+            //这是跳转到对应的表单申请页面
+            toLoanApplication(toRouter){
+                commonUtils.toRouter(toRouter)
+            }
+        },
+        created() {
+            commonUtils.init(this);
+        }
+
     }
 </script>
 

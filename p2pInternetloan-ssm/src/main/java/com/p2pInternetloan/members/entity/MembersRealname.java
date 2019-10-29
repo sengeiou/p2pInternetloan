@@ -25,7 +25,7 @@ public class MembersRealname implements Serializable {
     //证件地址
     private String address;
     //状态（0审核成功，1待审核，2审核失败)
-    private Object state;
+    private Integer state;
     //身份证正面图片路径
     private String image1;
     //身份证反面图片路径
@@ -91,15 +91,16 @@ public class MembersRealname implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    public Object getState() {
+
+
+    public Integer getState() {
         return state;
     }
 
-    public void setState(Object state) {
+    public void setState(Integer state) {
         this.state = state;
     }
-    
+
     public String getImage1() {
         return image1;
     }

@@ -17,6 +17,9 @@ export default{
 	getDict:(state)=>{
 		return state.dict;
 	},
+  getPermission:(state)=>{
+    return state.permission;
+  },
 	getUserTime:(state)=>{
 		return state.userTime;
 	},

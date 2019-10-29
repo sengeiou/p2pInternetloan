@@ -1,10 +1,12 @@
 <template>
-	<div>
-		<h1>首页</h1>
-	</div>
+  <div  style="padding: 20px;background-color: #FFFFFF">
+
+
+  </div>
 </template>
 
 <script>
+  import commonUtils from "../../api/commonUtils";
 	export default{
 		name:"Home",
 		data:function(){

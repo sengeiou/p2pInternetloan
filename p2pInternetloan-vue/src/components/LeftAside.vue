@@ -5,18 +5,18 @@
 		<div class="logobox">
 			<img class="logoimg" src="../assets/img/logo.png" alt="">
 		</div>
-		<el-menu-item index="/setting">
+		<el-menu-item index="/UserManagement">
 			<i class="el-icon-s-home"></i>
 			<span>首页</span>
 		</el-menu-item>
 		<el-submenu v-for="n in treeNodeLst" :key="'ley-'+n.id" :index="'index-'+n.id">
 			<template slot="title">
 				<i :class="n.icon"></i>
-				<span>{{n.perName}}</span>
+				<span>{{n.text}}</span>
 			</template>
-			<el-menu-item v-for="n1 in n.childern" :key="'key-'+n1.id" @click="showName(n1.perName)" :index="n1.url">
+			<el-menu-item v-for="n1 in n.modules" :key="'key-'+n1.id" @click="showName(n1.text)" :index="n1.url">
         <i :class="n1.icon"></i>
-        <span>{{n1.perName}}</span>
+        <span>{{n1.text}}</span>
 			</el-menu-item>
 		</el-submenu>
 	</el-menu>
@@ -47,10 +47,11 @@
 		},
 		created:function(){
 			let url= this.axios.urls.SYSTEM_TREENODE;
-			this.axios.post(url,{}).then(resp=>{
+			this.axios.get(url,{}).then(resp=>{
 				this.treeNodeLst=resp.data;
 			}).catch(resp=>{
 			});
+
 			//设置登录最初的页面
 			this.$router.push({
 				path:'/BackstageHome'

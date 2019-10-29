@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("unchecked")
 public class MyStatelessShiroFilter extends AccessControlFilter{
 
+
     /**
      * 返回false
      * @param servletRequest

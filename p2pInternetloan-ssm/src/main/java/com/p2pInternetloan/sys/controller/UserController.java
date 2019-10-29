@@ -168,7 +168,7 @@ public class UserController {
      */
     @PostMapping("add")
     @ApiOperation("添加后台管理员")
-    public R add(User user) {
+    public R add(User user, String roleIds) {
         //生成随机盐
         String salt = PasswordHelper.createSalt();
         //这是将加密后的密码放入到user对象中去
@@ -178,7 +178,7 @@ public class UserController {
         //设置创建时间
         user.setCreatedate(new Date());
         //添加用户信息
-        return R.update(userService.insert(user));
+        return R.update(userService.insert(user, roleIds));
     }
 
 
@@ -206,7 +206,9 @@ public class UserController {
         String salt = PasswordHelper.createSalt();
         //这是将加密后的密码放入到user对象中去
         user.setPassword(PasswordHelper.createCredentials(user.getPassword(), salt));
-        return R.update(userService.update(user));
+        //设置用户当前的盐
+        user.setSalt(salt);
+        return R.update(userService.updatePwd(user));
     }
 
     /**
@@ -216,11 +218,11 @@ public class UserController {
      */
     @PostMapping("update")
     @ApiOperation("修改管理员基本信息")
-    public R update(User user){
+    public R update(User user, String roleIds){
         //防止恶意工具修改密码
         user.setPassword(null);
         user.setSalt(null);
-        return R.update(userService.update(user));
+        return R.update(userService.update(user, roleIds));
     }
 }
 
