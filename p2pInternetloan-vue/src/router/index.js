@@ -1,11 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-
-
-
-//VUex
-
 ////////////       这是前台的页面导入 （开始） /////////////////////////////////////////
 import Main from "../views/front_desk/Main";
 import Home from "../views/front_desk/Home";
@@ -23,14 +18,20 @@ import Investment from "../views/front_desk/investment/Investment";
 //个人中心
 import PersonalCenterMain from "../views/front_desk/personal_center/PersonalCenterMain";
 import AccountManagement from "../views/front_desk/personal_center/account_management/AccountManagement";
+//个人资料
+import PersonalData from "../views/front_desk/personal_center/account_management/PersonalData";
+//实名认证
+import Authentication from "../views/front_desk/personal_center/account_management/Authentication";
 //关于我们
 import AboutUs from "../views/front_desk/AboutUs/AboutUs";
+
 
 
 //注册
 import Register from "../views/front_desk/Register";
 //登录
 import Login from "../views/front_desk/Login";
+
 
 
 ////////////       这是前台的页面导入 （结束） /////////////////////////////////////////
@@ -54,6 +55,8 @@ import DataDictionary from "../views/backstage/system_management/DataDictionary"
 import identification from "../views/backstage/member_management/identity_review/identification";
 //管理认证
 import management from "../views/backstage/member_management/management/management";
+//材料认证
+import Materialcertification from "../views/backstage/member_management/material_review/Materialcertification";
 
 ////////////       这是后台的页面导入 （结束） /////////////////////////////////////////
 
@@ -132,11 +135,16 @@ export default new Router({
               path: '/AccountManagement',
               name: 'AccountManagement',
               component: AccountManagement
-            },  {
-              path: '/test',
-              name: 'test',
-              component: test
+            }, {
+              path: '/PersonalData',
+              name: 'PersonalData',
+              component: PersonalData
+            },{
+              path: '/Authentication',
+              name: 'Authentication',
+              component: Authentication
             }
+
           ]
         },{
           path: '/AboutUs',
@@ -182,6 +190,10 @@ export default new Router({
           path: '/management',
           name: 'management',
           component: management
+        }, {
+          path: '/Materialcertification',
+          name: 'Materialcertification',
+          component: Materialcertification
         }
       ]
     }

@@ -38,13 +38,23 @@ export default {
   "MEMBERS_MEN_DEL":"/members/mem/del",
 
   //会员材料认证
-"MEMBERS_MAT_QUERYPAGER":"/membersMaterials/mat/queryPager",
+  "MEMBERS_MAT_QUERYPAGER":"/membersMaterials/mat/queryPager",
+  "MEMBERS_MAT_UPDATE":"/membersMaterials/mat/update",
 
 
 
   //会员账户管理
-  // membersAccount/account
   "MEMBERS_ACCOUNT_QUERYPAGER":"/membersAccount/account/queryPager",
+  "MEMBERS_ACCOUNT_QUERYBYID":"/membersAccount/account/queryById",
+
+
+  //个人资料
+
+  "MEMBERS_DETA_UPDATE":"/membersDetail/deta/update",
+  "MEMBERS_DETA_QUERYBYID":"/membersDetail/deta/queryById",
+  // "MEMBERS_DETA_QUERYPAGER":"/membersDetail/deta/queryById",
+
+
 
 
 
