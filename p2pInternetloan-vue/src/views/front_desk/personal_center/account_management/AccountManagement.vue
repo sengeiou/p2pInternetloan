@@ -42,7 +42,7 @@
               <i class="el-icon-s-claim"></i>
             </p>
             <strong>80</strong>元</el-card>
-        </el-col> 
+        </el-col>
       </el-row>
     </el-card>
     <el-tabs style="padding-top: 0px; margin-top: 25px;" type="border-card">

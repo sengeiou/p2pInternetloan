@@ -10,9 +10,9 @@ import java.util.List;
  */
 public class Menu {
     //ID,主键
-    private Integer perId;
+    private Integer id;
     //权限名称
-    private String perName;
+    private String text;
     //父编号
     private Integer pid;
     //菜单图标
@@ -27,22 +27,23 @@ public class Menu {
     private String mark;
 
     //这是儿子们
-    private List<Menu> childern;
+    private List<Menu> modules;
 
-    public Integer getPerId() {
-        return perId;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setPerId(Integer perId) {
-        this.perId = perId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getPerName() {
-        return perName;
+    public String getText() {
+        return text;
     }
 
-    public void setPerName(String perName) {
-        this.perName = perName;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Integer getPid() {
@@ -93,11 +94,11 @@ public class Menu {
         this.mark = mark;
     }
 
-    public List<Menu> getChildern() {
-        return childern;
+    public List<Menu> getModules() {
+        return modules;
     }
 
-    public void setChildern(List<Menu> childern) {
-        this.childern = childern;
+    public void setModules(List<Menu> modules) {
+        this.modules = modules;
     }
 }

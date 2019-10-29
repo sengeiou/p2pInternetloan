@@ -1,134 +1,134 @@
 <template>
-  <div  style="padding: 20px;background-color: #FFFFFF">
-    <el-form class="demo-form-inline" style="margin-top: 10px;background:#FFFFFF;padding-top: 10px; height: 50px;padding-left: 10px;" :inline="true">
-      <el-form-item label="字典名称">
-        <el-input v-model="queryParams.title" placeholder="请输入字典名称">
-        </el-input>
-      </el-form-item>
-      <el-form-item label="字典编号">
-        <el-input v-model="queryParams.sn" placeholder="请输入字典编号">
-        </el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="onQuery">查询</el-button>
-        <el-button type="success" icon="el-icon-plus" @click="handleAdd">新增字典数据</el-button>
-      </el-form-item>
-    </el-form>
-
-    <!-- 数据表格-->
-    <el-table :data="dictList"  height="440" :fit="true" :show-header="true" v-loading="loading">
-      <el-table-column  prop="id" label="#" min-width="1">
-      </el-table-column>
-      <el-table-column prop="title" label="菜单名称" min-width="3">
-      </el-table-column>
-      <el-table-column prop="sn" label="字典编号" min-width="3">
-      </el-table-column>
-      <el-table-column prop="description" label="描述" min-width="3">
-      </el-table-column>
-      <el-table-column label="操作" min-width="3">
-        <template slot-scope="scope">
-          <el-button @click="" type="text" size="small"  @click="handleEdit(scope.row, 'dictForm', 'dictDialogFormVisible', 'dictDialogTitle')">编辑</el-button>
-          <el-button type="text" size="small" @click="showSysdictItem(scope.$index, scope.row)">字典配置</el-button>
-          <el-button type="text" size="small"  @click="del(scope.$index, scope.row)">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <!-- 分页 -->
-    <el-pagination style="margin: 15px;" background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                   :current-page="queryParams.page" :page-sizes="[5, 10, 15, 20]" :page-size="queryParams.rows" layout="total, sizes, prev, pager, next, jumper"
-                   :total="queryParams.total">
-    </el-pagination>
-
-
-    <!--这是添加和修改弹出-->
-    <el-dialog top="25vh" width="45%" :title="dictDialogTitle" :visible.visible="dictDialogFormVisible" @close="doCancel('dictDialogFormVisible', 'dictForm')">
-      <el-form :model="dictForm" :rules="dictRules" ref="dictForm">
-        <el-form-item label="字典名称" prop="title" :label-width="formLabelWidth">
-          <el-input v-model="dictForm.title" autocomplete="off"></el-input>
+  <el-main  style="background-color: #FFFFFF;" >
+      <el-form class="demo-form-inline" style="margin-top: 10px;background:#FFFFFF;padding-top: 10px; height: 50px;padding-left: 10px;" :inline="true">
+        <el-form-item label="字典名称">
+          <el-input v-model="queryParams.title" placeholder="请输入字典名称">
+          </el-input>
         </el-form-item>
-        <el-form-item label="字段编码" prop="sn" :label-width="formLabelWidth">
-          <el-input v-model="dictForm.sn" autocomplete="off"></el-input>
+        <el-form-item label="字典编号">
+          <el-input v-model="queryParams.sn" placeholder="请输入字典编号">
+          </el-input>
         </el-form-item>
-        <el-form-item label="描述" prop="description" :label-width="formLabelWidth">
-          <el-input v-model="dictForm.description" autocomplete="off"></el-input>
+        <el-form-item>
+          <el-button type="primary" icon="el-icon-search" @click="onQuery">查询</el-button>
+          <el-button type="success" icon="el-icon-plus" @click="handleAdd">新增字典数据</el-button>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="doCancel('dictDialogFormVisible', 'dictForm')">关闭</el-button>
-        <el-button type="primary" @click="doSubmit">确 定</el-button>
-      </div>
-    </el-dialog>
 
-    <!--这是字典配置的抽屉-->
-    <el-drawer
-      title="字典列表"
-      :visible.sync="drawer"
-      :direction="rtl"
-      custom-class="sys-dict-item-drawer"
-      size="50%"
-      :before-close="handleCloseDrawer">
-      <hr>
-      <div style="margin: 10px;">
-        <!-- 搜索维度 start -->
-        <el-form class="demo-form-inline" style="margin-top: 10px;background:#FFFFFF;padding-top: 10px; height: 50px;padding-left: 10px;" :inline="true">
-          <el-form-item label="名称" size="30">
-            <el-input v-model="dictItemQueryParams.title" placeholder="请输入名称">
-            </el-input>
+      <!-- 数据表格-->
+      <el-table :data="dictList"  height="400" :fit="true" :show-header="true" v-loading="loading">
+        <el-table-column  prop="id" label="#" min-width="1">
+        </el-table-column>
+        <el-table-column prop="title" label="菜单名称" min-width="3">
+        </el-table-column>
+        <el-table-column prop="sn" label="字典编号" min-width="3">
+        </el-table-column>
+        <el-table-column prop="description" label="描述" min-width="3">
+        </el-table-column>
+        <el-table-column label="操作" min-width="3">
+          <template slot-scope="scope">
+            <el-button @click="" type="text" size="small"  @click="handleEdit(scope.row, 'dictForm', 'dictDialogFormVisible', 'dictDialogTitle')">编辑</el-button>
+            <el-button type="text" size="small" @click="showSysdictItem(scope.$index, scope.row)">字典配置</el-button>
+            <el-button type="text" size="small"  @click="del(scope.$index, scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- 分页 -->
+      <el-pagination style="margin: 15px;" background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                     :current-page="queryParams.page" :page-sizes="[5, 10, 15, 20]" :page-size="queryParams.rows" layout="total, sizes, prev, pager, next, jumper"
+                     :total="queryParams.total">
+      </el-pagination>
+
+
+      <!--这是添加和修改弹出-->
+      <el-dialog top="25vh" width="45%" :title="dictDialogTitle" :visible.visible="dictDialogFormVisible" @close="doCancel('dictDialogFormVisible', 'dictForm')">
+        <el-form :model="dictForm" :rules="dictRules" ref="dictForm">
+          <el-form-item label="字典名称" prop="title" :label-width="formLabelWidth">
+            <el-input v-model="dictForm.title" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onQueryDictItem">查询</el-button>
-            <el-button type="primary" @click="handleAddDictItem">添加</el-button>
+          <el-form-item label="字段编码" prop="sn" :label-width="formLabelWidth">
+            <el-input v-model="dictForm.sn" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="描述" prop="description" :label-width="formLabelWidth">
+            <el-input v-model="dictForm.description" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
-        <!-- 搜索维度 end -->
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="doCancel('dictDialogFormVisible', 'dictForm')">关闭</el-button>
+          <el-button type="primary" @click="doSubmit">确 定</el-button>
+        </div>
+      </el-dialog>
 
-        <!--数据表格 start-->
-        <el-table :data="dictItemList"  height="500"  :fit="true" :show-header="true" v-loading="dictItemloading" style="margin-top: 20px">
-          <el-table-column prop="title" label="名称" min-width="3">
-          </el-table-column>
-          <el-table-column prop="value" label="数据值" min-width="3">
-          </el-table-column>
-          <el-table-column label="操作" min-width="3">
-            <template slot-scope="scope">
-              <el-button @click="" type="text" size="small"  @click="handleEdit(scope.row, 'dictItemForm', 'dictItemDialogFormVisible', 'dictItemDialogTitle')">编辑</el-button>
-              <el-button type="text" size="small"  @click="delDictItem(scope.$index, scope.row)">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <!-- 分页 -->
-        <el-pagination style="margin: 15px;" background @size-change="handleSizeChangeDictItem" @current-change="handleCurrentChangeDictItem"
-                       :current-page="dictItemQueryParams.page" :page-sizes="[5, 10, 15, 20]" :page-size="dictItemQueryParams.rows" layout="total, sizes, prev, pager, next, jumper"
-                       :total="dictItemQueryParams.total">
-        </el-pagination>
+      <!--这是字典配置的抽屉-->
+      <el-drawer
+        title="字典列表"
+        :visible.sync="drawer"
+        :direction="rtl"
+        custom-class="sys-dict-item-drawer"
+        size="50%"
+        :before-close="handleCloseDrawer">
+        <hr>
+        <div style="margin: 10px;">
+          <!-- 搜索维度 start -->
+          <el-form class="demo-form-inline" style="margin-top: 10px;background:#FFFFFF;padding-top: 10px; height: 50px;padding-left: 10px;" :inline="true">
+            <el-form-item label="名称" size="30">
+              <el-input v-model="dictItemQueryParams.title" placeholder="请输入名称">
+              </el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="onQueryDictItem">查询</el-button>
+              <el-button type="primary" @click="handleAddDictItem">添加</el-button>
+            </el-form-item>
+          </el-form>
+          <!-- 搜索维度 end -->
 
-        <!--数据表格 end-->
-      </div>
-    </el-drawer>
+          <!--数据表格 start-->
+          <el-table :data="dictItemList"  height="500"  :fit="true" :show-header="true" v-loading="dictItemloading" style="margin-top: 20px">
+            <el-table-column prop="title" label="名称" min-width="3">
+            </el-table-column>
+            <el-table-column prop="value" label="数据值" min-width="3">
+            </el-table-column>
+            <el-table-column label="操作" min-width="3">
+              <template slot-scope="scope">
+                <el-button @click="" type="text" size="small"  @click="handleEdit(scope.row, 'dictItemForm', 'dictItemDialogFormVisible', 'dictItemDialogTitle')">编辑</el-button>
+                <el-button type="text" size="small"  @click="delDictItem(scope.$index, scope.row)">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <!-- 分页 -->
+          <el-pagination style="margin: 15px;" background @size-change="handleSizeChangeDictItem" @current-change="handleCurrentChangeDictItem"
+                         :current-page="dictItemQueryParams.page" :page-sizes="[5, 10, 15, 20]" :page-size="dictItemQueryParams.rows" layout="total, sizes, prev, pager, next, jumper"
+                         :total="dictItemQueryParams.total">
+          </el-pagination>
+
+          <!--数据表格 end-->
+        </div>
+      </el-drawer>
 
 
-    <!--这是字典项添加和修改弹出-->
-    <el-dialog top="20vh" width="50%" :title="dictItemDialogTitle" :visible="dictItemDialogFormVisible" @close="doCancel('dictItemDialogFormVisible', 'dictItemForm')">
-      <el-form :model="dictItemForm" :rules="dictItemRules" ref="dictItemForm">
-        <el-form-item label="名称" prop="title" :label-width="formLabelWidthDictItem">
-          <el-input v-model="dictItemForm.title" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="数据值" prop="value" :label-width="formLabelWidthDictItem">
-          <el-input v-model="dictItemForm.value" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="描述" prop="description" :label-width="formLabelWidthDictItem">
-          <el-input v-model="dictItemForm.description" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="排序值" prop="sequence" :label-width="formLabelWidthDictItem">
-          <el-input-number v-model="dictItemForm.sequence" controls-position="right" :min="1" :max="10"></el-input-number>&nbsp;&nbsp;&nbsp;值越小越靠前
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="doCancel('dictItemDialogFormVisible', 'dictItemForm')">关闭</el-button>
-        <el-button type="primary" @click="doSubmitDictItem">确 定</el-button>
-      </div>
-    </el-dialog>
+      <!--这是字典项添加和修改弹出-->
+      <el-dialog top="20vh" width="50%" :title="dictItemDialogTitle" :visible="dictItemDialogFormVisible" @close="doCancel('dictItemDialogFormVisible', 'dictItemForm')">
+        <el-form :model="dictItemForm" :rules="dictItemRules" ref="dictItemForm">
+          <el-form-item label="名称" prop="title" :label-width="formLabelWidthDictItem">
+            <el-input v-model="dictItemForm.title" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="数据值" prop="value" :label-width="formLabelWidthDictItem">
+            <el-input v-model="dictItemForm.value" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="描述" prop="description" :label-width="formLabelWidthDictItem">
+            <el-input v-model="dictItemForm.description" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="排序值" prop="sequence" :label-width="formLabelWidthDictItem">
+            <el-input-number v-model="dictItemForm.sequence" controls-position="right" :min="1" :max="10"></el-input-number>&nbsp;&nbsp;&nbsp;值越小越靠前
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="doCancel('dictItemDialogFormVisible', 'dictItemForm')">关闭</el-button>
+          <el-button type="primary" @click="doSubmitDictItem">确 定</el-button>
+        </div>
+      </el-dialog>
 
-  </div>
+  </el-main>
 </template>
 
 <script>

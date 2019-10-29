@@ -2,6 +2,8 @@ package com.p2pInternetloan.sys.dao;
 
 import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.sys.entity.User;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Set;
@@ -77,6 +79,27 @@ public interface UserDao {
      */
     int deleteById(Integer userid);
 
+    /**
+     * 获取最多id
+     * @return
+     */
+    Integer getMaxId();
+
+    /**
+     * 添加用户角色绑定
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    @Insert("insert into user_role values(#{userId},#{roleId});")
+    int addUserRole(@Param("userId") Integer userId, @Param("roleId") Integer roleId);
+
+    /**
+     * 根据用户id除用户角色绑定
+     * @param userId
+     * @return
+     */
+    int delUserRoleByUserId(Integer userId);
 
     /**
      * 修改用户密码
@@ -84,5 +107,6 @@ public interface UserDao {
      * @return
      */
     int updatePwd(User user);
+
 
 }

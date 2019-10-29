@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 
-
-
 //VUex
 
 ////////////       这是前台的页面导入 （开始） /////////////////////////////////////////
@@ -65,17 +63,7 @@ export default new Router({
   routes: [
     /////////////////////// 这是前台路由挂载 （开始） ///////////////////////
     {
-      path: '/Register',
-      name: 'Register',
-      component: Register
-    },
-    {
-      path: '/Login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/',
+      path: '/ds',
       name: 'Main',
       component: Main,
       children:[
@@ -148,7 +136,7 @@ export default new Router({
     /////////////////////// 这是前台路由挂载 （结束） ///////////////////////
     /////////////////////// 这是后台路由挂载 （开始） ///////////////////////
      {
-      path: '/ds',
+      path: '/',
       name: 'BackstageMain',
       component: BackstageMain,
       children:[

@@ -1,18 +1,14 @@
 package com.p2pInternetloan.setting.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
+import com.p2pInternetloan.base.utils.PageUtils;
+import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.setting.entity.Setting;
 import com.p2pInternetloan.setting.service.SettingService;
 import org.springframework.web.bind.annotation.*;
-import com.p2pInternetloan.base.utils.Query;
-import com.p2pInternetloan.base.utils.PageUtils;
-import sun.text.normalizer.UTF16;
 
-import java.util.Map;
 import javax.annotation.Resource;
-import javax.xml.transform.Source;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 /**
  * (Setting)表控制层

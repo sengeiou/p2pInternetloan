@@ -60,7 +60,7 @@ public class MyStatelessRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        log.info("————权限认证 [ roles、permissions]————");
+        log.info("————权限授权 [ roles、permissions]————");
         //用户实体类对象
         User user = null;
         String userName = null;
@@ -134,6 +134,10 @@ public class MyStatelessRealm extends AuthorizingRealm {
      * 6、每次当返回为true情况下，都会给Response的Header中设置Authorization，该Authorization映射的v为cache对应的v值。
      * 7、注：当前端接收到Response的Header中的Authorization值会存储起来，作为以后请求token使用
      * 参考方案：https://blog.csdn.net/qq394829044/article/details/82763936
+     *
+     * 客户端的令牌对于reids中的key
+     *
+     * reids key jwt value jwt
      *
      * @param userName
      * @param passWord

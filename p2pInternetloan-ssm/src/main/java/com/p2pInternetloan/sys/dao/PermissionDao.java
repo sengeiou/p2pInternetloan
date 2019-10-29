@@ -63,4 +63,21 @@ public interface PermissionDao {
      */
     List<Menu> queryChildern(@Param("pid") Integer pid, @Param("userId")Integer userId);
 
+    /**
+     * 这是根据父id找子菜单
+     * @param pid
+     * @return
+     */
+    List<Menu> queryModules(@Param("pid") Integer pid);
+
+
+    /**
+     * 这是查出角色所拥有的权限 id
+     * @param roleId
+     * @return
+     */
+    List<Integer> queryIdByRole(@Param("roleId") Integer roleId);
+
+
+
 }

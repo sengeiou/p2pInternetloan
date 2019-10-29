@@ -9,5 +9,7 @@ export default{
   options: [],
   activeIndex: '',
   showName:'show',
-  role:""
+  role:"",
+  //这是保持用户权限数组的
+  permission:['add']
 }

@@ -5,6 +5,7 @@ import com.p2pInternetloan.sys.dao.RoleDao;
 import com.p2pInternetloan.sys.entity.Role;
 import com.p2pInternetloan.sys.service.RoleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -43,15 +44,32 @@ public class RoleServiceImpl implements RoleService {
         return this.roleDao.queryPager(query);
     }
 
-    /**
-     * 新增数据
-     *
-     * @param role 实例对象
-     * @return 实例对象
-     */
+
     @Override
-    public int insert(Role role) {
+    public Role queryByCoding(String coding) {
+        return this.roleDao.queryByCoding(coding);
+    }
+
+    @Override
+    @Transactional
+    public int insert(Role role, String permissionIds) {
+        //添加角色
         return this.roleDao.insert(role);
+    }
+
+    @Override
+    public int authorization(Integer roleId, String permissionIds) {
+        //重新绑定角色权限
+        this.roleDao.delRolePermissionByRoleId(roleId);
+
+        if(permissionIds != null && permissionIds.length() > 0){
+            //重新绑定
+            String[] ids = permissionIds.split(",");
+            for (int i = 0; i < ids.length; i++) {
+                this.roleDao.addRolePermission(roleId, Integer.parseInt(ids[i]));
+            }
+        }
+        return 1;
     }
 
     /**
@@ -61,7 +79,9 @@ public class RoleServiceImpl implements RoleService {
      * @return 实例对象
      */
     @Override
-    public int update(Role role) {
+    @Transactional
+    public int update(Role role,String permissionIds) {
+        //修改当前角色
         return this.roleDao.update(role);
     }
 
@@ -73,6 +93,8 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public int deleteById(Integer roleId) {
+        //删除角色的权限绑定数据
+        this.roleDao.delRolePermissionByRoleId(roleId);
         return this.roleDao.deleteById(roleId);
     }
 
@@ -84,6 +106,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Map> getRoleSelect() {
         return this.roleDao.getRoleSelect();
+    }
+
+    @Override
+    public int addRolePermission(Integer roleId, Integer perId) {
+        return this.roleDao.addRolePermission(roleId, perId);
     }
 
 
