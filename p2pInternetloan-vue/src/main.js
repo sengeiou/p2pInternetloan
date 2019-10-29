@@ -14,6 +14,8 @@ import 'font-awesome/css/font-awesome.css'
 //引用echarts
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts;
+// import packedAxios from "./axios";
+// Vue.use(packedAxios); //使用this.$http代替封装好的axios
 
 //开发环境下才会引入mockjs
 // process.env.MOCK && require('@/mock')

@@ -10,7 +10,7 @@
         <result property="bornDate" column="born_date" jdbcType="TIMESTAMP"/>
         <result property="idNumber" column="id_number" jdbcType="VARCHAR"/>
         <result property="address" column="address" jdbcType="VARCHAR"/>
-        <result property="state" column="state" jdbcType="OTHER"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
         <result property="image1" column="image1" jdbcType="VARCHAR"/>
         <result property="image2" column="image2" jdbcType="VARCHAR"/>
         <result property="remark" column="remark" jdbcType="VARCHAR"/>

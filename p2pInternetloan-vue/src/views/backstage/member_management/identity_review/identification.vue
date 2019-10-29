@@ -85,7 +85,7 @@
         <el-form-item label="身份证正面图片" prop="image1" :label-width="formLabelWidth">
           <el-input v-model="tableForm.image1" autocomplete="off" disabled="false"></el-input>
         </el-form-item>
-        <el-form-item label="身份证反面面图片" prop="image2" :label-width="formLabelWidth">
+        <el-form-item label="身份证反面图片" prop="image2" :label-width="formLabelWidth">
           <el-input v-model="tableForm.image2" autocomplete="off" disabled="false"></el-input>
         </el-form-item>
       </el-form>
@@ -103,7 +103,7 @@
       :visible.sync="drawer"
       :direction="rtl"
       custom-class="sys-dict-item-drawer"
-      size="50%"
+      size="60%"
       :before-close="handleCloseDrawer">
       <hr>
       <div style="margin: 10px;" :title="dialogTitle" :visible="dialogFormVisible" @close="doCancel">
@@ -129,14 +129,14 @@
           <el-form-item label="身份证正面图片路径" prop="image1" :label-width="formLabelWidth">
             <el-input v-model="tableForm.image1" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="身份证反面面图片路径" prop="image2" :label-width="formLabelWidth">
+          <el-form-item label="身份证反面图片路径" prop="image2" :label-width="formLabelWidth">
             <el-input v-model="tableForm.image2" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="审核时间" prop="audit_time" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.audit_time" autocomplete="off"></el-input>
+          <el-form-item label="审核时间" prop="auditTime" :label-width="formLabelWidth">
+            <el-input v-model="tableForm.auditTime" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="申请时间" prop="apply_time" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.apply_time" autocomplete="off"></el-input>
+          <el-form-item label="申请时间" prop="applyTime" :label-width="formLabelWidth">
+            <el-input v-model="tableForm.applyTime" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="备注" prop="remark" :label-width="formLabelWidth">
             <el-input v-model="tableForm.remark" autocomplete="off"></el-input>
@@ -197,19 +197,8 @@
                     address:null,
                     remark:null,
                     state:null,
-                },
-                //表单验证
-                rules:{
-                  sn:[{
-                    required: true,
-                    message: '请输入字典编码',
-                    trigger: 'blur'
-                  }],
-                  title:[{
-                    required: true,
-                    message: '请输入字典名称',
-                    trigger: 'blur'
-                  }]
+                    auditTime:null,
+                    applyTime:null,
 
                 },
                 //填充是否显示
@@ -218,7 +207,7 @@
                 direction: 'rtl',
                 //这是查询参数分装
                 dictItemQueryParams:{
-                    parentid:null,
+                    c:null,
                     title:null,
                     // 分页
                     page: 1,
@@ -242,7 +231,7 @@
                 this.loading = true;
                 //向后端请求数据
                 this.axios.get(url,{params:params}).then(response => {
-                    this.dataList = response.data.data
+                    this.dataList = response.data.data;
                     this.queryParams.total = response.data.total;
                     //数据查询到了关闭查询动画
                     this.loading = false;
@@ -385,7 +374,17 @@
             showSysdictItem: function(id, row){
                 this.drawer = true;
                 this.dictItemQueryParams.parentid = row.id;
-                this.tableForm.address = "1";
+                this.tableForm.audittime = row.audittime;
+                this.tableForm.id = row.id;
+                this.tableForm.realname = row.realname;
+                this.tableForm.sex = row.sex;
+                this.tableForm.bornDate = row.bornDate;
+                this.tableForm.idNumber = row.idNumber;
+                this.tableForm.address = row.address;
+                this.tableForm.remark = row.remark;
+                this.tableForm.image1 = row.image1;
+                this.tableForm.image2 = row.image2;
+                this.tableForm.state = row.state;
 
             },
         },

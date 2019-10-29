@@ -50,12 +50,22 @@ export default {
 
   //会员材料认证
   "MEMBERS_MAT_QUERYPAGER":"/membersMaterials/mat/queryPager",
+  "MEMBERS_MAT_UPDATE":"/membersMaterials/mat/update",
 
 
 
   //会员账户管理
-  // membersAccount/account
   "MEMBERS_ACCOUNT_QUERYPAGER":"/membersAccount/account/queryPager",
+  "MEMBERS_ACCOUNT_QUERYBYID":"/membersAccount/account/queryById",
+
+
+  //个人资料
+
+  "MEMBERS_DETA_UPDATE":"/membersDetail/deta/update",
+  "MEMBERS_DETA_QUERYBYID":"/membersDetail/deta/queryById",
+  // "MEMBERS_DETA_QUERYPAGER":"/membersDetail/deta/queryById",
+
+
 
 
 
@@ -69,6 +79,10 @@ export default {
   ///////////// 业务模块请求配置  end /////////////
 
   ///////////// 资产模块请求配置  start /////////////
+  // assets/moneyRecharge
+  "MEMBERS_MONEYRECHARGE_QUERYPAGER":"/assets/moneyRecharge/queryPager",
+  "MEMBERS_MONEYRECHARGE_QUERYGET":"/assets/moneyRecharge/queryByid",
+
   ///////////// 资产模块请求配置  end /////////////
 
   'getFullPath': k => { //获得请求的完整地址，用于mockjs测试时使用

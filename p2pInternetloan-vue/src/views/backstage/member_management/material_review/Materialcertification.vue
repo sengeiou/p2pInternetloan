@@ -27,8 +27,6 @@
       </el-table-column>
       <el-table-column prop="state" label="状态" min-width="3">
       </el-table-column>
-<!--      <el-table-column prop="remark" label="审核备注" min-width="3">-->
-<!--      </el-table-column>-->
       <el-table-column prop="auditTime" label="审核时间" min-width="3">
       </el-table-column>
       <el-table-column prop="applyTime" label="申请时间" min-width="3">
@@ -41,13 +39,9 @@
       </el-table-column>
       <el-table-column prop="file" label="审核人id" min-width="3">
       </el-table-column>
-      <el-table-column prop="image" label="审核人id" min-width="3">
-      </el-table-column>
-
       <el-table-column label="操作" min-width="3">
         <template slot-scope="scope">
-          <el-button type="text" size="small"  @click="showSysdictItem(scope.$index, scope.row)">详情</el-button>
-          <el-button @click="" type="text" size="small" @click="certified(scope.$index, scope.row)">认证</el-button>
+          <el-button @click="" type="text" size="small" @click="certified(scope.$index, scope.row)" v-if=" scope.row.state == 1">认证</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -62,26 +56,20 @@
     <!--这是 添加 修改 弹出 -->
     <el-dialog top="20vh" width="50%" :title="dialogTitle" :visible="dialogFormVisible" @close="doCancel">
       <el-form :model="tableForm" :rules="rules" ref="tableForm">
-        <el-form-item label="真实姓名" prop="realname" :label-width="formLabelWidth" disabled="false">
-          <el-input v-model="tableForm.realname" autocomplete="off" disabled="false"></el-input>
+        <el-form-item label="用户名" prop="membersId" :label-width="formLabelWidth" disabled="false">
+          <el-input v-model="tableForm.membersId" autocomplete="off" disabled="false"></el-input>
         </el-form-item>
-        <el-form-item label="性别" prop="sex" :label-width="formLabelWidth">
-          <el-input v-model="tableForm.sex" autocomplete="off" disabled="false"></el-input>
+        <el-form-item label="材料得分" prop="score" :label-width="formLabelWidth">
+          <el-input v-model="tableForm.score" autocomplete="off" disabled="false"></el-input>
         </el-form-item>
-        <el-form-item label="出生日期" prop="bornDate" :label-width="formLabelWidth">
-          <el-input v-model="tableForm.bornDate" autocomplete="off" disabled="false"></el-input>
+        <el-form-item label="文件路径" prop="file" :label-width="formLabelWidth">
+          <el-input v-model="tableForm.file" autocomplete="off" disabled="false"></el-input>
         </el-form-item>
-        <el-form-item label="身份证号码" prop="idNumber" :label-width="formLabelWidth">
-          <el-input v-model="tableForm.idNumber" autocomplete="off" disabled="false"></el-input>
+        <el-form-item label="资料图片" prop="image" :label-width="formLabelWidth">
+          <el-input v-model="tableForm.image" autocomplete="off" disabled="false"></el-input>
         </el-form-item>
-        <el-form-item label="证件地址" prop="address" :label-width="formLabelWidth">
-          <el-input v-model="tableForm.address" autocomplete="off" disabled="false"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证正面图片" prop="image1" :label-width="formLabelWidth">
-          <el-input v-model="tableForm.image1" autocomplete="off" disabled="false"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证反面面图片" prop="image2" :label-width="formLabelWidth">
-          <el-input v-model="tableForm.image2" autocomplete="off" disabled="false"></el-input>
+        <el-form-item label="审核备注" prop="remark" :label-width="formLabelWidth">
+          <el-input v-model="tableForm.remark" autocomplete="off" disabled="false"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -90,55 +78,6 @@
 
       </div>
     </el-dialog>
-
-
-<!--    详情列表抽屉-->
-    <el-drawer
-      title="详情列表"
-      :visible.sync="drawer"
-      :direction="rtl"
-      custom-class="sys-dict-item-drawer"
-      size="50%"
-      :before-close="handleCloseDrawer">
-      <hr>
-      <div style="margin: 10px;" :title="dialogTitle" :visible="dialogFormVisible" @close="doCancel">
-        <el-form >
-          <el-form-item label="真实姓名" prop="realname" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.realname" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="性别" prop="sex" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.sex" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="出生日期" prop="bornDate" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.bornDate" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="身份证号码" prop="idNumber" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.idNumber" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="证件地址" prop="address" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.address" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="审核状态" prop="state" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.state" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="身份证正面图片路径" prop="image1" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.image1" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="身份证反面面图片路径" prop="image2" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.image2" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="审核时间" prop="audit_time" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.audit_time" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="申请时间" prop="apply_time" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.apply_time" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="备注" prop="remark" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.remark" autocomplete="off"></el-input>
-          </el-form-item>
-        </el-form>
-      </div>
-    </el-drawer>
   </div>
 </template>
 
@@ -162,6 +101,7 @@
                 //这是查询参数
                 queryParams: {
                     //定义搜索维度
+                    id:null,
                     state:null,
                     applyTime:null,
                     // 分页
@@ -184,13 +124,11 @@
                 //弹出 form 数据动态绑定 用于添加和修改提交
                 tableForm:{
                     id:null,
-                    realname:null,
-                    sex:null,
-                    bornDate:null,
-                    idNumber:null,
-                    address:null,
+                    membersId:null,
+                    score:null,
+                    file:null,
+                    image:null,
                     remark:null,
-                    state:null,
                 },
                 //表单验证
                 rules:{
@@ -206,10 +144,6 @@
                   }]
 
                 },
-
-
-
-
                 //填充是否显示
                 drawer: false,
                 //从那边弹出
@@ -223,8 +157,6 @@
                     rows: 10,
                     total: 0,
                 },
-                //这是弹出 框标题
-                // dialogTitle:null
             }
         },
         methods:{
@@ -233,21 +165,21 @@
                 this.search();
             },
             //这是搜索的方法
-            // search: function() {
-            //     let url = this.axios.urls.MEMBERS_MEN_QUERYPAGER;
-            //     let params = this.queryParams;
-            //     //查询动画
-            //     this.loading = true;
-            //     //向后端请求数据
-            //     this.axios.get(url,{params:params}).then(response => {
-            //         this.dataList = response.data.data
-            //         this.queryParams.total = response.data.total;
-            //         //数据查询到了关闭查询动画
-            //         this.loading = false;
-            //     }).catch(function(error) {
-            //         console.log(error);
-            //     });
-            // },
+            search: function() {
+                let url = this.axios.urls.MEMBERS_MAT_QUERYPAGER;
+                let params = this.queryParams;
+                //查询动画
+                this.loading = true;
+                //向后端请求数据
+                this.axios.get(url,{params:params}).then(response => {
+                    this.dataList = response.data.data
+                    this.queryParams.total = response.data.total;
+                    //数据查询到了关闭查询动画
+                    this.loading = false;
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            },
             //添加前期调用方法，打开太弹出
             handleAdd: function() {
                 this.dialogTitle = "添加"
@@ -255,16 +187,12 @@
             },
             //修改前期调用方法，给表单回显对应数据 并打开弹出
             certified: function(id, row) {
-                this.dialogTitle = "认证";
-                this.tableForm.realname = row.realname;
-                this.tableForm.sex = row.sex;
-                this.tableForm.bornDate = row.bornDate;
-                this.tableForm.idNumber = row.idNumber;
-                this.tableForm.address = row.address;
+                this.tableForm.id = row.membersId;
+                this.tableForm.membersId = row.membersId;
+                this.tableForm.score = row.score;
+                this.tableForm.file = row.file;
+                this.tableForm.image = row.image;
                 this.tableForm.remark = row.remark;
-                this.tableForm.image1 = row.image1;
-                this.tableForm.image2 = row.image2;
-                this.tableForm.state = row.state;
 
                 this.dialogFormVisible = true;
             },
@@ -281,91 +209,69 @@
                 this.search();
             },
             //这是修改状态的方法
-            doSubmit: function() {
+            doSubmit: function(row) {
                 this.$refs['tableForm'].validate((valid) => {
-                         var url = null;
-                         url = this.axios.urls.SYSTEM_DICT_UPDATE;
-                          var obj  = {};
-                          obj.state = 2;
-                          obj.id = 1;
-
-                        //发送请求
-                        this.axios.post(url, obj).then(response => {
-                                //这里是操作成功
-                                this.doClearForm();
-                                this.dialogFormVisible = false;
-                                //重新查找
-                                this.search();
-                                //打印成功信息
-                                this.$message({
-                                    message: '恭喜认证成功了',
-                                    type: 'success'
-                                });
-                        }).catch(function(error) {
-                            console.log(error);
+                    var url = null;
+                    url = this.axios.urls.MEMBERS_MAT_UPDATE;
+                    //发送请求
+                    this.axios.post(url,{
+                        id: this.tableForm.id,
+                        state: 0
+                    }).then(response => {
+                        //这里是操作成功
+                        this.doClearForm();
+                        this.dialogFormVisible = false;
+                        //重新查找
+                        this.search();
+                        //打印成功信息
+                        this.$message({
+                            message: '恭喜认证成功了',
+                            type: 'success'
                         });
-
-                });
-            },
-            // Submit: function() {
-            //     this.$refs['tableForm'].validate((valid) => {
-            //         var url = null;
-            //         url = this.axios.urls.SYSTEM_DICT_UPDATE;
-            //         //发送请求
-            //         this.axios.post(url, this.tableForm).then(response => {
-            //
-            //             this.dialogFormVisible = false;
-            //             //重新查找
-            //             this.search();
-            //             //打印成功信息
-            //             this.$message({
-            //                 message: '错了哦认证失败',
-            //                 type: 'warning'
-            //             });
-            //         }).catch(function(error) {
-            //             console.log(error);
-            //         });
-            //
-            //     });
-            // },
-            //这是删除的方法
-            del:function(id, row){
-                this.$confirm('你确定要哦删除吗?', '警告', {
-                    //定义两个按钮 确定和取消
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    //删除
-                    var url = this.axios.urls.MEMBERS_MEN_DEL + row.id;
-                    this.axios.post(url, {}).then(response => {
-                        if (response.data.code == 500) {
-                            this.$message({
-                                message: response.data.msg,
-                                type: 'warning'
-                            });
-                        } else {
-                            this.$message({
-                                message: response.data.msg,
-                                type: 'success'
-                            });
-                            this.search();
-                        }
-
                     }).catch(function(error) {
                         console.log(error);
                     });
-                }).catch(() => {});
+
+                });
             },
+            Submit: function(row) {
+                debugger
+                this.$refs['tableForm'].validate((valid) => {
+                    var url = null;
+                    url = this.axios.urls.MEMBERS_MAT_UPDATE;
+
+
+                    //发送请求
+                    this.axios.post(url, {
+                        id: this.tableForm.id,
+                        state: 2
+                    }).then(response => {
+                        //这里是操作成功
+                        this.doClearForm();
+                        this.dialogFormVisible = false;
+                        //重新查找
+                        this.search();
+                        //打印成功信息
+                        this.$message({
+                            message: '错了哦认证失败',
+                            type: 'warning'
+                        });
+                    }).catch(function(error) {
+                        console.log(error);
+                    });
+
+                });
+            },
+
             //清空表单是数据
             doClearForm: function() {
                 this.$refs['tableForm'].resetFields();
-                this.tableForm.realname = null;
-                this.tableForm.sex = null;
-                this.tableForm.bornDate = null;
-                this.tableForm.idNumber = null;
-                this.tableForm.address = null;
+                this.tableForm.membersId = null;
+                this.tableForm.score = null;
+                this.tableForm.file = null;
+                this.tableForm.image = null;
                 this.tableForm.remark = null;
+
             },
             //清空表单数据，并且关闭弹出
             doCancel: function() {
