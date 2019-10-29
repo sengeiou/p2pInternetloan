@@ -39,7 +39,6 @@ export default {
 
 
   //会员账户管理
-  // membersAccount/account
   "MEMBERS_ACCOUNT_QUERYPAGER":"/membersAccount/account/queryPager",
 
 
@@ -54,6 +53,10 @@ export default {
   ///////////// 业务模块请求配置  end /////////////
 
   ///////////// 资产模块请求配置  start /////////////
+  // assets/moneyRecharge
+  "MEMBERS_MONEYRECHARGE_QUERYPAGER":"/assets/moneyRecharge/queryPager",
+  "MEMBERS_MONEYRECHARGE_QUERYGET":"/assets/moneyRecharge/queryByid",
+
   ///////////// 资产模块请求配置  end /////////////
 
   'getFullPath': k => { //获得请求的完整地址，用于mockjs测试时使用

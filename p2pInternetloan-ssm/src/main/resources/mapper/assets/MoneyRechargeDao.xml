@@ -22,30 +22,26 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryPager" resultMap="MoneyRechargeMap">
         select
-          id, a.trade_code, a.trade_time, a.amount, a.members_id,b.name,c.id_number,
-        from money_recharge a,members b,members_realname c
+          a.id, a.trade_code, a.trade_time, a.amount, a.members_id,b.name
+        from money_recharge a,members b
         <where>
-                <if test="id != null">
-                and a.id = #{b.id} and a.id = #{c.id} and b.id = c.id
-                order by a.id;
-            </if>   
-                <if test="tradeCode != null and tradeCode != ''">
-                and a.trade_code like concat('%', #{a.tradeCode}, '%')
-            </if>            
-                <if test="tradeTime != null">
-                and a.trade_time = #{a.tradeTime}
-            </if>   
+            <if test="id != null">
+                and a.trade_code like concat('%', #{tradeCode}, '%')
+            </if>
+            <if test="tradeCode != null and tradeCode != ''">
+                and a.trade_code like concat('%', #{tradeCode}, '%')
+            </if>
+             <if test="tradeTime != null">
+                and a.trade_time like concat('%', #{trade_time}, '%')
+            </if>
                 <if test="amount != null">
-                and a.amount = #{a.amount}
-            </if>   
+                and a.amount = #{amount}
+            </if>
                 <if test="membersId != null">
-                and a.members_id = #{a.membersId}
+                and a.members_id = #{membersId}
             </if>
                 <if test="name != null and name != ''">
-                and b.name like concat('%', #{b.name}, '%')
-            </if>
-                <if test="id_number != null and id_number != ''">
-                and c.id_number like concat('%', #{c.id_number}, '%')
+                and b.name like concat('%', #{name}, '%')
             </if>
         </where>
     </select>

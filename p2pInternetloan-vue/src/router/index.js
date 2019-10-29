@@ -37,6 +37,10 @@ import Login from "../views/front_desk/Login";
 
 ////////////       这是个人中心的页面导入 (开始） /////////////////////////////////////////
 import test from "../views/front_desk/personal_center/account_management/test";
+////////////        用户提现充值记录   ///////////////////////////
+import transaction_record from "../views/front_desk/personal_center/asset_management/transaction_record";
+////////////          用户提现      ///////////////////////////
+import money_withdraw from "../views/front_desk/personal_center/asset_management/money_withdraw";
 ////////////       这是个人中心的页面导入 （结束） /////////////////////////////////////////
 
 ////////////       这是后台的页面导入 （开始） /////////////////////////////////////////
@@ -47,6 +51,10 @@ import BackstageMain from "@/views/backstage/BackstageMain";
 import UserManagement from "@/views/backstage/system_management/UserManagement";
 import RoleManagement from "@/views/backstage/system_management/RoleManagement";
 import MenuManagement from "@/views/backstage/system_management/MenuManagement";
+//设置管理
+import setting  from  "@/views/backstage/setting/setting";
+//用户提现管理
+import usertxt from "../views/backstage/financial_management/cash_withdrawal_management/usertxt";
 //数据字段
 import DataDictionary from "../views/backstage/system_management/DataDictionary";
 
@@ -139,10 +147,21 @@ export default new Router({
             }
           ]
         },{
+          //用户提现充值记录
+          path: '/transaction_record',
+          name: 'transaction_record',
+          component: transaction_record
+        },{
           path: '/AboutUs',
           name: 'AboutUs',
           component: AboutUs
-        }
+        },{
+          path: '/money_withdraw',
+          name: 'money_withdraw',
+          component: money_withdraw
+        },
+
+
       ]
     },
     /////////////////////// 这是前台路由挂载 （结束） ///////////////////////
@@ -182,7 +201,18 @@ export default new Router({
           path: '/management',
           name: 'management',
           component: management
-        }
+        },{
+          path: '/setting',
+          name: 'setting',
+          component: setting,
+
+        },{
+          path: '/usertxt',
+          name: 'usertxt',
+          component: usertxt
+        },
+
+
       ]
     }
     /////////////////////// 这是后台路由挂载 （结束） ///////////////////////

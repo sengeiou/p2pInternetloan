@@ -18,6 +18,7 @@
     <!-- 数据表格-->
     <el-table :data="dictList"  height="440" :fit="true" :show-header="true" v-loading="loading">
       <el-table-column  prop="id" label="#" min-width="1">
+
       </el-table-column>
       <el-table-column prop="title" label="菜单名称" min-width="3">
       </el-table-column>

@@ -44,6 +44,16 @@ public class MoneyRechargeController {
          return new PageUtils(list, query.getTotal());
     }
 
+    /**
+     * 查单个
+     * @param moneyrechargeid
+     * @return
+     */
+    @GetMapping("queryByid")
+    public MoneyRecharge queryById(Integer moneyrechargeid){
+
+        return this.moneyRechargeService.queryById(moneyrechargeid);
+    }
 
     /**
      * (充值)向会员账户余额表和充值记录表插入数据

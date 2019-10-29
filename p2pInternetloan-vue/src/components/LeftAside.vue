@@ -5,7 +5,7 @@
 		<div class="logobox">
 			<img class="logoimg" src="../assets/img/logo.png" alt="">
 		</div>
-		<el-menu-item index="/identification">
+		<el-menu-item index="/setting">
 			<i class="el-icon-s-home"></i>
 			<span>首页</span>
 		</el-menu-item>
