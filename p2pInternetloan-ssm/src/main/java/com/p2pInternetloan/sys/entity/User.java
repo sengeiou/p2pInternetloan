@@ -4,6 +4,7 @@ import com.p2pInternetloan.base.aspect.annotation.Dict;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * (User)实体类
@@ -28,7 +29,26 @@ public class User implements Serializable {
     @Dict(dicCode = "sy")
     private Integer userFlag;
 
-    
+    private List<Integer> roleIds;
+    private String roleNames;
+
+
+    public List<Integer> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Integer> roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public String getRoleNames() {
+        return roleNames;
+    }
+
+    public void setRoleNames(String roleNames) {
+        this.roleNames = roleNames;
+    }
+
     public Integer getUserId() {
         return userId;
     }

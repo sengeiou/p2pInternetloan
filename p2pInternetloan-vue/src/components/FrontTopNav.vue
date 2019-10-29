@@ -10,7 +10,7 @@
     <el-form style="background-color: rgb(255, 255, 255);" label-width="100px">
       <el-row>
         <el-menu style="text-align: center;" mode="horizontal" background-color="#4993f4" router="true">
-          <el-menu-item route="/Home" style="height: 86px; color: rgb(244, 237, 237); background-color: rgb(62, 143, 248); font-size: 18px; text-align: center; margin-left: 662px; margin-top: 0px;" index="3">首页</el-menu-item>
+          <el-menu-item style="height: 86px; color: rgb(244, 237, 237); background-color: rgb(62, 143, 248); font-size: 18px; text-align: center; margin-left: 662px; margin-top: 0px;" index="3">首页</el-menu-item>
           <el-menu-item route="/Investment"  style="height: 86px; color: rgb(244, 237, 237); background-color: rgb(62, 143, 248); font-size: 18px; text-align: center;" index="4">我要投资</el-menu-item>
           <el-menu-item route="/Loan" style="height: 86px; color: rgb(244, 237, 237); background-color: rgb(62, 143, 248); font-size: 18px; text-align: center;" index="5">我要借款</el-menu-item>
           <el-menu-item route="/PersonalCenterMain" style="height: 86px; color: rgb(244, 237, 237); background-color: rgb(62, 143, 248); font-size: 18px; text-align: center;" index="6">个人中心</el-menu-item>
@@ -24,8 +24,15 @@
 
 <script>
     import commonUtils from "../api/commonUtils";
+    import {directive} from "../utils/directive"
+
     export default {
         name: "FrontTopNav",
+        data(){
+            return{
+                name:'zs'
+            }
+        },
         methods:{
             itemClick (tab){
                 let path = this.activeIndex;

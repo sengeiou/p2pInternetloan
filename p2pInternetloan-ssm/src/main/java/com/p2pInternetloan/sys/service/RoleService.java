@@ -27,9 +27,10 @@ public interface RoleService {
      * 新增数据
      *
      * @param role 实例对象
+     * @param permissionIds 角色要绑定的权限
      * @return 添加行数
      */
-     int insert(Role role);
+     int insert(Role role, String permissionIds);
 
     /**
      * 通过query对象查询
@@ -44,9 +45,10 @@ public interface RoleService {
      * 修改数据
      *
      * @param role 实例对象
+     * @param permissionIds 这是要绑定的权限id数据
      * @return 修改行数
      */
-     int update(Role role);
+     int update(Role role, String permissionIds );
 
     /**
      * 通过主键删除数据
@@ -64,7 +66,12 @@ public interface RoleService {
      */
     Role queryByName(String roleName);
 
-
+    /**
+     * 根据指定的角色编码查询角色
+     * @param coding
+     * @return
+     */
+    Role queryByCoding(String coding);
 
     /**
      * 获取角色下拉
@@ -73,5 +80,21 @@ public interface RoleService {
     List<Map> getRoleSelect();
 
 
+
+    /**
+     * 添加角色权限绑定
+     * @param roleId
+     * @param perId
+     * @return
+     */
+    int addRolePermission(Integer roleId, Integer perId);
+
+    /**
+     * 角色授权的方法
+     * @param roleId
+     * @param permissionIds
+     * @return
+     */
+    int authorization(Integer roleId, String permissionIds);
 
 }

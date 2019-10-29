@@ -23,7 +23,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryPager" resultMap="UserMap">
         select
-          user_id, user_name, password, salt, createdate, user_flag
+          user_id, user_name, createdate, user_flag
         from user
         <where>
             <if test="userId != null">
@@ -66,12 +66,16 @@
         from user
         where user_name = #{userName}
     </select>
+    <select id="getMaxId" resultType="java.lang.Integer">
+        select max(user_id) from user
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
         insert into user(user_name, password, salt, createdate, user_flag)
         values (#{userName}, #{password}, #{salt}, #{createdate}, #{userFlag})
     </insert>
+
 
     <!--通过主键修改数据-->
     <update id="update">
@@ -96,9 +100,18 @@
         where user_id = #{userId}
     </update>
 
+
+    <!--修改用户密码-->
+    <update id="updatePwd">
+        update user set password = #{password}, salt = #{salt} where user_id = #{userId}
+    </update>
+
     <!--通过主键删除-->
     <delete id="deleteById">
         delete from user where user_id = #{userId}
     </delete>
-    
+    <delete id="delUserRoleByUserId">
+        delete from user_role where user_id = #{userId}
+    </delete>
+
 </mapper>

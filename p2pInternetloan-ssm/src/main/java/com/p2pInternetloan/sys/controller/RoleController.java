@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -47,16 +48,23 @@ public class RoleController {
     /**
      * 添加角色
      * @param role
+     * @param permissionIds
      * @return
      */
     @ApiOperation(value = "角色添加")
     @PostMapping("add")
-    public R add(Role role){
+    public R add(Role role, String permissionIds){
         //判断角色是否重名
-        if(this.roleService.queryByName(role.getRoleName()) != null){
-            return R.error(-2 , "角色名重复");
+        if(this.roleService.queryByName(role.getRoleName()) != null) {
+            return R.error("角色名重复!!");
         }
-        return R.update(this.roleService.insert(role));
+        //判断角色编码是否重复
+        if(this.roleService.queryByCoding(role.getRoleCoding()) != null){
+            return R.error("角色编码重复!!");
+        }
+        //设置创建时间
+        role.setCreationTime(new Date());
+        return R.update(this.roleService.insert(role, permissionIds));
     }
 
 
@@ -67,24 +75,23 @@ public class RoleController {
      */
     @ApiOperation(value = "角色修改")
     @PostMapping("update")
-    public R update(Role role){
+    public R update(Role role,String permissionIds){
+        //找到数据库中对应的角色名
+        Role r = this.roleService.queryById(role.getRoleId());
         //判断角色是否重名
-        if(this.roleService.queryByName(role.getRoleName()) != null) {
-            return R.error(-2, "角色名重复");
+        if(this.roleService.queryByName(role.getRoleName()) != null && !r.getRoleName().equals(role.getRoleName())) {
+            return R.error("角色名重复!!");
         }
-        return R.update(this.roleService.update(role));
+        //判断角色编码是否重复
+        if(this.roleService.queryByCoding(role.getRoleCoding()) != null && !r.getRoleCoding().equals(role.getRoleCoding())){
+            return R.error("角色编码重复!!");
+        }
+
+        //设置修购时间
+        role.setUpdateTime(new Date());
+        return R.update(this.roleService.update(role, permissionIds));
     }
 
-    /**
-     * 修改角色状态
-     * @param role
-     * @return
-     */
-    @ApiOperation(value = " 修改角色状态")
-    @PostMapping("editStatu")
-    public R editStatu(Role role){
-        return R.update(this.roleService.update(role));
-    }
 
     /**
      * 获取角色下拉
@@ -104,5 +111,16 @@ public class RoleController {
     @PostMapping("del/{roleId}")
     public R del(@PathVariable("roleId") Integer roleId){
         return R.update(this.roleService.deleteById(roleId));
+    }
+
+    /**
+     * 角色授权
+     * @param roleId
+     * @param permissionIds
+     * @return
+     */
+    @PostMapping("authorization")
+    public R authorization(Integer roleId, String permissionIds){
+        return R.update(this.roleService.authorization(roleId, permissionIds));
     }
 }

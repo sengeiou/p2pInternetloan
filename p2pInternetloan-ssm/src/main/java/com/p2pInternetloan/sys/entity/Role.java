@@ -1,6 +1,7 @@
 package com.p2pInternetloan.sys.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (Role)实体类
@@ -14,12 +15,14 @@ public class Role implements Serializable {
     private Integer roleId;
     //角色名称
     private String roleName;
+    //角色编码
+    private String roleCoding;
     //角色描述
     private String roleDesc;
-    //角色标识: 0 不可用 1 可用
-    private Integer roleFlag;
-
-
+    //角色创建时间
+    private Date creationTime;
+    //角色更新时间
+    private Date updateTime;
     
     public Integer getRoleId() {
         return roleId;
@@ -44,13 +47,29 @@ public class Role implements Serializable {
     public void setRoleDesc(String roleDesc) {
         this.roleDesc = roleDesc;
     }
-    
-    public Integer getRoleFlag() {
-        return roleFlag;
+
+    public String getRoleCoding() {
+        return roleCoding;
     }
 
-    public void setRoleFlag(Integer roleFlag) {
-        this.roleFlag = roleFlag;
+    public void setRoleCoding(String roleCoding) {
+        this.roleCoding = roleCoding;
+    }
+
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public Role(String roleName) {

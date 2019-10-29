@@ -33,12 +33,14 @@ export default {
     }
     //打开弹出
     this.let_this[showDialogDataName] = true;
-    this.let_this[dialogTitleDataName] = "修改";
+    if(dialogTitleDataName){
+      this.let_this[dialogTitleDataName] = "修改";
+    }
   },
   /**
    * 这是关闭弹出并清空表单数据
    * @closeDialogDataName 这是要关闭弹出绑定是否占时数据的名字
-   * @param refForm 这是表单的 ref 属性值
+   * @param refForm 这是表单的 ref 属性值(表单的ref必须要和双向数据绑定的值一致)
    */
   doCancel: function(closeDialogDataName, refForm){
     //关闭弹出
@@ -54,16 +56,35 @@ export default {
     //表单对象
     var formObj = this.let_this.$refs[refForm] ;
     //表单数据对象
-    var formData = formObj.model;
+    var formData = formObj.model
     //清空数据
     for(var name in formData){
       formData[name] = null;
+    }
+    //继续清空
+    var modelObj = this.let_this[refForm];
+    for (var name in modelObj){
+      modelObj[name] = null;
     }
     //清空验证
     formObj.resetFields();
   },
   /**
-   * 这是发起ajax请求
+   * 这是发起ajax请求以 get 方式
+   * @param url 这是请求的理解
+   * @param data 这是请求的数据
+   * @param success 请求成功要回调的函数
+   */
+  doAjaxGet(url, data, success,error){
+    this.let_this.axios.get(url, {params:data}).then(response => {
+        // 执行成功回调
+        success(response.data)
+    }).catch(function(error) {
+        error(error);
+    });
+  },
+  /**
+   * 这是发起ajax请求 以 post 方式
    * @param url 这是请求的理解
    * @param data 这是请求的数据
    * @param success 请求成功要回调的函数
@@ -141,6 +162,17 @@ export default {
     for(var name in obj){
       obj[name] = value;
     }
+  },
+  arrToStr(arr){
+    var str = "";
+    for (let i = 0; i < arr.length; i++) {
+      str += "," + arr[i]
+    }
+    if(str != null && str.length > 0){
+      str = str.substr(1);
+    }
+    return str;
+  }
   },
   /**
    * 这是定义一个时间格式转换方法

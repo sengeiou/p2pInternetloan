@@ -27,9 +27,10 @@ public interface UserService {
      * 新增数据
      *
      * @param user 实例对象
+     * @param roleIds 角色id字符串
      * @return 实例对象
      */
-    int insert(User user);
+    int insert(User user, String roleIds);
 
     /**
      * 通过query对象查询
@@ -44,9 +45,10 @@ public interface UserService {
      * 修改数据
      *
      * @param user 实例对象
+     * @param roleIds 角色字符集
      * @return 实例对象
      */
-    int update(User user);
+    int update(User user, String roleIds);
 
     /**
      * 通过主键删除数据
@@ -78,5 +80,14 @@ public interface UserService {
      * @return
      */
     public Set<String> getPersByUserId(Integer userId);
+
+
+    /**
+     * 修改用户密码
+     * @param user
+     * @return
+     */
+    int updatePwd(User user);
+
 
 }

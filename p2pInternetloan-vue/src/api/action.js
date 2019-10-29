@@ -7,10 +7,6 @@ export default {
   ///////////// 权限模块请求配置  start /////////////
   'VERIFICATION':'/sys/user/verificationCode',  //获取验证码
 	'SYSTEM_USER_DOLOGIN': '/sys/user/login', //登陆
-  'SYSTEM_USER_GET': '/sys/user/get',
-  'SYSTEM_USER_POST': '/sys/user/post',
-  'SYSTEM_USER_PUT': '/sys/user/put',
-  'SYSTEM_USER_DELETE': '/sys/user/delete',
   'SYSTEM_TREENODE':'/sys/permission/queryUserMenu',  //初始化动态树
   ///////////// 权限模块请求配置  end /////////////
 
@@ -29,6 +25,21 @@ export default {
   "SYSTEM_DICT_ITEM_UPDATE":"/sys/dictitem/update",
   "SYSTEM_DICT_ITEM_DEl":"/sys/dictitem/del/",
   "SYSTEM_DICT_ITEM_GET_SELECT":"/sys/dictitem/getSelect",
+  //这是用户模块的请求
+  "SYSTEM_USER_ADD":"/sys/user/add",
+  "SYSTEM_USER_QUERY":"/sys/user/quyerPages",
+  "SYSTEM_USER_DEL":"/sys/user/del/",
+  "SYSTEM_USER_EDIT":"/sys/user/update",
+  "SYSTEM_USER_EDIT_PWD":"/sys/user/updatePwd",
+  "SYSTEM_ROLE_GETSELECT":"/sys/role/getRoleSelect",
+  //这是角色模块的请求
+  "SYSTEM_ROLE_ADD":"/sys/role/add",
+  "SYSTEM_ROLE_QUERY":"/sys/role/queryPager",
+  "SYSTEM_ROLE_DEL":"/sys/role/del/",
+  "SYSTEM_ROLE_EDIT":"/sys/role/update",
+  "SYSTEM_ROLE_AUTHORIZATION":"/sys/role/authorization",
+  "SYSTEM_PERMISSION_GETROLEMODULES":"/sys/permission/getRoleModules",
+  "SYSTEM_PERMISSION_QUERY_ID_BY_ROLE":"/sys/permission/queryIdByRole",
   ///////////// 系统模块请求配置  end /////////////
 
   ///////////// 会员模块请求配置  start /////////////

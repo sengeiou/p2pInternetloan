@@ -1,13 +1,16 @@
 package com.p2pInternetloan.sys.service.impl;
 
 import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.sys.dao.RoleDao;
 import com.p2pInternetloan.sys.dao.UserDao;
 import com.p2pInternetloan.sys.entity.User;
 import com.p2pInternetloan.sys.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -20,6 +23,9 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private RoleDao roleDao;
 
     /**
      * 通过ID查询单条数据
@@ -40,20 +46,62 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> queryPager(Query query) {
-        return this.userDao.queryPager(query);
+         List<User> list = this.userDao.queryPager(query);
+         //角色处理
+        if(list != null){
+            for (User user: list) {
+                //找角色
+                List<Map> maps = this.roleDao.getUserRole(user.getUserId());
+                if(maps != null && maps.size() > 0){
+                    List<Integer> roleIds = new ArrayList<>(maps.size());
+                    //这是角色名字以 “,”拼接
+                    StringBuilder roleNames = new StringBuilder();
+                    for (Map map: maps) {
+                        roleIds.add(Integer.parseInt(map.get("roleId").toString()));
+                        roleNames.append("," + map.get("roleName").toString());
+                    }
+                    user.setRoleIds(roleIds);
+
+                    user.setRoleNames(roleNames.substring(1));
+                }
+            }
+        }
+        return list;
     }
 
     /**
      * 新增数据
      *
      * @param user 实例对象
+     * @param roleIds 角色id字符串
      * @return 实例对象
      */
     @Override
-    public int insert(User user) {
-        return this.userDao.insert(user);
+    public int insert(User user, String roleIds) {
+        //添加用户对象
+        this.userDao.insert(user);
+        //获取用户id
+        Integer userId = this.userDao.getMaxId();
+        //用户角色绑定
+        addUserRole(userId, roleIds);
+        return 1;
     }
 
+
+    /**
+     * 添加用户角色绑定
+     * @param userId
+     * @param roleIds
+     */
+    private void addUserRole(Integer userId, String roleIds){
+        if(roleIds != null && roleIds.length() > 0){
+            String[] ids = roleIds.split(",");
+            for (int i = 0; i < ids.length; i++) {
+                //添加用户角色绑定
+                this.userDao.addUserRole(userId, Integer.parseInt(ids [i]));
+            }
+        }
+    }
     /**
      * 修改数据
      *
@@ -61,8 +109,13 @@ public class UserServiceImpl implements UserService {
      * @return 实例对象
      */
     @Override
-    public int update(User user) {
-        return this.userDao.update(user);
+    public int update(User user, String roleIds) {
+        this.userDao.update(user);
+        //删除用户角色绑定
+        this.userDao.delUserRoleByUserId(user.getUserId());
+        //重置角色绑定
+        addUserRole(user.getUserId(), roleIds);
+        return 1;
     }
 
 
@@ -74,12 +127,20 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int deleteById(Integer userid) {
-        return this.userDao.deleteById(userid);
+        this.userDao.deleteById(userid);
+        //删除角色绑定
+        this.userDao.delUserRoleByUserId(userid);
+        return 1;
     }
 
     @Override
     public Set<String> getPersByUserId(Integer userId) {
         return this.userDao.getPersByUserId(userId);
+    }
+
+    @Override
+    public int updatePwd(User user) {
+        return this.userDao.updatePwd(user);
     }
 
     @Override
