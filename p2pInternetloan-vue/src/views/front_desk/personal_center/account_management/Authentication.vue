@@ -5,7 +5,6 @@
     <strong style="font-size: 23px;">实名认证</strong>
   </div>
   <span style="color: rgb(241, 2, 2);">为了保障您的安全,实名认证成功后不能修改,请认真填写</span>
-<!--  <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">-->
   <el-form style="margin-top: 22px;" label-width="100px" :model="tableForm" :rules="rules" ref="tableForm">
     <el-row>
       <el-col :span="12">

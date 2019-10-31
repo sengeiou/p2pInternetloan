@@ -25,6 +25,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 //如果要访问的话直接访问 http://localhost:8080/项目名称/swagger-ui.html 就看到文档了
 public class SwaggerConfig {
 
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)

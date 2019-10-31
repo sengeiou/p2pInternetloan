@@ -1,5 +1,5 @@
 <template>
-  <div  style="padding: 20px;">
+   <el-main  style="background-color: #FFFFFF;" >
 <!--    <el-form class="demo-form-inline" style="margin-top: 10px;background:#FFFFFF;padding-top: 10px; height: 50px;padding-left: 10px;" :inline="true">-->
 <!--      <el-form-item label="是否可用">-->
 <!--        <el-select v-model="queryParams.membersState" filterable placeholder="请选择">-->
@@ -53,7 +53,7 @@
                    :current-page="queryParams.page" :page-sizes="[5, 10, 15, 20]" :page-size="queryParams.rows" layout="total, sizes, prev, pager, next, jumper"
                    :total="queryParams.total">
     </el-pagination>
-  </div>
+   </el-main>
 </template>
 
 <script>

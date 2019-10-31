@@ -21,6 +21,14 @@ public interface MembersDao {
      */
     Members queryById(Integer id);
 
+
+    /**
+     * 登录验证
+     * @param mebers
+     * @return
+     */
+    Members login(Members mebers);
+
     /**
      * 通过query对象查询
      *

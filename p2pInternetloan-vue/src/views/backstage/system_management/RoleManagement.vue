@@ -13,7 +13,7 @@
 
     <!-- 数据表格-->
     <el-table :data="tableList"  height="360" :fit="true" :show-header="true" v-loading="loading">
-      <el-table-column  prop="roleId" label="#" width="50">
+      <el-table-column class="column" type="index" :index="indexMethod" min-width="50" label="#" width="50" align="center">
       </el-table-column>
       <el-table-column class="column" prop="roleName" label="角色名称" width="110" align="center">
       </el-table-column>
@@ -340,6 +340,9 @@
                     })
                 })
                 // api 将auth数据保存至后台
+            },
+            indexMethod: function(index) {
+                return index + 1;
             }
         },
         created() {

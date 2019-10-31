@@ -5,7 +5,7 @@ import store from '../store'
  * @export 自定义指令
  */
 export function directive() {
-  Vue.directive('permit', {
+  Vue.directive('has', {
     bind(el, binding) {
       if(!window.vm.$store.getters.getPermission.includes(binding.value)){
         el.style.display = 'none';
