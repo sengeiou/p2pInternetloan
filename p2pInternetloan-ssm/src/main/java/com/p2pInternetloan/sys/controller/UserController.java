@@ -1,16 +1,11 @@
 package com.p2pInternetloan.sys.controller;
 
 import com.p2pInternetloan.base.constant.CommonConstant;
-import com.p2pInternetloan.base.utils.PageUtils;
-import com.p2pInternetloan.base.utils.Query;
-import com.p2pInternetloan.base.utils.R;
-import com.p2pInternetloan.base.utils.RedisUtil;
+import com.p2pInternetloan.base.utils.*;
 import com.p2pInternetloan.sys.entity.User;
 import com.p2pInternetloan.sys.service.UserService;
-import com.p2pInternetloan.sys.utils.ImageUtil;
 import com.p2pInternetloan.sys.utils.JwtUtils;
 import com.p2pInternetloan.sys.utils.PasswordHelper;
-import com.p2pInternetloan.sys.utils.VerifyCodeUtil;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -80,7 +75,6 @@ public class UserController {
 //        if(!redisVerificationCode.toString().equalsIgnoreCase(userVerificationCode)){
 //            return R.error("验证码错误");
 //        }
-
         //这是获取到用户名和密码
         String userName = params.get("userName").toString();
         String userPassword  = params.get("password").toString();
@@ -95,8 +89,9 @@ public class UserController {
         if(PasswordHelper.checkCredentials(userPassword, user.getSalt(), user.getPassword())){
             //密码校验通过发令牌
             HashMap hashMap = new HashMap();
+            hashMap.put("userId", user.getUserId());
             hashMap.put("userName", userName);
-            hashMap.put("password", user.getPassword());
+//            hashMap.put("password", user.getPassword());
             //生成jwt令牌
             String jwt = JwtUtils.createJwt(hashMap, CommonConstant.JWT_WEB_TTL);
             //将用户名和密码放入到请求头域中
@@ -112,6 +107,23 @@ public class UserController {
         }
 
     }
+
+
+
+    /**
+     * 这是退出登录的方法
+     * @param request
+     * @return
+     */
+    @PostMapping("logout")
+    public R logout(HttpServletRequest request){
+        //去redis中将数据给清空掉就ok了
+        String toke = request.getHeader(CommonConstant.JWT_HEADER_KEY);
+        //将redis中的数据给删掉就ok了
+        redisTemplate.delete(CommonConstant.PREFIX_USER_TOKEN + toke);
+        return R.ok();
+    }
+
 
 
     /**

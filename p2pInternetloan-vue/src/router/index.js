@@ -59,7 +59,7 @@ import MenuManagement from "@/views/backstage/system_management/MenuManagement";
 //设置管理
 import setting  from  "@/views/backstage/setting/setting";
 //用户提现管理
-import usertxt from "../views/backstage/financial_management/cash_withdrawal_management/usertxt";
+import cashWithdrawalManagement from "../views/backstage/financial_management/cash_withdrawal_management/cashWithdrawalManagement";
 //数据字段
 import DataDictionary from "../views/backstage/system_management/DataDictionary";
 
@@ -80,7 +80,7 @@ export default new Router({
   routes: [
     /////////////////////// 这是前台路由挂载 （开始） ///////////////////////
     {
-      path: '/ds',
+      path: '/',
       name: 'Main',
       component: Main,
       children:[
@@ -168,8 +168,13 @@ export default new Router({
     },
     /////////////////////// 这是前台路由挂载 （结束） ///////////////////////
     /////////////////////// 这是后台路由挂载 （开始） ///////////////////////
-     {
-      path: '/',
+    {
+      path: '/BackstageLogin',
+      name: 'BackstageLogin',
+      component: BackstageLogin
+    },
+    {
+      path: '/ds',
       name: 'BackstageMain',
       component: BackstageMain,
       children:[
@@ -209,9 +214,9 @@ export default new Router({
           component: setting,
 
         },{
-          path: '/usertxt',
-          name: 'usertxt',
-          component: usertxt
+          path: '/cashWithdrawalManagement',
+          name: 'cashWithdrawalManagement',
+          component: cashWithdrawalManagement
         }, {
           path: '/Materialcertification',
           name: 'Materialcertification',

@@ -4,11 +4,9 @@
  */
 export default {
 	'SERVER': 'http://localhost:8080/p2pInternetloan', //服务器
-  ///////////// 权限模块请求配置  start /////////////
-  'VERIFICATION':'/sys/user/verificationCode',  //获取验证码
-	'SYSTEM_USER_DOLOGIN': '/sys/user/login', //登陆
-  'SYSTEM_TREENODE':'/sys/permission/queryUserMenu',  //初始化动态树
-  ///////////// 权限模块请求配置  end /////////////
+  ///////////// 这是通用请求挂载处 start /////////////
+  'VERIFICATION':'/base/basecontroller/verificationCode',  //获取验证码
+  ///////////// 这是通用请求挂载处  end /////////////
 
   ///////////// 设置模块请求配置  start /////////////
   ///////////// 设置模块请求配置  end /////////////
@@ -27,6 +25,9 @@ export default {
   "SYSTEM_DICT_ITEM_GET_SELECT":"/sys/dictitem/getSelect",
   //这是用户模块的请求
   "SYSTEM_USER_ADD":"/sys/user/add",
+  'SYSTEM_USER_DOLOGIN': '/sys/user/login', //登陆
+  "SYSTEM_USER_LOGOUT":"/sys/user/logout",
+  'SYSTEM_TREENODE':'/sys/permission/queryUserMenu',  //初始化动态树
   "SYSTEM_USER_QUERY":"/sys/user/quyerPages",
   "SYSTEM_USER_DEL":"/sys/user/del/",
   "SYSTEM_USER_EDIT":"/sys/user/update",
@@ -43,6 +44,9 @@ export default {
   ///////////// 系统模块请求配置  end /////////////
 
   ///////////// 会员模块请求配置  start /////////////
+  "MEMBERS_MEN_LOGIN":"/members/login",
+  "MEMBERS_MEN_LOGOUT":"/members/logout",
+  "MEMBERS_MEN_REGISTERED":"/members/registered",
   "MEMBERS_MEN_QUERYPAGER":"/members/mem/queryPager",
   "MEMBERS_MEN_ADD":"/members/mem/add",
   "MEMBERS_MEN_UPDATE":"/members/mem/update",
@@ -60,18 +64,9 @@ export default {
 
 
   //个人资料
-
   "MEMBERS_DETA_UPDATE":"/membersDetail/deta/update",
   "MEMBERS_DETA_QUERYBYID":"/membersDetail/deta/queryById",
   // "MEMBERS_DETA_QUERYPAGER":"/membersDetail/deta/queryById",
-
-
-
-
-
-
-
-
 
   ///////////// 会员模块请求配置  end /////////////
 

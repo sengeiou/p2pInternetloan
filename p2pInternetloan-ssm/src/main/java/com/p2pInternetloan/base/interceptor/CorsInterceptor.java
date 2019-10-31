@@ -2,7 +2,6 @@ package com.p2pInternetloan.base.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,9 +26,9 @@ public class CorsInterceptor implements HandlerInterceptor {
 
         //允许客户端发送一个新的请求头
         httpResponse.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, jwt, verificationJwt");
-        //允许客户端处理一个新的响应头jwt
-        httpResponse.setHeader("Access-Control-Expose-Headers", "jwt");
-        httpResponse.setHeader("Access-Control-Expose-Headers", "verificationJwt");
+        //允许客户端处理一个新的响应头 切记如果是多个使用 , 隔开千万不要再setHeader以为能添加
+        httpResponse.setHeader("Access-Control-Expose-Headers", "jwt,verificationJwt");
+//        httpResponse.setHeader("Access-Control-Expose-Headers", "verificationJwt");
 
         //axios和ajax会发送两次请求，第一次提交方式为：option直接返回即可
         if("OPTIONS".equals(httpRequest.getMethod())) {

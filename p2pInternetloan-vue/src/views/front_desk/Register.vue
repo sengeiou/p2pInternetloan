@@ -9,28 +9,25 @@
       </div>
       <el-form style="width:50%" label-width="100px">
         <el-form-item label="用户名">
-          <el-input placeholder="请输入内容">
+          <el-input v-model="name" placeholder="请输入内容">
           </el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input placeholder="请输入内容">
+          <el-input show-password v-model="password" placeholder="请输入内容">
           </el-input>
         </el-form-item>
         <el-form-item label="验证码">
-          <el-input placeholder="请输入内容">
-          </el-input>
-        </el-form-item>
-        <el-form-item label="电话号码">
-          <el-input placeholder="请输入内容">
-          </el-input>
-        </el-form-item>
-        <el-form-item label="短信验证码">
-          <el-input class="input-with-select" placeholder="请输入内容" v-model="input3">
-            <el-button style="color: rgb(255, 120, 0); background-color: rgb(255, 255, 255);" slot="append">发送验证码</el-button>
-          </el-input>
+          <el-row>
+            <el-col :span="16">
+              <el-input type="text" v-model="verificationCode" placeholder="请输入验证码" autocomplete="off"></el-input>
+            </el-col>
+            <el-col :span="8">
+              <img id="img" :src="verificationCodeSrc" width="116px" height="40px" @click="changeVerificationCode" >
+            </el-col>
+          </el-row>
         </el-form-item>
         <el-form-item>
-          <el-button style="width:100%;background: rgb(255, 120, 0);color: rgb(255, 255, 255);">提交</el-button>
+          <el-button @click="doSubmit" style="width:100%;background: rgb(255, 120, 0);color: rgb(255, 255, 255);">立即注册</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -38,29 +35,69 @@
 </template>
 
 <script>
-	//	  import axios from 'axios'
-	//  import qs from 'qs'
+  import commonUtils from "../../api/commonUtils";
 
 	export default {
 		name: 'Register',
 		data: function() {
 			return {
-				userName: null,
-				passWord: null,
-				passWord1:null
+			    name: null,
+          password: null,
+          verificationCode:null,
+          verificationCodeSrc:null
 			}
 		},
 		methods: {
-			gotoLogin: function() {
-				this.$router.push({
-					path:'/'
-				})
-			},
-			doRegister:function(){
+        doSubmit: function() {
+            let params = {
+                name: this.name,
+                password: this.password,
+                verificationCode: this.verificationCode
+            };
+            let url = this.axios.urls.MEMBERS_MEN_REGISTERED;
+            this.axios.post(url, params).then(resp => {
+                if(resp.data.code == 0) {
+                    //提示登录成功
+                    this.$message({
+                        message: "注册成功",
+                        type: 'success'
+                    });
+                    //跳转路由
+                    this.$router.push({
+                        path:'/Login'
+                    })
+                }else{
+                    this.$message({
+                        message: resp.data.msg,
+                        type: 'error'
+                    });
+                }
+            }).catch(resp => {
+                this.$message({
+                    message: resp.data.msg,
+                    type: 'error'
+                });
+            });
+        },
+        //更新验证码
+        changeVerificationCode(){
+            let url = this.axios.urls.VERIFICATION;
+            this.axios.get(url, {}).then(resp => {
+                this.verificationCodeSrc = resp.data;
+            }).catch(resp => {
+                console.log(resp);
+            });
+        }
+		},
+    created() {
+		    //初始化验证码
+        this.changeVerificationCode();
+        //初始化工具类
+        commonUtils.init(this);
 
-			}
-		}
-	}
+    }
+
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

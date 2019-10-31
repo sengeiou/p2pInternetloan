@@ -1,8 +1,8 @@
 package com.p2pInternetloan.members.dao;
 
-import com.p2pInternetloan.members.entity.Members;
-import org.apache.ibatis.annotations.Param;
 import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.members.entity.Members;
+
 import java.util.List;
 
 /**
@@ -20,6 +20,14 @@ public interface MembersDao {
      * @return 实例对象
      */
     Members queryById(Integer id);
+
+
+    /**
+     * 登录验证
+     * @param mebers
+     * @return
+     */
+    Members login(Members mebers);
 
     /**
      * 通过query对象查询

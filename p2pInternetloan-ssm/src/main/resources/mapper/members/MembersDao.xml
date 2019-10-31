@@ -59,10 +59,15 @@
         </where>
     </select>
 
+    <select id="login" resultMap="MembersMap">
+        select * from members  where name = #{name} and `password` =  #{password}
+    </select>
+
+
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into members(name, password, certification_score, is_identity_authentication, members_state, rate, rate_time, bid_request_id)
-        values (#{name}, #{password}, #{certificationScore}, #{isIdentityAuthentication}, #{membersState}, #{rate}, #{rateTime}, #{bidRequestId})
+        insert into members (name, password) values(#{name}, #{password});
     </insert>
 
     <!--通过主键修改数据-->
@@ -101,5 +106,4 @@
     <delete id="deleteById">
         delete from members where id = #{id}
     </delete>
-    
 </mapper>

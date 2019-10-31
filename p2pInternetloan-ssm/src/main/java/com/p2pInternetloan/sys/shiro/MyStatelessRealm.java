@@ -64,24 +64,26 @@ public class MyStatelessRealm extends AuthorizingRealm {
         //用户实体类对象
         User user = null;
         String userName = null;
+        //用来返回的封装对象
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         if (principals != null) {
-            //获取到用户对象
+            //判断是否是前台用户登录
+            if(principals.getPrimaryPrincipal() == null){
+                //为空代表前台登录,直接赋予前台登录的角色就好了,后面我们根据角色调用方法就Ok了
+                info.addRole(CommonConstant.FONT_DESK_ROLE_NAME);
+                return info;
+            }
+            //获取到用户对象(这是后台用户授权)
             user = (User) principals.getPrimaryPrincipal();
             //获取到用户名
             userName = user.getUserName();
         }
-        //用来返回的封装对象
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         // 设置用户拥有的角色集合，比如“admin,test”
         Set<String> roleSet = userService.getRolesByUserId(user.getUserId());
         info.setRoles(roleSet);
         // 设置用户拥有的权限集合，比如“sys:role:add,sys:user:add”
         Set<String> permissionSet = userService.getPersByUserId(user.getUserId());
         info.addStringPermissions(permissionSet);
-
-        System.out.println("-----------------------------------------测试测试测试");
-        System.out.println(permissionSet.contains("sys:user:view"));
-        System.out.println(permissionSet.contains("sys:role:view"));
 
         //返回就好了
         return info;
@@ -96,35 +98,91 @@ public class MyStatelessRealm extends AuthorizingRealm {
      * @param token
      */
     public User checkUserTokenIsEffect(String token) throws AuthenticationException {
-        // 解密获得username，用于和数据库进行对比
-        String username = JwtUtils.getUserName(token);
-        String password = JwtUtils.getUserPassword(token);
+        //这里判断是后台管理员登录还是前台客户登录
+        if(JwtUtils.get(token, "membersId") != null){
+            String membersId = JwtUtils.get(token, "membersId");
+            String membersName = JwtUtils.get(token, "membersName");
+            if(membersName == null){
+                throw new AuthenticationException("token非法无效!");
+            }
+            // 这里是检验token
+            if (!jwtTokenRefreshFrontDesk(token,membersId, membersName)) {
+                throw new AuthenticationException("Token失效，请重新登录!");
+            }
+            return null;//说明 null 其实代表的前台用户登录
+        }else{
+            //这是后台用户登录走的路线
+            // 解密获得username，用于和数据库进行对比
+            String username = JwtUtils.getUserName(token);
+            String userId =JwtUtils.get(token, "userId");
+            //判断用户名是否为空，如果为空就抛出异常
+            if (username == null) {
+                throw new AuthenticationException("token非法无效!");
+            }
 
-        //判断用户名是否为空，如果为空就抛出异常
-        if (username == null) {
-            throw new AuthenticationException("token非法无效!");
+            // 查询用户信息
+            User user =this.userService.queryByName(username);
+            if (user == null) {
+                //如果用户信息不存在就报错
+                throw new AuthenticationException("用户不存在!");
+            }
+            // 这里是检验token
+            if (!jwtTokenRefreshBackstage(token, username, userId)) {
+                throw new AuthenticationException("Token失效，请重新登录!");
+            }
+            // 判断用户状态
+            if (user.getUserFlag() != 1) {
+                throw new AuthenticationException("账号已被锁定,请联系管理员!");
+            }
+            //如果成功就返回user对象
+            return user;
         }
-
-        // 查询用户信息
-        User user =this.userService.queryByName(username);
-        if (user == null) {
-            //如果用户信息不存在就报错
-            throw new AuthenticationException("用户不存在!");
+    }
+    /**
+     * * 前台客户登录 token 验证和刷新
+     * @param token  token 这是jwt 令牌
+     * @param membersId 这是用户id
+     * @param membersName  这是用户名
+     * @return
+     */
+    public boolean jwtTokenRefreshFrontDesk(String token, String membersId, String membersName) {
+        //这是拿到redis 中对应的 jwt 令牌
+        String cacheToken = String.valueOf(redisUtil.get(CommonConstant.PREFIX_MEBERS_TOKEN + token));
+        //判断是否存在
+        if (oConvertUtils.isNotEmpty(cacheToken)) {
+            // 校验token有效性
+            if (JwtUtils.validateJwtToken(cacheToken) == null) {
+                Map map = new HashMap();
+                map.put("membersId", membersId);
+                map.put("membersName", membersName);
+                //这是搞到新的 jwt 令牌
+                String newAuthorization = JwtUtils.createJwt(map, JwtUtils.JWT_WEB_TTL);
+                //这是将新令牌放入 redis中
+                redisUtil.set(CommonConstant.PREFIX_MEBERS_TOKEN + token, newAuthorization);
+                // 这是设置过期时间
+                redisUtil.expire(CommonConstant.PREFIX_MEBERS_TOKEN + token, JwtUtils.JWT_WEB_TTL / 1000);
+            } else {
+                //这是令牌有效的请求
+                redisUtil.set(CommonConstant.PREFIX_MEBERS_TOKEN + token, cacheToken);
+                //加事件
+                redisUtil.expire(CommonConstant.PREFIX_MEBERS_TOKEN + token, JwtUtils.JWT_WEB_TTL / 1000);
+            }
+            //检验通过
+            return true;
         }
-        // 这里是检验token
-        if (!jwtTokenRefresh(token, username, password)) {
-            throw new AuthenticationException("Token失效，请重新登录!");
-        }
-        // 判断用户状态
-        if (user.getUserFlag() != 1) {
-            throw new AuthenticationException("账号已被锁定,请联系管理员!");
-        }
-        //如果成功就返回user对象
-        return user;
+        //可能是还没有放入到redis中这里就判断一下施工方
+        //这是检验失败
+        return false;
     }
 
 
+
+
+
+
     /**
+     * 这里只针对后台 进行验证
+     *
      * JWTToken刷新生命周期 （解决用户一直在线操作，提供Token失效问题）
      * 1、登录成功后将用户的JWT生成的Token作为k、v存储到cache缓存里面(这时候k、v值一样)
      * 2、当该用户再次请求时，通过JWTFilter层层校验之后会进入到doGetAuthenticationInfo进行身份验证
@@ -140,10 +198,10 @@ public class MyStatelessRealm extends AuthorizingRealm {
      * reids key jwt value jwt
      *
      * @param userName
-     * @param passWord
+     * @param userId
      * @return
      */
-    public boolean jwtTokenRefresh(String token, String userName, String passWord) {
+    public boolean jwtTokenRefreshBackstage(String token, String userName, String userId) {
         //这是拿到redis 中对应的 jwt 令牌
         String cacheToken = String.valueOf(redisUtil.get(CommonConstant.PREFIX_USER_TOKEN + token));
         //判断是否存在
@@ -152,7 +210,7 @@ public class MyStatelessRealm extends AuthorizingRealm {
             if (JwtUtils.validateJwtToken(cacheToken) == null) {
                 Map map = new HashMap();
                 map.put("userName", userName);
-                map.put("password", passWord);
+                map.put("userId", userId);
                 //这是搞到新的 jwt 令牌
                 String newAuthorization = JwtUtils.createJwt(map, JwtUtils.JWT_WEB_TTL);
                 //这是将新令牌放入 redis中
@@ -172,7 +230,4 @@ public class MyStatelessRealm extends AuthorizingRealm {
         //这是检验失败
         return false;
     }
-
-
-
 }

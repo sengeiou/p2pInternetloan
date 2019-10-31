@@ -13,8 +13,6 @@ public class PageUtils implements Serializable {
 	//这是保持查询出来的数据
 	private List<?> data;
 
-
-
 	/**
 	 *
 	 * @param list 保存数据
