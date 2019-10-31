@@ -13,7 +13,7 @@
 
     <!-- 数据表格-->
     <el-table :data="tableList"  height="360" :fit="true" :show-header="true" v-loading="loading">
-      <el-table-column  prop="userId" label="#" width="50">
+      <el-table-column class="column" type="index" :index="indexMethod" min-width="50" label="#" width="50" align="center">
       </el-table-column>
       <el-table-column class="column" prop="userName" label="用户名称" width="110" align="center">
       </el-table-column>
@@ -384,6 +384,8 @@
                 this.hang = "fa fa-hand-o-right fa-1x";
                 this.jurColor = "success";
                 this.dialog = false;
+            },indexMethod: function(index) {
+                return index + 1;
             }
         },
         created() {

@@ -1,9 +1,9 @@
-package com.p2pInternetloan.sys.utils;
+package com.p2pInternetloan.base.utils;
 
 import java.util.Random;
 
 /**
- * @Description: 生成验证码
+ * @Description:  验证码帮助类
  * @Author: cpc
  * @Date: 2019-10-07 14:27
  * @Version: V1.0
@@ -29,4 +29,5 @@ public class VerifyCodeUtil {
         }
         return code;
     }
+
 }

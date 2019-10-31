@@ -145,7 +145,38 @@ public class JwtUtils {
 		return claims;
 	}
 
+	/**
+	 * 从jwt中获取指定的key对应的value值（ps:jwt令牌就算是过期都能获取到）
+	 * @param token jwt令牌
+	 * @param key 这是要获取的值
+	 * @return
+	 */
+	public static String get(String token, String key) {
+		try {
+			DecodedJWT jwt = JWT.decode(token);
+			return jwt.getClaim(key).as(Object.class).toString();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
+
+	/**
+	 * 更具key获取value
+ 	 * @param token
+	 * @param key
+	 * @param tClazz 这是将值转成啥子类型
+	 * @param <T>
+	 * @return
+	 */
+	public static  <T>  T get(String token, String key, Class<T> tClazz){
+		try {
+			DecodedJWT jwt = JWT.decode(token);
+			return jwt.getClaim(key).as(tClazz);
+		} catch (JWTDecodeException e) {
+			return null;
+		}
+	}
 	/**
 	 * 获得token中的用户名
 	 *

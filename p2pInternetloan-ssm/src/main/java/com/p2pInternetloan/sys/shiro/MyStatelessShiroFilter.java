@@ -34,43 +34,6 @@ public class MyStatelessShiroFilter extends AccessControlFilter{
         return false;
     }
 
-//    /**
-//     * 从请求头获取token并验证，验证通过后交给realm进行登录
-//     * @param servletRequest
-//     * @param servletResponse
-//     * @return 返回结果为true表明登录通过
-//     * @throws Exception
-//     */
-//    @Override
-//    protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
-//        log.info("on access denied");
-//        HttpServletRequest request = (HttpServletRequest) servletRequest;
-//        HttpServletResponse response = (HttpServletResponse) servletResponse;
-//        //获取获取保持在vue 端的jwt令牌
-//        String jwt = request.getHeader(CommonConstant.JWT_HEADER_KEY);
-//
-//
-//        //如果jwt令牌没有失效
-//        if (JwtUtils.validateJwtToken(jwt) != null) {
-//            //将jwt字符串放入到 jwtToken中
-//            JwtToken jwtToken = new JwtToken(jwt);
-//            try {
-//                //委托realm进行登录认证
-//                getSubject(servletRequest, servletResponse).login(jwtToken);
-//
-//                //如果认证成功那么就从新签发一个令牌给客户端
-//                String newJwt = JwtUtils.copyJwt(jwt, CommonConstant.JWT_WEB_TTL);
-//                //放入到响应头中
-//                response.setHeader(CommonConstant.JWT_HEADER_KEY, newJwt);
-//                return true;
-//            }catch (Exception e) {
-//                return false;
-//            }
-//        }
-//        return false;
-//    }
-
-
     /**
      * 从请求头获取token并验证，验证通过后交给realm进行登录
      * @param servletRequest

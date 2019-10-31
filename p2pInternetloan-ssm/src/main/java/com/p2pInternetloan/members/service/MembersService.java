@@ -1,8 +1,9 @@
 package com.p2pInternetloan.members.service;
 
-import com.p2pInternetloan.members.entity.Members;
-import java.util.List;
 import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.members.entity.Members;
+
+import java.util.List;
 
 /**
  * (Members)表服务接口
@@ -19,6 +20,14 @@ public interface MembersService {
      * @return 实例对象
      */
     Members queryById(Integer id);
+
+
+    /**
+     * 登录验证
+     * @param mebers
+     * @return
+     */
+    Members login(Members mebers);
 
 
     /**

@@ -17,7 +17,7 @@
 
       <!-- 数据表格-->
       <el-table :data="dictList"  height="400" :fit="true" :show-header="true" v-loading="loading">
-        <el-table-column  prop="id" label="#" min-width="1">
+        <el-table-column class="column" type="index" :index="indexMethod" min-width="50" label="#" width="50" align="center">
         </el-table-column>
         <el-table-column prop="title" label="菜单名称" min-width="3">
         </el-table-column>
@@ -439,6 +439,9 @@
                 this.dictItemQueryParams.title = null;
                 this.dictItemQueryParams.page = 1;
                 done();
+            },
+            indexMethod: function(index) {
+                return index + 1;
             }
         },
         created() {

@@ -83,11 +83,11 @@
                 }).catch(resp => {
                     console.log(resp);
                 });
-
             }
         }
         ,
         created() {
+            //初始化验证码
             let url = this.axios.urls.VERIFICATION;
             this.axios.get(url, {}).then(resp => {
                 this.verificationCodeSrc = resp.data;

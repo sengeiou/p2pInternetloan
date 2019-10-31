@@ -1,5 +1,5 @@
 <template>
-  <div  style="padding: 20px;">
+  <el-main  style="background-color: #FFFFFF;" >
     <el-form class="demo-form-inline" style="margin-top: 10px;background:#FFFFFF;padding-top: 10px; height: 50px;padding-left: 10px;" :inline="true">
       <el-form-item label="状态">
         <el-select v-model="queryParams.state" filterable placeholder="请选择">
@@ -144,7 +144,7 @@
         </el-form>
       </div>
     </el-drawer>
-  </div>
+  </el-main>
 </template>
 
 <script>

@@ -15,7 +15,6 @@
 				<span>{{n.text}}</span>
 			</template>
 			<el-menu-item v-for="n1 in n.modules" :key="'key-'+n1.id" @click="showName(n1.text)" :index="n1.url">
-        <i :class="n1.icon"></i>
         <span>{{n1.text}}</span>
 			</el-menu-item>
 		</el-submenu>
