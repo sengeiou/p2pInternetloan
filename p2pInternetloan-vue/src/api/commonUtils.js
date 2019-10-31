@@ -172,7 +172,7 @@ export default {
       str = str.substr(1);
     }
     return str;
-  }
+
   },
   /**
    * 这是定义一个时间格式转换方法

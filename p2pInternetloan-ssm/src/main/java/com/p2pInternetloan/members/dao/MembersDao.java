@@ -1,8 +1,8 @@
 package com.p2pInternetloan.members.dao;
 
-import com.p2pInternetloan.members.entity.Members;
-import org.apache.ibatis.annotations.Param;
 import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.members.entity.Members;
+
 import java.util.List;
 
 /**
@@ -52,5 +52,6 @@ public interface MembersDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
+
 
 }

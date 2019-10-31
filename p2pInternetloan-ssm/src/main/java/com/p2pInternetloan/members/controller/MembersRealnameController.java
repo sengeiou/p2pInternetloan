@@ -6,8 +6,10 @@ import com.p2pInternetloan.base.utils.R;
 import com.p2pInternetloan.members.entity.MembersRealname;
 import com.p2pInternetloan.members.service.MembersRealnameService;
 import org.springframework.web.bind.annotation.*;
+import sun.plugin2.message.SetAppletSizeMessage;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +39,7 @@ public class MembersRealnameController {
     public  PageUtils queryPager(@RequestParam Map<String, Object> params) {
          Query query = new Query(params);
          List<MembersRealname> list = membersRealnameService.queryPager(query);
+        System.out.println(list);
          return new PageUtils(list, query.getTotal());
     }
 
@@ -49,6 +52,7 @@ public class MembersRealnameController {
     @RequestMapping("add")
     public R add(MembersRealname membersrealname){
         System.out.println(membersrealname);
+        membersrealname.setApplyTime(new Date());
         return R.update(this.membersRealnameService.insert(membersrealname));
     }
 
