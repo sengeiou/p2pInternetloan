@@ -11,7 +11,9 @@ export default {
   ///////////// 权限模块请求配置  end /////////////
 
   ///////////// 设置模块请求配置  start /////////////
-  ///////////// 设置模块请求配置  end /////////////
+  "SETTING_SETTING_SETMINLIMIT":'/setting/setting/setMinLimit',
+
+  /////////// 设置模块请求配置  end /////////////
 
   ///////////// 系统模块请求配置  start /////////////
   //数据字典请求
@@ -63,11 +65,8 @@ export default {
 
   "MEMBERS_DETA_UPDATE":"/membersDetail/deta/update",
   "MEMBERS_DETA_QUERYBYID":"/membersDetail/deta/queryById",
+  "ASSEST_MONEYWITHDRAW_QUERYPAGE":"/assets/moneyWithdraw/queryPage",
   // "MEMBERS_DETA_QUERYPAGER":"/membersDetail/deta/queryById",
-
-
-
-
 
 
 

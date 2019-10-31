@@ -7,6 +7,7 @@ import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.R;
 import com.p2pInternetloan.members.entity.MembersAccount;
 import com.p2pInternetloan.members.service.MembersAccountService;
+import org.apache.taglibs.standard.tag.el.sql.QueryTag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -39,9 +40,13 @@ public class MoneyRechargeController {
      */
     @GetMapping("queryPager")
     public  PageUtils queryPager(@RequestParam Map<String, Object> params) {
+        System.out.println("=-================================================开始");
+        System.out.println(params.get("tradeTime"));
+        System.out.println("=-================================================开始");
          Query query = new Query(params);
          List<MoneyRecharge> list = moneyRechargeService.queryPager(query);
          return new PageUtils(list, query.getTotal());
+
     }
 
     /**

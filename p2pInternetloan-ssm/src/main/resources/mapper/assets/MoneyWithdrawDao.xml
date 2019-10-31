@@ -25,14 +25,13 @@
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryPager" resultMap="MoneyWithdrawMap">
+    <select id="queryPager" resultMap="MoneyWithdrawMap" resultType="java.util.Map">
         select
-          a.id, a.state, a.remark, a.audit_time, a.apply_time, a.auditor_id, a.members_id, a.amount, a.fee, a.trade_code,b.name,c.id_number
-        from amoney_withdraw a,members b,members_realname c
+          a.id, a.state, a.remark, a.audit_time, a.apply_time, a.auditor_id, a.members_id, a.amount, a.fee, a.trade_code,b.name
+        from money_withdraw a,members b
         <where>
                 <if test="id != null">
-                and a.id = #{b.id} and a.id = #{c.id} and b.id = c.id
-                order by a.id;
+                and a.id = #{id}
             </if>   
                 <if test="state != null">
                 and a.state = #{a.state}
@@ -64,9 +63,7 @@
                 <if test="name != null and name != ''">
                 and b.name like concat('%', #{b.name}, '%')
             </if>
-                <if test="id_number != null and id_number != ''">
-                and c.id_number like concat('%', #{c.id_number}, '%')
-            </if>
+
 
     </where>
     </select>

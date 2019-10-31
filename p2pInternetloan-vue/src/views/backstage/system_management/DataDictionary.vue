@@ -237,6 +237,7 @@
             search: function() {
                 let url = this.axios.urls.SYSTEM_DICT_QUERYPAGER;
                 let params = this.queryParams;
+
                 //查询动画
                 this.loading = true;
                 //向后端请求数据

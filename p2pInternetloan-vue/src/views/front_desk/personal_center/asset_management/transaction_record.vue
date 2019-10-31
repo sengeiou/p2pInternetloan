@@ -18,10 +18,11 @@
                     end-placeholder="End date"
                     :picker-options="pickerOptions2">
                   </el-date-picker>
+                  <el-button type="primary" icon="el-icon-search" @click="onQuery">查询</el-button>
             </el-col>
 
           </el-row>
-          <el-button type="primary" icon="el-icon-search" @click="onQuery">查询</el-button>
+
         </el-tab-pane>
 
         <el-tab-pane name="second" label="提现记录">
@@ -47,17 +48,16 @@
       </el-table-column>1
       <el-table-column prop="amount" label="交易金额" min-width="4">
       </el-table-column>
-      <el-table-column label="操作" min-width="4">
-        <template slot-scope="scope">
-          <el-button type="success" round icon="el-icon-view" @click="queryGet">查看详情信息</el-button>
-        </template>
-      </el-table-column>
+      <!--<el-table-column label="操作" min-width="4">-->
+        <!--<template slot-scope="scope">-->
+        <!--</template>-->
+      <!--</el-table-column>-->
     </el-table>
-    </el-tabs>
     <el-pagination style="margin: 15px;" background @size-change="handleSizeChangeDictItem" @current-change="handleCurrentChangeDictItem"
                    :current-page="queryParams.page" :page-sizes="[5, 10, 15, 20]" :page-size="queryParams.rows" layout="total, sizes, prev, pager, next, jumper"
                    :total="queryParams.total">
     </el-pagination>
+    </el-tabs>
   </div>
 
 </template>
@@ -70,6 +70,8 @@
         name: "transaction_record",
         data:function(){
               return {
+
+
                 //将日期回显到表格上
                 pickerOptions2: {
                   shortcuts: [{
@@ -98,7 +100,7 @@
                     }
                   }]
                 },
-
+                value:"",
 
 
                 //这是查询阐述
@@ -112,9 +114,6 @@
                   total: 0,
                 },
 
-                queryByid:{
-                  id:null
-                },
 
                 //这是表格是否占时加载动画
                 loading: false,
@@ -146,31 +145,19 @@
           this.search();
 
         },
-        queryGet(){
-          this.search2();
-        },
-
-        search2:function(){
-          let url = this.axios.urls.MEMBERS_MONEYRECHARGE_QUERYGET;
-          let params = this.queryByid;
-          //查询动画
-          this.loading = true;
-          //向后端请求数据
-          this.axios.get(url,{params:params}).then(response => {
-            this.tcc = response.data.data
-            this.queryByid.total = response.data.total;
-            //数据查询到了关闭查询动画
-            // this.loading = false;
-          }).catch(function(error) {
-            console.log(error);
-          });
-        },
 
         //这是搜索加展示数据的方法
         search: function() {
           let url = this.axios.urls.MEMBERS_MONEYRECHARGE_QUERYPAGER;
-          let params = this.queryParams;
+          let params = {
+            id:this.queryParams.titleid,
+            tradeTime:this.queryParams.tradeTime,
+            page:this.queryParams.page,
+            rows:this.queryParams.rows,
+            total:this.queryParams.total
+          }
           //查询动画
+
           this.loading = true;
           //向后端请求数据
           this.axios.get(url,{params:params}).then(response => {
@@ -186,17 +173,17 @@
         handleSizeChangeDictItem: function(rwos) {
           this.queryParams.page = 1;
           this.queryParams.rows = rwos;
-          this.searchDictItem();
+          this.search();
         },
         //当前页面发送变化的时候调用
         handleCurrentChangeDictItem: function(page) {
           this.queryParams.page = page;
-          this.searchDictItem();
+          this.search();
         }
       },
       created() {
         this.onQuery();
-        this.queryGet;
+
       }
     }
 </script>

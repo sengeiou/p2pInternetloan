@@ -20,16 +20,16 @@
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryPager" resultMap="MoneyRechargeMap">
+    <select id="queryPager" resultMap="MoneyRechargeMap" resultType="java.util.Map">
         select
           a.id, a.trade_code, a.trade_time, a.amount, a.members_id,b.name
         from money_recharge a,members b
         <where>
             <if test="id != null">
-                and a.trade_code like concat('%', #{tradeCode}, '%')
+                and a.id like concat('%', #{id}, '%')
             </if>
             <if test="tradeCode != null and tradeCode != ''">
-                and a.trade_code like concat('%', #{tradeCode}, '%')
+                and a.trade_code = #{tradeCode}
             </if>
              <if test="tradeTime != null">
                 and a.trade_time like concat('%', #{trade_time}, '%')

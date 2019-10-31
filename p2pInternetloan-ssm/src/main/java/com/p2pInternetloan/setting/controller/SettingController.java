@@ -17,7 +17,7 @@ import java.util.Map;
  * @since 2019-10-22 21:16:54
  */
 @RestController
-@RequestMapping("setting")
+@RequestMapping("setting/setting")
 public class SettingController {
     /**
      * 服务对象
