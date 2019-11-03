@@ -29,8 +29,9 @@ public class Query extends LinkedHashMap<String, Object> {
 		}else{
 			this.rows = 1;
 		}
-
 	}
+
+
 
 	public int getPage() {
 		return page;

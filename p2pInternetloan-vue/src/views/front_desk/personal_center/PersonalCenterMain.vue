@@ -6,7 +6,8 @@
             <el-menu-item  route="/AccountManagement" index="/AccountManagement">账户总览</el-menu-item>
             <el-menu-item route="/Authentication" index="Authentication">实名认证</el-menu-item>
             <el-menu-item route="/PersonalData" index="PersonalData">个人资料</el-menu-item>
-            <el-menu-item index="3">借款项目</el-menu-item>
+            <el-menu-item index="/loanManagement">借款项目</el-menu-item>
+            <el-menu-item index="/lnvestmentManagement">投资管理</el-menu-item>
             <el-menu-item index="3">资产管理</el-menu-item>
             <el-menu-item index="3">消息通知</el-menu-item>
           </el-menu>

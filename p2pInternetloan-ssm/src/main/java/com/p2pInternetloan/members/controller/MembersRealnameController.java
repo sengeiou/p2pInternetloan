@@ -39,7 +39,6 @@ public class MembersRealnameController {
     public  PageUtils queryPager(@RequestParam Map<String, Object> params) {
          Query query = new Query(params);
          List<MembersRealname> list = membersRealnameService.queryPager(query);
-        System.out.println(list);
          return new PageUtils(list, query.getTotal());
     }
 

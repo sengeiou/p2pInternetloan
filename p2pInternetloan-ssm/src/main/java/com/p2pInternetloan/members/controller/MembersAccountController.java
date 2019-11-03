@@ -59,5 +59,4 @@ public class MembersAccountController {
         return R.update(this.membersAccountService.update(membersAccount));
     }
 
-
 }

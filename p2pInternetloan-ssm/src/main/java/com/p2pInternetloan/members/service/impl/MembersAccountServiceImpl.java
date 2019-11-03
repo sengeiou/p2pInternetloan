@@ -1,13 +1,13 @@
 package com.p2pInternetloan.members.service.impl;
 
-import com.p2pInternetloan.members.entity.MembersAccount;
+import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.members.dao.MembersAccountDao;
+import com.p2pInternetloan.members.entity.MembersAccount;
 import com.p2pInternetloan.members.service.MembersAccountService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import com.p2pInternetloan.base.utils.Query;
 
 /**
  * (MembersAccount)表服务实现类
@@ -29,6 +29,11 @@ public class MembersAccountServiceImpl implements MembersAccountService {
     @Override
     public MembersAccount queryById(Integer id) {
         return this.membersAccountDao.queryById(id);
+    }
+
+    @Override
+    public MembersAccount queryByMembersId(Integer MembersId) {
+        return this.membersAccountDao.queryByMembersId(MembersId);
     }
 
     /**

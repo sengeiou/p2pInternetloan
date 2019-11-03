@@ -45,12 +45,15 @@
             },
             //这是退出登录的方法
             logout (){
-                //输出当前的jwt
-                console.log(this)
                 //存储用户对象
                 this.$store.commit('setUser',{
                     user:null
                 });
+                //清空jwt
+                this.$store.commit('setJwt',{
+                    jwt:null
+                });
+                //调用后台方法清空
                 let url = this.axios.urls.MEMBERS_MEN_LOGOUT;
                 commonUtils.doAjaxPost(url, {}, (data) => {
                 })

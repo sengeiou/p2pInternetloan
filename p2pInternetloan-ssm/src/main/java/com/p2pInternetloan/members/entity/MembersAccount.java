@@ -1,7 +1,7 @@
 package com.p2pInternetloan.members.entity;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * (MembersAccount)实体类
@@ -17,23 +17,19 @@ public class MembersAccount implements Serializable {
 
     private Integer membersId;
     //交易密码
-
     private String tradePassword;
     //账户可用余额
-
-    private String usableAmount;
+    private BigDecimal usableAmount;
     //账户待收利息
-
-    private Date unReceiveInterest;
+    private BigDecimal unReceiveInterest;
     //账户代收本金
-
-    private Date unReceivePrincipal;
+    private BigDecimal unReceivePrincipal;
     //账户授信额度(初始1000)
-    private Date borrowLimit;
+    private BigDecimal borrowLimit;
     //支付宝唯一标识
     private String tradeCode;
 
-    
+
     public Integer getId() {
         return id;
     }
@@ -41,7 +37,7 @@ public class MembersAccount implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
     public Integer getMembersId() {
         return membersId;
     }
@@ -49,7 +45,7 @@ public class MembersAccount implements Serializable {
     public void setMembersId(Integer membersId) {
         this.membersId = membersId;
     }
-    
+
     public String getTradePassword() {
         return tradePassword;
     }
@@ -57,39 +53,39 @@ public class MembersAccount implements Serializable {
     public void setTradePassword(String tradePassword) {
         this.tradePassword = tradePassword;
     }
-    
-    public String getUsableAmount() {
+
+    public BigDecimal getUsableAmount() {
         return usableAmount;
     }
 
-    public void setUsableAmount(String usableAmount) {
+    public void setUsableAmount(BigDecimal usableAmount) {
         this.usableAmount = usableAmount;
     }
-    
-    public Date getUnReceiveInterest() {
+
+    public BigDecimal getUnReceiveInterest() {
         return unReceiveInterest;
     }
 
-    public void setUnReceiveInterest(Date unReceiveInterest) {
+    public void setUnReceiveInterest(BigDecimal unReceiveInterest) {
         this.unReceiveInterest = unReceiveInterest;
     }
-    
-    public Date getUnReceivePrincipal() {
+
+    public BigDecimal getUnReceivePrincipal() {
         return unReceivePrincipal;
     }
 
-    public void setUnReceivePrincipal(Date unReceivePrincipal) {
+    public void setUnReceivePrincipal(BigDecimal unReceivePrincipal) {
         this.unReceivePrincipal = unReceivePrincipal;
     }
-    
-    public Date getBorrowLimit() {
+
+    public BigDecimal getBorrowLimit() {
         return borrowLimit;
     }
 
-    public void setBorrowLimit(Date borrowLimit) {
+    public void setBorrowLimit(BigDecimal borrowLimit) {
         this.borrowLimit = borrowLimit;
     }
-    
+
     public String getTradeCode() {
         return tradeCode;
     }
@@ -97,5 +93,4 @@ public class MembersAccount implements Serializable {
     public void setTradeCode(String tradeCode) {
         this.tradeCode = tradeCode;
     }
-
 }
