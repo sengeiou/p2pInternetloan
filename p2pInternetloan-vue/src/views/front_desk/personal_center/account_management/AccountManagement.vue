@@ -6,6 +6,7 @@
         <span style="float: right; padding: 3px 0" type="text">上次登录时间： 2015-09-11 14:05:07</span>
       </div>
       <el-row :gutter="25">
+        <h1></h1>
         <el-col :span="8">
           <el-card class="box-card" style="background-color: rgb(73, 147, 244);">
             <p>账户总额

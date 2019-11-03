@@ -18,7 +18,7 @@ import java.util.Map;
  * @since 2019-10-26 16:09:20
  */
 @RestController
-@RequestMapping("membersDetail/deta")
+@RequestMapping("membersDetail/")
 public class MembersDetailController {
     /**
      * 服务对象
@@ -47,8 +47,12 @@ public class MembersDetailController {
      */
     @GetMapping("queryById")
     public MembersDetail queryById(Integer id){
+        System.out.println(id);
+        System.out.println("==================mei"+id);
         return this.membersDetailService.queryById(id);
+
     }
+
     /**
      * 修改字段项
      * @param
@@ -57,5 +61,15 @@ public class MembersDetailController {
     @PostMapping("update")
     public R update(MembersDetail membersDetail){
         return R.update(this.membersDetailService.update(membersDetail));
+    }
+
+    /**
+     * 修改字段项
+     * @param
+     * @return
+     */
+    @PostMapping("add")
+    public R add(MembersDetail membersDetail){
+        return R.update(this.membersDetailService.insert(membersDetail));
     }
 }

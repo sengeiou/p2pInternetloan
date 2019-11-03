@@ -49,7 +49,7 @@ public class MembersRealnameController {
      * @return
      */
 //    @PostMapping("add")
-    @RequestMapping("add")
+    @PostMapping("add")
     public R add(MembersRealname membersrealname){
         System.out.println(membersrealname);
         membersrealname.setApplyTime(new Date());

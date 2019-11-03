@@ -107,39 +107,51 @@
       :before-close="handleCloseDrawer">
       <hr>
       <div style="margin: 10px;" :title="dialogTitle" :visible="dialogFormVisible" @close="doCancel">
-        <el-form >
+        <el-form v-model="tableForm">
           <el-form-item label="真实姓名" prop="realname" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.realname" autocomplete="off"></el-input>
+            <el-input v-model="tableForm.realname" autocomplete="off" disabled="false"></el-input>
           </el-form-item>
           <el-form-item label="性别" prop="sex" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.sex" autocomplete="off"></el-input>
+            <el-input v-model="tableForm.sex" autocomplete="off" disabled="false"></el-input>
           </el-form-item>
           <el-form-item label="出生日期" prop="bornDate" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.bornDate" autocomplete="off"></el-input>
+            <el-input v-model="tableForm.bornDate" autocomplete="off" disabled="false"></el-input>
           </el-form-item>
           <el-form-item label="身份证号码" prop="idNumber" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.idNumber" autocomplete="off"></el-input>
+            <el-input v-model="tableForm.idNumber" autocomplete="off" disabled="false"></el-input>
           </el-form-item>
           <el-form-item label="证件地址" prop="address" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.address" autocomplete="off"></el-input>
+            <el-input v-model="tableForm.address" autocomplete="off" disabled="false"></el-input>
           </el-form-item>
           <el-form-item label="审核状态" prop="state" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.state" autocomplete="off"></el-input>
+            <el-input v-model="tableForm.state" autocomplete="off" disabled="false"></el-input>
           </el-form-item>
-          <el-form-item label="身份证正面图片路径" prop="image1" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.image1" autocomplete="off"></el-input>
+          <el-form-item label="资料图片" :label-width="formLabelWidth">
+            <div class="demo-image__preview">
+              <el-image
+                style="width: 100px; height: 100px"
+                :src="tableForm.image1"
+                :preview-src-list="srcList">
+              </el-image>
+            </div>
           </el-form-item>
-          <el-form-item label="身份证反面图片路径" prop="image2" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.image2" autocomplete="off"></el-input>
+          <el-form-item label="资料图片" :label-width="formLabelWidth">
+            <div class="demo-image__preview">
+              <el-image
+                style="width: 100px; height: 100px"
+                :src="tableForm.image2"
+                :preview-src-list="srcList">
+              </el-image>
+            </div>
           </el-form-item>
           <el-form-item label="审核时间" prop="auditTime" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.auditTime" autocomplete="off"></el-input>
+            <el-input v-model="tableForm.auditTime" autocomplete="off" disabled="false"></el-input>
           </el-form-item>
           <el-form-item label="申请时间" prop="applyTime" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.applyTime" autocomplete="off"></el-input>
+            <el-input v-model="tableForm.applyTime" autocomplete="off" disabled="false"></el-input>
           </el-form-item>
           <el-form-item label="备注" prop="remark" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.remark" autocomplete="off"></el-input>
+            <el-input v-model="tableForm.remark" autocomplete="off" disabled="false"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -152,6 +164,8 @@
         name: "DataDictionary",
         data:function(){
             return {
+                srcList: [
+                ],
                 //这是下拉框 数据动态绑定
                 options: [{
                     value: '0',
@@ -219,6 +233,7 @@
             }
         },
         methods:{
+
             onQuery() {
                 this.queryParams.page = 1;
                 this.search();

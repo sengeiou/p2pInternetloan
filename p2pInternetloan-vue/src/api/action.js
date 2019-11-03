@@ -63,10 +63,11 @@ export default {
   "MEMBERS_ACCOUNT_QUERYBYID":"/membersAccount/account/queryById",
 
 
-  //个人资料
-  "MEMBERS_DETA_UPDATE":"/membersDetail/deta/update",
-  "MEMBERS_DETA_QUERYBYID":"/membersDetail/deta/queryById",
-  // "MEMBERS_DETA_QUERYPAGER":"/membersDetail/deta/queryById",
+  //个人资料membersDetail
+  "MEMBERS_AAA_UPDATE":"/membersDetail/update",
+  "MEMBERS_AAA_ADD":"/membersDetail/add",
+  "MEMBERS_AAA_QUERYBYID":"/membersDetail/queryById",
+
 
   ///////////// 会员模块请求配置  end /////////////
 

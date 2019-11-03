@@ -28,6 +28,7 @@ public class MembersDetailServiceImpl implements MembersDetailService {
      */
     @Override
     public MembersDetail queryById(Integer id) {
+
         return this.membersDetailDao.queryById(id);
     }
 

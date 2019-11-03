@@ -1,26 +1,5 @@
 <template>
    <el-main  style="background-color: #FFFFFF;" >
-<!--    <el-form class="demo-form-inline" style="margin-top: 10px;background:#FFFFFF;padding-top: 10px; height: 50px;padding-left: 10px;" :inline="true">-->
-<!--      <el-form-item label="是否可用">-->
-<!--        <el-select v-model="queryParams.membersState" filterable placeholder="请选择">-->
-<!--          <el-option-->
-<!--            v-for="item in options"-->
-<!--            :key="item.value"-->
-<!--            :label="item.label"-->
-<!--            :value="item.value"-->
-<!--             >-->
-<!--          </el-option>-->
-<!--        </el-select>-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="用户名">-->
-<!--        <el-input v-model="queryParams.name" placeholder="请输入用户名">-->
-<!--        </el-input>-->
-<!--      </el-form-item>-->
-
-<!--      <el-form-item>-->
-<!--        <el-button type="primary" icon="el-icon-search" @click="onQuery">查询</el-button>-->
-<!--      </el-form-item>-->
-<!--    </el-form>-->
 
     <!-- 数据表格-->
     <el-table :data="dataList"  height="440" :fit="true" :show-header="true" v-loading="loading">
@@ -102,21 +81,6 @@
                     remark:null,
                     state:null,
                 },
-                //表单验证
-                rules:{
-                  sn:[{
-                    required: true,
-                    message: '请输入字典编码',
-                    trigger: 'blur'
-                  }],
-                  title:[{
-                    required: true,
-                    message: '请输入字典名称',
-                    trigger: 'blur'
-                  }]
-
-                },
-
 
 
 
