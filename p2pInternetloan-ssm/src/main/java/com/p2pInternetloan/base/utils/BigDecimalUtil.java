@@ -98,34 +98,48 @@ public class BigDecimalUtil {
 
     /**
      * 这是计算等额本息：每个月应还的利息
-     *
+     *             =贷款本金×[月利率×(1+月利率)^还款月数]÷{[(1+月利率)^还款月数]-1}
      * 计算公式： 贷款本金×月利率×(1+月利率)^还款月数〕÷〔(1+月利率)^还款月数-1〕
-     * @param principal
-     * @param annualInterestRate
-     * @param loanPeriod
+     *
+     *bug修补说明：这里剪去了  每个月还款本金
+     * @param principal 本金
+     * @param annualInterestRate 年利率
+     * @param loanPeriod 贷款期数（月）
      * @return
      */
     public static  BigDecimal equalAmountPrincipal(BigDecimal principal, BigDecimal annualInterestRate, int loanPeriod){
         //计算月利率
         BigDecimal monthlyInterestRate = annualInterestRate.divide(new BigDecimal("12"), SCALE_PROCESS, ROUNDINGMODE);
+
         //(1+月利率)^还款月数
         BigDecimal s = monthlyInterestRate
                        // 月利率 + 1
                       .add(new BigDecimal("1"))
                       //这是 算出的结构再求与还款月数的次幂
                       .pow(loanPeriod);
+
 //        〔贷款本金×月利率×(1+月利率)^还款月数〕
         BigDecimal a =
                 //贷款本金×月利率
                 principal.multiply(monthlyInterestRate)
                 //×(1+月利率)^还款月数
                 .multiply(s);
+
 //        〔(1+月利率)^还款月数-1〕
         BigDecimal b =  s.subtract(new BigDecimal("1"));
-//        计算结构：〔贷款本金×月利率×(1+月利率)^还款月数〕÷〔(1+月利率)^还款月数-1〕 并返回
+
+//        计算结果：〔贷款本金×月利率×(1+月利率)^还款月数〕÷〔(1+月利率)^还款月数-1〕 并返回
         return  a.divide(b, SCALE_PROCESS, ROUNDINGMODE)
+                //这是减掉本金计算出利息
+                .subtract(periodPrincipal(principal, loanPeriod))
                 //处理小数点（四舍五入）
                 .setScale(SCALE, ROUNDINGMODE);
+    }
+
+    public static void main(String[] args) {
+        BigDecimal lx = new BigDecimal("0.1");
+        BigDecimal bj  = new BigDecimal("1000");
+        System.out.println(BigDecimalUtil.equalAmountPrincipal(bj, lx, 12));
     }
 
 

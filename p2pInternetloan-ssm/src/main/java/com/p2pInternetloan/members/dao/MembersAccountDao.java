@@ -1,8 +1,8 @@
 package com.p2pInternetloan.members.dao;
 
-import com.p2pInternetloan.members.entity.MembersAccount;
-import org.apache.ibatis.annotations.Param;
 import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.members.entity.MembersAccount;
+
 import java.util.List;
 
 /**
@@ -20,6 +20,15 @@ public interface MembersAccountDao {
      * @return 实例对象
      */
     MembersAccount queryById(Integer id);
+
+
+    /**
+     * 这是根据会员id查单个
+     * @param membersId
+     * @return
+     */
+    MembersAccount queryByMembersId(Integer membersId);
+
 
     /**
      * 通过query对象查询
@@ -52,5 +61,6 @@ public interface MembersAccountDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
+
 
 }

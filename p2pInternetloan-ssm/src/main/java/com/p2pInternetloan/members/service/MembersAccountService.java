@@ -1,8 +1,9 @@
 package com.p2pInternetloan.members.service;
 
-import com.p2pInternetloan.members.entity.MembersAccount;
-import java.util.List;
 import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.members.entity.MembersAccount;
+
+import java.util.List;
 
 /**
  * (MembersAccount)表服务接口
@@ -20,6 +21,8 @@ public interface MembersAccountService {
      */
     MembersAccount queryById(Integer id);
 
+
+    MembersAccount queryByMembersId(Integer MembersId);
 
     /**
      * 新增数据
@@ -53,5 +56,8 @@ public interface MembersAccountService {
      * @return 删除行数
      */
     int deleteById(Integer id);
+
+
+
 
 }

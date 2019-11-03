@@ -3,7 +3,7 @@
  * 模块名_实体名_操作
  */
 export default {
-	'SERVER': 'http://localhost:8080/p2pInternetloan', //服务器
+  'SERVER': 'http://localhost:8080/p2pInternetloan', //服务器
   ///////////// 这是通用请求挂载处 start /////////////
   'VERIFICATION':'/base/basecontroller/verificationCode',  //获取验证码
   ///////////// 这是通用请求挂载处  end /////////////
@@ -71,6 +71,26 @@ export default {
   ///////////// 会员模块请求配置  end /////////////
 
   ///////////// 业务模块请求配置  start /////////////
+  //用户借款
+  "BORROWING_BIDREQUEST_QUERY":"/borrowing/bidRequest/queryPager",
+  "BORROWING_BIDREQUEST_QUERY_BY_ID":"/borrowing/bidRequest/queryById",
+  "BORROWING_BIDREQUEST_APPLICATION_CREDIT_LOAN":"/borrowing/bidRequest/applicationCreditLoan",
+  "BORROWING_BIDREQUEST_UPDATE":"/borrowing/bidRequest/update",
+  "BORROWING_BIDREQUEST_GET_CURRENT_BID_REQUEST":"/borrowing/bidRequest/getCurrentBidRequest",//获取用户当前借口信息（如果当前用户没有借口的话返回 code:-1）
+  "BORROWING_BIDREQUEST_MEMBERS_BID_REQUEST":"/borrowing/bidRequest/membersBidRequest",
+
+  //投资表（bid）
+  "BORROWING_BID_QUERY":"/borrowing/bid/queryPager",
+  "BORROWING_BID_INVESTEMT_CALCULATION":"/borrowing/bid/investmentCalculation",
+  "BORROWING_BID_INVESTEMT_MEMBERS_BID_QUERY":"/borrowing/bid/membersBidQueryPager",
+  //这是用户投标
+  "BORROWING_BID_RENDER":"/borrowing/bid/tender",
+  //还款明细
+  "BORROWING_REFUNDETAIL_QUERY":"/borrowing/refundDetail/queryPager",
+  //还款明细表
+  //这是计算还款计划（注意不插入到数据库中呀）
+  "BORROWING_REFUNDETAIL_CALCULATIONREFUNDDETAIL":"/borrowing/refundDetail/calculationRefundDetail",
+
   ///////////// 业务模块请求配置  end /////////////
 
   ///////////// 资产模块请求配置  start /////////////
@@ -81,7 +101,7 @@ export default {
   ///////////// 资产模块请求配置  end /////////////
 
   'getFullPath': k => { //获得请求的完整地址，用于mockjs测试时使用
-		return this.SERVER + this[k];
+    return this.SERVER + this[k];
 
-	}
+  }
 }

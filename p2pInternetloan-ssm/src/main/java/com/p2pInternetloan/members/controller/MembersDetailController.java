@@ -49,6 +49,7 @@ public class MembersDetailController {
     public MembersDetail queryById(Integer id){
         return this.membersDetailService.queryById(id);
     }
+
     /**
      * 修改字段项
      * @param

@@ -7,10 +7,10 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="membersId" column="members_id" jdbcType="INTEGER"/>
         <result property="tradePassword" column="trade_password" jdbcType="VARCHAR"/>
-        <result property="usableAmount" column="usable_amount" jdbcType="VARCHAR"/>
-        <result property="unReceiveInterest" column="un_receive_interest" jdbcType="TIMESTAMP"/>
-        <result property="unReceivePrincipal" column="un_receive_principal" jdbcType="TIMESTAMP"/>
-        <result property="borrowLimit" column="borrow_limit" jdbcType="TIMESTAMP"/>
+        <result property="usableAmount" column="usable_amount" jdbcType="OTHER"/>
+        <result property="unReceiveInterest" column="un_receive_interest" jdbcType="OTHER"/>
+        <result property="unReceivePrincipal" column="un_receive_principal" jdbcType="OTHER"/>
+        <result property="borrowLimit" column="borrow_limit" jdbcType="OTHER"/>
         <result property="tradeCode" column="trade_code" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -20,6 +20,14 @@
           id, members_id, trade_password, usable_amount, un_receive_interest, un_receive_principal, borrow_limit, trade_code
         from members_account
         where id = #{id}
+    </select>
+
+
+    <select id="queryByMembersId" resultMap="MembersAccountMap">
+        select
+          id, members_id, trade_password, usable_amount, un_receive_interest, un_receive_principal, borrow_limit, trade_code
+        from members_account
+        where members_id = #{membersId}
     </select>
 
     <!--通过实体作为筛选条件查询-->

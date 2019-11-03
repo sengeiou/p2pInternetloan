@@ -45,8 +45,8 @@ public class MembersRealnameController {
      * @param membersrealname
      * @return
      */
-//    @PostMapping("add")
-    @RequestMapping("add")
+    @PostMapping("add")
+//    @RequestMapping("add")
     public R add(MembersRealname membersrealname){
         System.out.println(membersrealname);
         return R.update(this.membersRealnameService.insert(membersrealname));
@@ -73,13 +73,5 @@ public class MembersRealnameController {
 //    public R del(@PathVariable("id") Integer id){
 //        return R.update(this.membersRealnameService.deleteById(id));
 //    }
-
-
-
-
-
-
-
-
 
 }
