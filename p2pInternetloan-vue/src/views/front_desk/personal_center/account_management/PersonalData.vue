@@ -2,22 +2,32 @@
   <div>
     <el-card class="box-card">
       <div class="clearfix" slot="header">
-        <strong style="font-size: 23px;">个人资料</strong>
+        <strong style="font-size: 23px;">完善个人资料</strong>
       </div>
-<!--      <el-form style="margin-top: 22px;" label-width="100px">-->
         <el-form style="margin-top: 22px;" label-width="100px" :model="tableForm" :rules="rules" ref="tableForm" search>
         <el-row>
+<!--          <el-col :span="24">-->
+<!--            <el-form-item label="个人头像" :label-width="formLabelWidth">-->
+<!--              <div class="demo-image__preview">-->
+<!--                <el-image-->
+<!--                  style="width: 100px; height: 100px"-->
+<!--                  :src="tableForm.headPhoto"-->
+<!--                  :preview-src-list="srcList">-->
+<!--                </el-image>-->
+<!--              </div>-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
           <el-col :span="24">
             <el-form-item label="用户名:" prop="membersId">
-              <el-input style="line-height: 0px; width: 30%;" placeholder="请输入用户名">
-              </el-input>
+<!--              <el-input style="line-height: 0px; width: 30%;" placeholder="请输入用户名">-->
+<!--              </el-input>-->
             </el-form-item>
           </el-col>
           <el-col :span="24">
                 <el-form-item label="电话号码" prop="phone" :rules="[
-                 {required: true, message: '请输入电话号码', trigger: 'change'},
+                 {required: false, message: '请输入电话号码', trigger: 'change'},
                 {validator: checkPhone, trigger: 'change'}]">
-                <el-input v-model="tableForm.phone" placeholder="请填写申请人手机号码"></el-input>
+                <el-input placeholder="请填写申请人手机号码" v-model="tableForm.phone"></el-input>
                </el-form-item>
             </el-col>
           <el-col :span="24">
@@ -45,8 +55,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="子女情况" prop="myselfBackground">
-              <el-select  @focus="focus"filterable placeholder="请选择^@^" v-model="tableForm.myselfBackground">
+            <el-form-item label="子女情况" prop="children">
+              <el-select  @focus="focus"filterable placeholder="请选择^@^" v-model="tableForm.children">
                 <el-option v-for="item in c" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -62,7 +72,9 @@
           </el-col>
         </el-row>
         <div>
-          <el-button style="float: right;" icon="el-icon-circle-check" round type="success" @click="doSubmitDictItem">保存数据</el-button>
+<!--          <el-button style="float: right;" icon="el-icon-circle-check" round type="success" @click="onQuery">保存数据</el-button>-->
+<!--          <el-button style="float: right;" icon="el-icon-circle-check" round type="success" @click="doSubmitDictItem">提交</el-button>-->
+          <el-button style="float: right;" icon="el-icon-circle-check" round type="success" @click="doSubmitDictItem">确定</el-button>
         </div>
       </el-form>
     </el-card>
@@ -70,10 +82,25 @@
 </template>
 
 <script>
+    import commonUtils from "../../../../api/commonUtils";
     export default {
         name: "PersonalData",
         data: function(){
             return{
+                srcList: [
+                ],
+                                    //这是查询阐述
+                // queryParams: {
+                //     //定义搜索维度
+                //     id: 2,
+                //     membersId: null,
+                //     phone: null,
+                //     myselfBackground: null,
+                //     monthlyIncome: null,
+                //     maritalStatus: null,
+                //     children: null,
+                //     house: null,
+                // },
                 //这是下拉框 数据动态绑定
                 options: [{
                     value: '0',
@@ -135,19 +162,20 @@
                     label: '无房'
                 }],
                 tableForm:{
-                    id:null,
-                    membersId:null,
-                    phone:null,
-                    myselfBackground:null,
-                    monthlyIncome:null,
-                    maritalStatus:null,
-                    children:null,
-                    house:null,
+                    id:1,
+                    membersId:2,
+                    phone:18797736486,
+                    myselfBackground:'初中',
+                    monthlyIncome:3000,
+                    maritalStatus:'未婚',
+                    children:'一个女儿',
+                    house:'有房',
+                    headPhoto:null,
                 },
                 //这是表格是否占时加载动画
                 loading:false,
                 //这数据对象（用于表格占时）
-                dataList:[],
+                dictList:[],
                 //这是新值修改弹出
                 // dialogTitle:null,
                 //这是新值和修改弹出是否占时
@@ -192,43 +220,31 @@
                          if (!(/^1[34578]\d{9}$/.test(value))) {
                               callback(new Error('请输入正确的手机号码!'));
                              }
-                      else {
-                         this.$api.bsp.member.checkPhoneNo(this.tableForm.phone, this.tableForm.id).then(ret => {
-                        if (ret) {
-                          callback(new Error('该手机号码已存在，请修改手机号码。'));
-                        } else {
-                            callback();
-                         }
-                         });
-                    }
                    },
-            //添加、修改通用
+
             doSubmitDictItem: function() {
                 this.$refs['tableForm'].validate((valid) => {
                     if (true) {
                         var url = null;
                         //判断时添加还是修改
                         if (null != this.dictList.id) {
-                            url = this.axios.urls.MEMBERS_DETA_UPDATE;
+                            url = this.axios.urls.MEMBERS_AAA_UPDATE;
                         } else {
-                            url = this.axios.urls.MEMBERS_DETA_ADD;
+                            url = this.axios.urls.MEMBERS_AAA_ADD;
                         }
                         //发送请求
                         this.axios.get(url, {params: this.tableForm}).then(response => {
 
-                            debugger
                             //如果是操作失败
                             if (response.data.code == 500) {
                                 this.$message({
-                                    message: '错了哦保存失败',
+                                    message: '错了哦提交失败',
                                     type: 'warning'
                                 });
                             } else {
-                                //重新搜索
-                                this.search();
                                 //打印成功信息
                                 this.$message({
-                                    message: '恭喜保存成功了',
+                                    message: '恭喜提交成功了',
                                     type: 'success'
                                 });
                                 this.doCancel()
@@ -243,52 +259,114 @@
                     }
                 });
             },
-            //根据id查单个所有
-            search: function() {
-                let url = this.axios.urls.MEMBERS_DETA_QUERYBYID;
-                this.certified();
-                // let params = this.queryParams;
-                //查询动画
-                this.loading = true;
-                //向后端请求数据
-                this.axios.get(url,{params:params}).then(response => {
-                    this.dataList = response.data.data
-                    this.queryParams.total = response.data.total;
-                    //数据查询到了关闭查询动画
-                    this.loading = false;
-                }).catch(function(error) {
-                    console.log(error);
-                });
-            },
-            //表单回响
-            certified: function(id, row) {
-                // this.dialogTitle = "认证";
-                this.tableForm.id = row.id;
-                this.tableForm.membersId = row.membersId;
-                // this.tableForm.sex = row.sex;
-                // this.tableForm.bornDate = row.bornDate;
-                // this.tableForm.idNumber = row.idNumber;
-                // this.tableForm.address = row.address;
-                // this.tableForm.remark = row.remark;
-                // this.tableForm.image1 = row.image1;
-                // this.tableForm.image2 = row.image2;
-                // this.tableForm.state = row.state;
 
-                this.dialogFormVisible = true;
-            },
-            // doCancel() {
-            //     this.tableForm.realname = '';
-            //     this.tableForm.bornDateForm = '';
-            //     this.tableForm.sex = '';
-            //     this.tableForm.address = '';
-            //     this.tableForm.idNumber = '';
-            //     this.tableForm.image1 = '';
-            //     this.tableForm.image2 = '';
-            //     this.tableForm.remark = '';
-            //     // this.tableForm.bornDateForm = '';
-            //     this.tableForm.image1 = '';
-            //     this.tableForm.image2 = '';
+            //添加、修改通用
+            // doSubmitDictItem: function() {
+            //             var url = null;
+            //             //判断时添加还是修改
+            //             if (null != this.tableForm.id) {
+            //                 url = this.axios.urls.MEMBERS_AAA_UPDATE;
+            //
+            //             } else {
+            //                 // url = this.axios.urls.MEMBERS_AAA_UPDATE;
+            //             }
+            //             //发送请求
+            //             this.axios.post(url, {params: this.tableForm}).then(response => {
+            //
+            //                 //如果是操作失败
+            //                 if (response.data.code == 500) {
+            //                     this.$message({
+            //                         message: '错了哦提交失败',
+            //                         type: 'warning'
+            //                     });
+            //                 } else {
+            //                     //打印成功信息
+            //                     this.$message({
+            //                         message: '恭喜提交成功了',
+            //                         type: 'success'
+            //                     });
+            //                     this.doCancel()
+            //                 }
+            //
+            //             }).catch(function(error) {
+            //                 console.log(error);
+            //             });
+            //
             // },
+
+                // debugger
+                // this.$refs['tableForm'].validate((valid) => {
+                //     alert("是否成功");
+                //     debugger
+                //     // if (true) {
+                //     //     var url = null;
+                //     //     //判断时添加还是修改
+                //     //     if (null != this.dictList.id) {
+                //     //         url = this.axios.urls.MEMBERS_AAA_UPDATE;
+                //     //
+                //     //     } else {
+                //     //         url = this.axios.urls.MEMBERS_AAA_UPDATE;
+                //     //     }
+                //     //     //发送请求
+                //     //     this.axios.post(url, {params: this.tableForm}).then(response => {
+                //     //
+                //     //         //如果是操作失败
+                //     //         if (response.data.code == 500) {
+                //     //             this.$message({
+                //     //                 message: '错了哦提交失败',
+                //     //                 type: 'warning'
+                //     //             });
+                //     //         } else {
+                //     //             //打印成功信息
+                //     //             this.$message({
+                //     //                 message: '恭喜提交成功了',
+                //     //                 type: 'success'
+                //     //             });
+                //     //             this.doCancel()
+                //     //         }
+                //     //
+                //     //     }).catch(function(error) {
+                //     //         console.log(error);
+                //     //     });
+                //     // } else {
+                //     //     console.log('error submit!!');
+                //     //     return false;
+                //     // }
+                // });
+
+            // onQuery() {
+            //     this.search();
+            // },
+            // // 根据id查单个所有
+            // search: function() {
+            //     let url = this.axios.urls.MEMBERS_AAA_QUERYBYID;
+            //     // this.certified();
+            //     let params = this.queryParams;
+            //     //查询动画
+            //     this.loading = true;
+            //     //向后端请求数据
+            //     this.axios.get(url,{params:{id:1}}).then(response => {
+            //         this.dataList = response.data.data;
+            //         this.queryParams.total = response.data.total;
+            //         //数据查询到了关闭查询动画
+            //         this.loading = false;
+            //
+            //     }).catch(function(error) {
+            //         console.log(error);
+            //     });
+            // },
+
+            //表单回响
+            // certified: function(id, row) {
+            //     this.tableForm.id = row.id;
+            //     this.tableForm.membersId = row.membersId;
+            //     this.tableForm.phone = row.phone;
+            //     this.tableForm.myselfBackground = row.myselfBackground;
+            //     this.tableForm.monthlyIncome = row.monthlyIncome;
+            //     this.tableForm.children = row.children;
+            //     this.tableForm.house = row.house;
+            // },
+
         }
 
     }

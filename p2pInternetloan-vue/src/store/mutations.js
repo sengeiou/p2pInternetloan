@@ -49,5 +49,8 @@ export default{
   },
   set_role(state,role){
     this.state.role=role;
+  },
+  setParamObj(state,payload){
+    this.state.paramObj=payload.paramObj;
   }
 }

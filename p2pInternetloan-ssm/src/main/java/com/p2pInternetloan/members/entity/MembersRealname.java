@@ -37,6 +37,7 @@ public class MembersRealname implements Serializable {
     private Date auditTime;
     //申请时间
     private Date applyTime;
+
     //审核人id
     private Integer auditorId;
     //申请人id

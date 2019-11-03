@@ -26,15 +26,23 @@ export default {
    * @param dialogTitleDataName 这是要改变的标题名
    */
   handleEdit:function(row , formDataName, showDialogDataName, dialogTitleDataName){
-    var formData  = this.let_this[formDataName];
-    //开启数据回显
-    for(var name in formData){
-      formData[name] = row[name];
-    }
+    this.echo(row, formDataName);
     //打开弹出
     this.let_this[showDialogDataName] = true;
     if(dialogTitleDataName){
       this.let_this[dialogTitleDataName] = "修改";
+    }
+  },
+  /**
+   * 这是数据回显调用的方法
+   * @param row 回显数据
+   * @param echoDataName 回显目标对象
+   */
+  echo:function(row , echoDataName){
+    var echoData= this.let_this[echoDataName];
+    //开启数据回显
+    for(var name in echoData){
+      echoData[name] = row[name];
     }
   },
   /**
@@ -88,20 +96,25 @@ export default {
    * @param url 这是请求的理解
    * @param data 这是请求的数据
    * @param success 请求成功要回调的函数
+   * @param simple 是否使用简单一点的
    */
-  doAjaxPost(url, data, success){
+  doAjaxPost(url, data, success, simple){
     this.let_this.axios.post(url, data).then(response => {
-      if (response.data.code == 500) {
-        this.let_this.$message({
-          message: response.data.msg,
-          type: 'warning'
-        });
-      } else {
-        success()
-        this.let_this.$message({
-          message: response.data.msg,
-          type: 'success'
-        });
+      if(simple){
+        success(response.data)
+      }else {
+        if (response.data.code == 500) {
+          this.let_this.$message({
+            message: response.data.msg,
+            type: 'warning'
+          });
+        } else {
+          success(response.data)
+          this.let_this.$message({
+            message: response.data.msg,
+            type: 'success'
+          });
+        }
       }
     }).catch(function(error) {
       console.log(error);
@@ -172,6 +185,7 @@ export default {
       str = str.substr(1);
     }
     return str;
+
   },
 
   /**

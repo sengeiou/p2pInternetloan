@@ -65,14 +65,35 @@ export default {
   "MEMBERS_ACCOUNT_QUERYBYID":"/membersAccount/account/queryById",
 
 
-  //个人资料
-  "MEMBERS_DETA_UPDATE":"/membersDetail/deta/update",
-  "MEMBERS_DETA_QUERYBYID":"/membersDetail/deta/queryById",
-  // "MEMBERS_DETA_QUERYPAGER":"/membersDetail/deta/queryById",
+  //个人资料membersDetail
+  "MEMBERS_AAA_UPDATE":"/membersDetail/update",
+  "MEMBERS_AAA_ADD":"/membersDetail/add",
+  "MEMBERS_AAA_QUERYBYID":"/membersDetail/queryById",
+
 
   ///////////// 会员模块请求配置  end /////////////
 
   ///////////// 业务模块请求配置  start /////////////
+  //用户借款
+  "BORROWING_BIDREQUEST_QUERY":"/borrowing/bidRequest/queryPager",
+  "BORROWING_BIDREQUEST_QUERY_BY_ID":"/borrowing/bidRequest/queryById",
+  "BORROWING_BIDREQUEST_APPLICATION_CREDIT_LOAN":"/borrowing/bidRequest/applicationCreditLoan",
+  "BORROWING_BIDREQUEST_UPDATE":"/borrowing/bidRequest/update",
+  "BORROWING_BIDREQUEST_GET_CURRENT_BID_REQUEST":"/borrowing/bidRequest/getCurrentBidRequest",//获取用户当前借口信息（如果当前用户没有借口的话返回 code:-1）
+  "BORROWING_BIDREQUEST_MEMBERS_BID_REQUEST":"/borrowing/bidRequest/membersBidRequest",
+
+  //投资表（bid）
+  "BORROWING_BID_QUERY":"/borrowing/bid/queryPager",
+  "BORROWING_BID_INVESTEMT_CALCULATION":"/borrowing/bid/investmentCalculation",
+  "BORROWING_BID_INVESTEMT_MEMBERS_BID_QUERY":"/borrowing/bid/membersBidQueryPager",
+  //这是用户投标
+  "BORROWING_BID_RENDER":"/borrowing/bid/tender",
+  //还款明细
+  "BORROWING_REFUNDETAIL_QUERY":"/borrowing/refundDetail/queryPager",
+  //还款明细表
+  //这是计算还款计划（注意不插入到数据库中呀）
+  "BORROWING_REFUNDETAIL_CALCULATIONREFUNDDETAIL":"/borrowing/refundDetail/calculationRefundDetail",
+
   ///////////// 业务模块请求配置  end /////////////
 
   ///////////// 资产模块请求配置  start /////////////

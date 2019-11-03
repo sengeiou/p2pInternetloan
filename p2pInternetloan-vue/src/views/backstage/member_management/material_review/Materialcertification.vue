@@ -65,8 +65,14 @@
         <el-form-item label="文件路径" prop="file" :label-width="formLabelWidth">
           <el-input v-model="tableForm.file" autocomplete="off" disabled="false"></el-input>
         </el-form-item>
-        <el-form-item label="资料图片" prop="image" :label-width="formLabelWidth">
-          <el-input v-model="tableForm.image" autocomplete="off" disabled="false"></el-input>
+        <el-form-item label="资料图片" :label-width="formLabelWidth">
+          <div class="demo-image__preview">
+            <el-image
+              style="width: 100px; height: 100px"
+              :src="tableForm.image"
+              :preview-src-list="srcList">
+            </el-image>
+          </div>
         </el-form-item>
         <el-form-item label="审核备注" prop="remark" :label-width="formLabelWidth">
           <el-input v-model="tableForm.remark" autocomplete="off" disabled="false"></el-input>
@@ -87,6 +93,8 @@
         name: "DataDictionary",
         data:function(){
             return {
+                srcList: [
+                ],
                 //这是下拉框 数据动态绑定
                 options: [{
                     value: '0',

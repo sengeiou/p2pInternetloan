@@ -17,16 +17,17 @@ import java.util.Map;
  * @Date: 2019-10-19 17:23
  * @Version: V1.0
  */
-public class Test extends BaseTestCase {
-
-    @Autowired
-    SettingService settingService;
-
-    @Autowired
-    MembersService membersService;
-
+public class Test /*extends BaseTestCase */{
+//    @Autowired
+//    RedisTemplate redisTemplate;
+//
+//    @org.junit.Test
+//    public void test(){
+//        redisTemplate.delete("d");
+//    }
     @org.junit.Test
     public void test(){
+        System.out.println(String.valueOf(new BigDecimal("1")));
 //        int useable_min_limit = settingService.setMinLimit("useable_testmin_limit", "23");
 //        int bid_max_limit = settingService.update("withdraw_precedure_limit","54");
 //        Setting bid_max_limit = settingService.queryById("request_precedure_limit");

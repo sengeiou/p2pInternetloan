@@ -19,7 +19,7 @@
     <select id="queryById" resultMap="MembersMap">
         select
           id, name, password, certification_score, is_identity_authentication, members_state, rate, rate_time, bid_request_id
-        from members
+        from memberse
         where id = #{id}
     </select>
 

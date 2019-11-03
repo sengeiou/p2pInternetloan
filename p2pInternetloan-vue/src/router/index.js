@@ -20,6 +20,9 @@ import HousingLoan from "../views/front_desk/loan/HousingLoan";
 
 //我要投资
 import Investment from "../views/front_desk/investment/Investment";
+//投资详情页
+import InvestmentDetails from "../views/front_desk/investment/InvestmentDetails";
+
 //个人中心
 import PersonalCenterMain from "../views/front_desk/personal_center/PersonalCenterMain";
 import AccountManagement from "../views/front_desk/personal_center/account_management/AccountManagement";
@@ -46,6 +49,12 @@ import test from "../views/front_desk/personal_center/account_management/test";
 import transaction_record from "../views/front_desk/personal_center/asset_management/transaction_record";
 // ////////////          用户提现      ///////////////////////////
 import money_withdraw from "../views/front_desk/personal_center/asset_management/money_withdraw";
+//借款管理
+import loanManagement from "../views/front_desk/personal_center/loan_management/loanManagement";
+
+//投资管理
+import lnvestmentManagement   from "../views/front_desk/personal_center/lnvestment_management/lnvestmentManagement.vue";
+
 
 import userwithdrawal from "../views/front_desk/personal_center/asset_management/userwithdrawal";
 
@@ -66,7 +75,6 @@ import ratesset from "../views/backstage/setting/ratesset"
 import cashWithdrawalManagement from "../views/backstage/financial_management/cash_withdrawal_management/cashWithdrawalManagement";
 //数据字段
 import DataDictionary from "../views/backstage/system_management/DataDictionary";
-
 //实名认证
 import identification from "../views/backstage/member_management/identity_review/identification";
 //管理认证
@@ -74,6 +82,24 @@ import management from "../views/backstage/member_management/management/manageme
 //材料认证
 import Materialcertification from "../views/backstage/member_management/material_review/Materialcertification";
 
+////////////////////// 这是业务模块 start ///////////////////////////////////////////
+//这是信用贷
+import creditLoanManagement from "../views/backstage/business_management/credit_loan_management/creditLoanManagement";
+//这是申请审核
+import creditLoanReview from "../views/backstage/business_management/credit_loan_management/creditLoanReview";
+//这是满标审核
+import fullStandardReview from "../views/backstage/business_management/credit_loan_management/fullStandardReview";
+
+
+//这是车贷
+import carLoanManagement from "../views/backstage/business_management/car_loan_management/carLoanManagement";
+
+
+////////////////////// 这是业务模块 end ///////////////////////////////////////////
+
+
+//用户登录
+// import BackstageLogin from "../views/backstage/BackstageLogin";
 ////////////       这是后台的页面导入 （结束） /////////////////////////////////////////
 
 
@@ -91,7 +117,8 @@ export default new Router({
         {
           path: '/Home',
           name: 'Home',
-          component: Home
+          component: Home,
+          meta: { requiresAuth: true } // 添加表示需要验证
         //用户注册
         }, {
           path: '/Register',
@@ -131,6 +158,10 @@ export default new Router({
           path: '/Investment',
           name: 'Investment',
           component: Investment
+        }, {
+          path: '/InvestmentDetails',
+          name: 'InvestmentDetails',
+          component: InvestmentDetails
         },{
           path: '/PersonalCenterMain',
           name: 'PersonalCenterMain',
@@ -149,6 +180,18 @@ export default new Router({
               path: '/Authentication',
               name: 'Authentication',
               component: Authentication
+            },
+            //借款管理
+            {
+              path: '/loanManagement',
+              name: 'loanManagement',
+              component: loanManagement
+            },
+            //投资管理
+            {
+              path: '/lnvestmentManagement',
+              name: 'lnvestmentManagement',
+              component: lnvestmentManagement
             }
           ]
         },{
@@ -230,6 +273,26 @@ export default new Router({
           path: '/Materialcertification',
           name: 'Materialcertification',
           component: Materialcertification
+        },
+        {
+          path: '/creditLoanManagement',
+          name: 'creditLoanManagement',
+          component: creditLoanManagement
+        },
+        {
+          path: '/creditLoanReview',
+          name: 'creditLoanReview',
+          component: creditLoanReview
+        },
+        {
+          path: '/fullStandardReview',
+          name: 'fullStandardReview',
+          component: fullStandardReview
+        },
+        {
+          path: '/carLoanManagement',
+          name: 'carLoanManagement',
+          component: carLoanManagement
         }
       ]
     }

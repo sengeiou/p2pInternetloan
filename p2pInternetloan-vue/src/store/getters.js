@@ -34,5 +34,8 @@ export default{
   },
   getRole:(state) =>{
     return state.role;
-  }
+  },
+  getParamObj:(state) =>{
+    return state.paramObj;
+  },
 }
