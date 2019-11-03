@@ -4,13 +4,12 @@
     <el-card style="font-size: 26px; font-weight: bold; max-height: 314px; min-height: 429px;" header="用户提现管理">
       <el-row>
         <el-col style="font-size: 19px; font-weight: lighter;" :span="8">状态：
-          <el-select v-model="queryParams.state" filterable placeholder="请选择">
+          <el-select id="xlk" v-model="queryParams.state" filterable placeholder="请选择">
             <el-option
               v-for="item in options"
-              :key="item.value"
+              :key="item.name"
               :label="item.label"
               :value="item.value"
-
             >
             </el-option>
           </el-select>
@@ -25,27 +24,35 @@
             range-separator="To"
             start-placeholder="Start date"
             end-placeholder="End date"
+            value-format="yyyy-MM-dd-HH-mm-ss"
             :picker-options="pickerOptions2">
           </el-date-picker>
           <el-button style="left: 0px; right: 0px; margin-left: 15px;" type="success" round icon="el-icon-document-checked" @click="onQuery">查询</el-button>
         </el-col>
       </el-row>
-      <el-table :data="tableList" :fit="true" :show-header="true" >
-        <el-table-column  prop="id" label="ID" width="140px">
+
+
+      <el-table style="min-height: 627px;" :data="tableList" :fit="true" :show-header="true" fit="true" show-header="true" highlight-current-row default-expand-all stripe>
+        <el-table-column  prop="id" label="ID" width="100px">
         </el-table-column>
-        <el-table-column prop="apply_time" label="申请时间">
+        <el-table-column value-format="yyyy-MM-dd-HH-mm-ss" prop="apply_time" label="申请时间" width="150px">
         </el-table-column>
-        <el-table-column prop="amount" label="提现金额">
+        <el-table-column prop="amount" label="提现金额（元）">
         </el-table-column>
-        <el-table-column prop="fee" label="手续费金额">
+        <el-table-column prop="fee" label="手续费金额（元）">
         </el-table-column>
-        <el-table-column prop="trade_code" label="提现去向">
+        <el-table-column prop="state"  v-text="state(type)" label="状态">
+
         </el-table-column>
-        <el-table-column prop="remark" label="备注" width="260px">
-        </el-table-column>
-        <el-table-column prop="state" label="状态">
+        <el-table-column label="操作" >
+        <template slot-scope="scope">
+          <el-button size="small" type="success" round @click="onclickshtg()">审核通过</el-button>
+          <el-button size="small" type="danger" round >审核不通过</el-button>
+        </template>
         </el-table-column>
       </el-table>
+
+
       <el-pagination layout="prev,pager,next" :total="paginationTotal" :page-size="paginationSize" :pager-count="paginationCount" background :hide-on-single-page="true">
       </el-pagination>
       <el-pagination style="margin: 15px;" background @size-change="handleSizeChangeDictItem" @current-change="handleCurrentChangeDictItem"
@@ -58,14 +65,14 @@
 
 <script>
   export default {
-    name: "money_withdraw",
+    name: "cashWithdrawalManagement",
     data(){
       return {
         tableList:[],
         //将日期回显到表格上
         pickerOptions2: {
           shortcuts: [{
-            text: 'Last week',
+            text: '上周',
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -73,7 +80,7 @@
               picker.$emit('pick', [start, end]);
             }
           }, {
-            text: 'Last month',
+            text: '上个月',
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -81,7 +88,7 @@
               picker.$emit('pick', [start, end]);
             }
           }, {
-            text: 'Last 3 months',
+            text: '最后3个月',
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -127,27 +134,68 @@
 
         //绑定数据
         recordList: [{
-          apply_time:null,
           id:null,
-          apply_time: null,
+          apply_time:null,
           amount: null,
           fee: null,
           trade_code: null,
+          remark: null,
           state:null
         }],
 
       }
     },
     methods:{
+      onclickshtg(){
+        this.updatestate();
+      },
 
       onQuery(){
         this.queryParams.page = 1;
         this.search();
-        console.log(queryParams.apply_time)
+
       },
-      //这是搜索加展示数据的方法
-      search: function() {
-        let url = this.axios.urls.MEMBERS_MONEYRECHARGE_QUERYPAGER;
+
+      state(type) {
+        if (type === 1) {
+          return '待审核'
+        } else if (type == 2) {
+          return '审核不通过'
+        } else if (type == 0) {
+          return '审核通过'
+          alert(asdfghg)
+        }
+      },
+
+      updatestate:function(state){
+        let wechatId = document.getElementById('xlk').name;
+
+        this.$refs['tableList'].validate((valid) => {
+          var url = null;
+          url = this.axios.urls.ASSETS_MONEYWITHDRAW_UPDATESTATE;
+          //发送请求
+          alert(url)
+          this.axios.post(url,{
+            state: document.getElementById('xlk').value,
+          }).then(response => {
+            //这里是操作成功
+            // this.doClearForm();
+            //重新查找
+            this.search();
+            //打印成功信息
+            this.$message({
+              type: 'success'
+            });
+          }).catch(function(error) {
+            console.log(error);
+          });
+
+        });
+      },
+
+       //搜索的方法
+       search: function() {
+        let url = this.axios.urls.ASSETS_MONEYWITHDRAW_QUERYPAGER;
         let params = {
           // id:this.queryParams.apply_time,
           // i:this.queryParams.tradeTime,
@@ -179,6 +227,7 @@
         this.queryParams.page = page;
         this.search();
       }
+
     },
     created() {
       this.onQuery();

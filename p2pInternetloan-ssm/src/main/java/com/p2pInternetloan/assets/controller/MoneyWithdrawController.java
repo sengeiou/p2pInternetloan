@@ -40,7 +40,7 @@ public class MoneyWithdrawController {
     }
 
 
-//    用户模块
+//    管理员模块
     /**
      *  用户提现操作，状态改为待审核
      * @param state
@@ -53,7 +53,7 @@ public class MoneyWithdrawController {
 
 
 
-//    管理员模块
+//    用户模块
 
 
 

@@ -44,8 +44,11 @@ import Login from "../views/front_desk/Login";
 import test from "../views/front_desk/personal_center/account_management/test";
 ////////////        用户提现充值记录   ///////////////////////////
 import transaction_record from "../views/front_desk/personal_center/asset_management/transaction_record";
-////////////          用户提现      ///////////////////////////
+// ////////////          用户提现      ///////////////////////////
 import money_withdraw from "../views/front_desk/personal_center/asset_management/money_withdraw";
+
+import userwithdrawal from "../views/front_desk/personal_center/asset_management/userwithdrawal";
+
 ////////////       这是个人中心的页面导入 （结束） /////////////////////////////////////////
 
 ////////////       这是后台的页面导入 （开始） /////////////////////////////////////////
@@ -58,6 +61,7 @@ import RoleManagement from "@/views/backstage/system_management/RoleManagement";
 import MenuManagement from "@/views/backstage/system_management/MenuManagement";
 //设置管理
 import setting  from  "@/views/backstage/setting/setting";
+import ratesset from "../views/backstage/setting/ratesset"
 //用户提现管理
 import cashWithdrawalManagement from "../views/backstage/financial_management/cash_withdrawal_management/cashWithdrawalManagement";
 //数据字段
@@ -146,7 +150,6 @@ export default new Router({
               name: 'Authentication',
               component: Authentication
             }
-
           ]
         },{
           //用户提现充值记录
@@ -161,9 +164,11 @@ export default new Router({
           path: '/money_withdraw',
           name: 'money_withdraw',
           component: money_withdraw
-        },
-
-
+        },{
+          path: '/userwithdrawal',
+          name: 'userwithdrawal',
+          component: userwithdrawal
+        }
       ]
     },
     /////////////////////// 这是前台路由挂载 （结束） ///////////////////////
@@ -212,7 +217,11 @@ export default new Router({
           path: '/setting',
           name: 'setting',
           component: setting,
-
+          children:[{
+              path: '/ratesset',
+              name: 'ratesset',
+              component: ratesset
+          }]
         },{
           path: '/cashWithdrawalManagement',
           name: 'cashWithdrawalManagement',

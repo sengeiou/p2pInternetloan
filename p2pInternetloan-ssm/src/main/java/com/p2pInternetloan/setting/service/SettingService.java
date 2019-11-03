@@ -23,11 +23,11 @@ public interface SettingService {
 
     /**
      * 新增数据
-     *
-     * @param setting 实例对象
-     * @return 添加行数
+     * @param key
+     * @param useableminlimit
+     * @return
      */
-     int insert(Setting setting);
+     int insert(String key,Object useableminlimit);
 
     /**
      * 通过query对象查询
@@ -38,13 +38,14 @@ public interface SettingService {
     List<Setting> queryPager(Query query);
 
 
+
     /**
-     * 修改数据
-     *
-     * @param setting 实例对象
-     * @return 修改行数
+     * 修改设置值
+     * @param key
+     * @param useableminlimit
+     * @return
      */
-     int update(Setting setting);
+     int update(String key,Object useableminlimit);
 
     /**
      * 通过主键删除数据

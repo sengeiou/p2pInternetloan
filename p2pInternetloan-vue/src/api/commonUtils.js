@@ -172,8 +172,8 @@ export default {
       str = str.substr(1);
     }
     return str;
-  }
   },
+
   /**
    * 这是定义一个时间格式转换方法
    * 使用方法 例如：  formatDate(new Date(), "yyyy-MM-dd hh:mm:ss"); 返回的就是 fmt 中指定的格式了
@@ -201,7 +201,7 @@ export default {
       }
     }
     return fmt;
-  },
+  }
 
 
 }

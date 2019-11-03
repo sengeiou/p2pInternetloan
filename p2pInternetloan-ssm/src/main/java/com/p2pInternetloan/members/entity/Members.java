@@ -35,7 +35,7 @@ public class Members implements Serializable {
     //bid_request_id
     private Integer bidRequestId;
 
-    
+
     public Integer getId() {
         return id;
     }
@@ -107,5 +107,8 @@ public class Members implements Serializable {
     public void setBidRequestId(Integer bidRequestId) {
         this.bidRequestId = bidRequestId;
     }
+
+
+
 
 }

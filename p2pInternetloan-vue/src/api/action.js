@@ -3,15 +3,15 @@
  * 模块名_实体名_操作
  */
 export default {
-	'SERVER': 'http://localhost:8080/p2pInternetloan', //服务器
+  'SERVER': 'http://localhost:8080/p2pInternetloan', //服务器
   ///////////// 这是通用请求挂载处 start /////////////
   'VERIFICATION':'/base/basecontroller/verificationCode',  //获取验证码
   ///////////// 这是通用请求挂载处  end /////////////
 
   ///////////// 设置模块请求配置  start /////////////
-  "SETTING_SETTING_SETMINLIMIT":'/setting/setting/setMinLimit',
-
-  /////////// 设置模块请求配置  end /////////////
+  "SETTING_SETTING_SETMINLIMIT":"/setting/setting/setMinLimit",
+  "SETTING_SETTING_QUERY":"/setting/setting/query",
+  ///////////// 设置模块请求配置  end /////////////
 
   ///////////// 系统模块请求配置  start /////////////
   //数据字典请求
@@ -27,6 +27,9 @@ export default {
   "SYSTEM_DICT_ITEM_GET_SELECT":"/sys/dictitem/getSelect",
   //这是用户模块的请求
   "SYSTEM_USER_ADD":"/sys/user/add",
+  'SYSTEM_USER_DOLOGIN': '/sys/user/login', //登陆
+  "SYSTEM_USER_LOGOUT":"/sys/user/logout",
+  'SYSTEM_TREENODE':'/sys/permission/queryUserMenu',  //初始化动态树
   "SYSTEM_USER_QUERY":"/sys/user/quyerPages",
   "SYSTEM_USER_DEL":"/sys/user/del/",
   "SYSTEM_USER_EDIT":"/sys/user/update",
@@ -65,12 +68,7 @@ export default {
   //个人资料
   "MEMBERS_DETA_UPDATE":"/membersDetail/deta/update",
   "MEMBERS_DETA_QUERYBYID":"/membersDetail/deta/queryById",
-  "ASSEST_MONEYWITHDRAW_QUERYPAGE":"/assets/moneyWithdraw/queryPage",
   // "MEMBERS_DETA_QUERYPAGER":"/membersDetail/deta/queryById",
-
-
-
-
 
   ///////////// 会员模块请求配置  end /////////////
 
@@ -81,11 +79,15 @@ export default {
   // assets/moneyRecharge
   "MEMBERS_MONEYRECHARGE_QUERYPAGER":"/assets/moneyRecharge/queryPager",
   "MEMBERS_MONEYRECHARGE_QUERYGET":"/assets/moneyRecharge/queryByid",
+  "ASSETS_MONEYWITHDRAW_QUERYPAGER":"/assets/moneyWithdraw/queryPager",
+  //用户提现审核
+  "ASSETS_MONEYWITHDRAW_UPDATESTATE":"/assets/moneyWithdraw/updateState",
+
 
   ///////////// 资产模块请求配置  end /////////////
 
   'getFullPath': k => { //获得请求的完整地址，用于mockjs测试时使用
-		return this.SERVER + this[k];
+    return this.SERVER + this[k];
 
-	}
+  }
 }

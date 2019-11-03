@@ -29,21 +29,21 @@ public interface SettingDao {
          */
         List<Setting> queryPager(Query query);
 
-        /**
-         * 新增数据
-         *
-         * @param setting 实例对象
-         * @return 影响行数
-         */
-        int insert(Setting setting);
+    /**
+     * 新增数据
+     * @param key
+     * @param useableminlimit
+     * @return
+     */
+        int insert(String key,Object useableminlimit);
 
         /**
          * 修改数据
-         *
-         * @param setting 实例对象
-         * @return 影响行数
+         * @param key
+         * @param value
+         * @return
          */
-        int update(Setting setting);
+        int update(@Param("key") String key, @Param("value") String value);
 
         /**
          * 通过主键删除数据

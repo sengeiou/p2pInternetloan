@@ -147,7 +147,7 @@
           },
           //这是搜索加展示数据的方法
           search: function() {
-            let url = this.axios.urls.MEMBERS_MONEYRECHARGE_QUERYPAGER;
+            let url = this.axios.urls.ASSETS_MONEYWITHDRAW;
             let params = {
               // id:this.queryParams.apply_time,
               // i:this.queryParams.tradeTime,

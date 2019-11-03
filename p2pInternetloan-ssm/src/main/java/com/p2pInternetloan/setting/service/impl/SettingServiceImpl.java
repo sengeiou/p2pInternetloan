@@ -44,24 +44,24 @@ public class SettingServiceImpl implements SettingService {
 
     /**
      * 新增数据
-     *
-     * @param setting 实例对象
-     * @return 实例对象
+     * @param key
+     * @param useableminlimit
+     * @return
      */
     @Override
-    public int insert(Setting setting) {
-        return this.settingDao.insert(setting);
+    public int insert(String key,Object useableminlimit) {
+        return this.settingDao.insert(key,useableminlimit);
     }
 
     /**
      * 修改数据
-     *
-     * @param setting 实例对象
-     * @return 实例对象
+     * @param key
+     * @param useableminlimit
+     * @return
      */
     @Override
-    public int update(Setting setting) {
-        return this.settingDao.update(setting);
+    public int update(String key,Object useableminlimit) {
+        return this.settingDao.update(key,useableminlimit + "");
     }
 
     /**

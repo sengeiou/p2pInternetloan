@@ -32,7 +32,7 @@
                 and a.trade_code = #{tradeCode}
             </if>
              <if test="tradeTime != null">
-                and a.trade_time like concat('%', #{trade_time}, '%')
+                and a.trade_time in{trade_time}
             </if>
                 <if test="amount != null">
                 and a.amount = #{amount}

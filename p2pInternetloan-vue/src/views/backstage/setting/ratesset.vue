@@ -15,7 +15,7 @@
         </el-tabs>
       </div>
       <el-main class="main-center">
-        <router-view></router-view>
+        <router-view>34567</router-view>
       </el-main>
     </el-container>
   </el-container>

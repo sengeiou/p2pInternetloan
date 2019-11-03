@@ -79,7 +79,7 @@
         update money_withdraw
         <set>
             <if test="state != null">
-                state = #{state},
+                state = 0,
             </if>
             <if test="remark != null and remark != ''">
                 remark = #{remark},
