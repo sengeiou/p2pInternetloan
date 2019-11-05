@@ -10,7 +10,7 @@
         <result property="bornDate" column="born_date" jdbcType="TIMESTAMP"/>
         <result property="idNumber" column="id_number" jdbcType="VARCHAR"/>
         <result property="address" column="address" jdbcType="VARCHAR"/>
-        <result property="state" column="state" jdbcType="OTHER"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
         <result property="image1" column="image1" jdbcType="VARCHAR"/>
         <result property="image2" column="image2" jdbcType="VARCHAR"/>
         <result property="remark" column="remark" jdbcType="VARCHAR"/>
@@ -81,8 +81,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into members_realname(realname, sex, born_date, id_number, address, state, image1, image2, remark, audit_time, apply_time, auditor_id, members_id)
-        values (#{realname}, #{sex}, #{bornDate}, #{idNumber}, #{address}, #{state}, #{image1}, #{image2}, #{remark}, #{auditTime}, #{applyTime}, #{auditorId}, #{membersId})
+        insert into members_realname(realname, sex, born_date, id_number, address, state, image1, image2, apply_time, members_id)
+        values (#{realname}, #{sex}, #{bornDate}, #{idNumber}, #{address}, 2, #{image1}, #{image2}, #{applyTime},#{membersId})
     </insert>
 
     <!--通过主键修改数据-->

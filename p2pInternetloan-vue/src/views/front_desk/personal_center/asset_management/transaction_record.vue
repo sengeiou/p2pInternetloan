@@ -1,8 +1,6 @@
 <template>
   <div  style="padding: 20px;background-color: #FFFFFF">
-    <el-tabs value="first" editable addable closable type="border-card">
-      <!--<el-table :data="dictItemList"  height="500"  :fit="true" :show-header="true" v-loading="dictItemloading" style="margin-top: 20px">-->
-        <el-tab-pane name="first" label="充值记录" :inline="true">
+
               <el-row>
                 <el-col style="font-weight: bold;" :span="12">充值交易ID：
                   <el-input    v-model="queryParams.titleid" style="height: 0px; width: 58%;" placeholder="请输入内容" size="medium" clearable show-word-limit type="text"></el-input>
@@ -23,42 +21,22 @@
 
           </el-row>
 
-        </el-tab-pane>
+          <el-table :data="dictList"  height="520" :fit="true" :show-header="true" v-loading="loading">
+            <el-table-column prop="id" label="ID" min-width="2">
+            </el-table-column>
 
-        <el-tab-pane name="second" label="提现记录">
-          <el-row>
-            <el-col style="font-weight: bold;" :span="12">提现交易ID：
-              <el-input style="height: 0px; width: 58%;" placeholder="请输入内容" size="medium" clearable show-word-limit></el-input>
-            </el-col>
-            <el-col style="font-weight: bold;" :span="12">提现交易时间：
-              <el-input style="height: 6px; width: 58%;" placeholder="请输入内容" size="medium" clearable show-word-limit></el-input>
-              <el-button style="right: 275px; margin-right: -50px;" :autofocus="true" plain type="success" :native-type="submit">查询</el-button>
-            </el-col>
-          </el-row>
-        </el-tab-pane>
+            <el-table-column prop="tradeCode" label="支付宝账号" min-width="4">
+            </el-table-column>
+            <el-table-column value-format="yyyy-MM-dd-HH-mm-ss" prop="tradeTime" label="交易时间" min-width="4">
+            </el-table-column>1
+            <el-table-column prop="amount" label="交易金额" min-width="4">
+            </el-table-column>
 
-
-    <!--<el-table :data="recordList" stripe style="margin-bottom: 43px; padding-top: 0px; margin-left: 0px; width: 100%"  height="440" :fit="true" :show-header="true" v-loading="loading" show-header="true" highlight-current-row>-->
-    <el-table :data="dictList"  height="520" :fit="true" :show-header="true" v-loading="loading">
-      <el-table-column prop="id" label="ID" min-width="2">
-      </el-table-column>
-
-      <el-table-column prop="tradeCode" label="支付宝账号" min-width="4">
-      </el-table-column>
-      <el-table-column value-format="yyyy-MM-dd-HH-mm-ss" prop="tradeTime" label="交易时间" min-width="4">
-      </el-table-column>1
-      <el-table-column prop="amount" label="交易金额" min-width="4">
-      </el-table-column>
-      <!--<el-table-column label="操作" min-width="4">-->
-        <!--<template slot-scope="scope">-->
-        <!--</template>-->
-      <!--</el-table-column>-->
-    </el-table>
-    <el-pagination style="margin: 15px;" background @size-change="handleSizeChangeDictItem" @current-change="handleCurrentChangeDictItem"
-                   :current-page="queryParams.page" :page-sizes="[5, 10, 15, 20]" :page-size="queryParams.rows" layout="total, sizes, prev, pager, next, jumper"
-                   :total="queryParams.total">
-    </el-pagination>
-    </el-tabs>
+          </el-table>
+          <el-pagination style="margin: 15px;" background @size-change="handleSizeChangeDictItem" @current-change="handleCurrentChangeDictItem"
+                         :current-page="queryParams.page" :page-sizes="[5, 10, 15, 20]" :page-size="queryParams.rows" layout="total, sizes, prev, pager, next, jumper"
+                         :total="queryParams.total">
+          </el-pagination>
   </div>
 
 </template>
@@ -67,7 +45,9 @@
   // import commonUtils from "../../../api/commonUtils";
   // import commonUtils
 
-    export default {
+    import commonUtils from "../../../../api/commonUtils";
+
+  export default {
         name: "transaction_record",
         data:function(){
               return {
@@ -100,9 +80,7 @@
                   }]
                 },
                 value:"",
-
-
-                //这是查询阐述
+                //这是查询参数
                 queryParams: {
                   //定义搜索维度
                   titleid: null,
@@ -113,7 +91,6 @@
                   total: 0,
 
                 },
-
                 //这是表格是否占时加载动画
                 loading: false,
                 //这书数据对象（用于表格占时）
@@ -124,7 +101,6 @@
                 dictDialogFormVisible: false,
                 //这是文本框中文字说明的长度
                 formLabelWidth: "100px",
-
                 //绑定数据
                 recordList: [{
                   titleid:null,
@@ -135,7 +111,6 @@
                   tradeTime: null,
                   amount: null
                 }],
-
               }
         },
       methods:{
@@ -145,8 +120,6 @@
           this.search();
 
         },
-
-
         //这是搜索加展示数据的方法
         search: function() {
           let url = this.axios.urls.MEMBERS_MONEYRECHARGE_QUERYPAGER;
@@ -156,6 +129,11 @@
             page:this.queryParams.page,
             rows:this.queryParams.rows,
             total:this.queryParams.total
+          }
+          //这是处理开始时间和结束时间
+          if(this.queryParams.tradeTime && this.queryParams.tradeTime.length > 1){
+              params.tradeTimeStart = commonUtils.formatDate(this.queryParams.tradeTime[0], 'yyyy/MM/dd')
+              params.tradeTimeEnd = commonUtils.formatDate(this.queryParams.tradeTime[1], 'yyyy/MM/dd')
           }
          if(params.titleid != 0) {
            //查询动画

@@ -49,6 +49,7 @@ export default {
   "MEMBERS_MEN_LOGIN":"/members/login",
   "MEMBERS_MEN_LOGOUT":"/members/logout",
   "MEMBERS_MEN_REGISTERED":"/members/registered",
+  "MEMBERS_MEN_CURRENT_MEMBERS":"/members/getCurrentMembers",//这是获取当前登录的用户
   "MEMBERS_MEN_QUERYPAGER":"/members/mem/queryPager",
   "MEMBERS_MEN_ADD":"/members/mem/add",
   "MEMBERS_MEN_UPDATE":"/members/mem/update",
@@ -59,11 +60,12 @@ export default {
   "MEMBERS_MAT_UPDATE":"/membersMaterials/mat/update",
 
 
-
   //会员账户管理
   "MEMBERS_ACCOUNT_QUERYPAGER":"/membersAccount/account/queryPager",
   "MEMBERS_ACCOUNT_QUERYBYID":"/membersAccount/account/queryById",
-
+  "MEMBERS_ACCOUNT_CURRENT_MENBER_ACCOUNT":"/membersAccount/account/getCurrentMembersAccount",//获取当前用户账户
+  //这是用户统计查询
+  "MEMBERS_ACCOUNT_MY_HOME_STATISTICS":"/membersAccount/account/myHomeStatistics",
 
   //个人资料membersDetail
   "MEMBERS_AAA_UPDATE":"/membersDetail/update",
@@ -85,7 +87,7 @@ export default {
   //投资表（bid）
   "BORROWING_BID_QUERY":"/borrowing/bid/queryPager",
   "BORROWING_BID_INVESTEMT_CALCULATION":"/borrowing/bid/investmentCalculation",
-  "BORROWING_BID_INVESTEMT_MEMBERS_BID_QUERY":"/borrowing/bid/membersBidQueryPager",
+  "BORROWING_BID_INVESTEMT_MEMBERS_BID_QUERY":"/borrowing/bid/membersBidQueryPager", //这是找投资记录
   //这是用户投标
   "BORROWING_BID_RENDER":"/borrowing/bid/tender",
   //还款明细
@@ -93,6 +95,8 @@ export default {
   //还款明细表
   //这是计算还款计划（注意不插入到数据库中呀）
   "BORROWING_REFUNDETAIL_CALCULATIONREFUNDDETAIL":"/borrowing/refundDetail/calculationRefundDetail",
+  //这是回款明细相关
+  "BORROWING_RETURNDETAIL_QUERYMEMBERS":"/borrowing/returnDetail/queryMembersPager",//附加客户ID进行回款明细查询
 
   ///////////// 业务模块请求配置  end /////////////
 
@@ -100,9 +104,13 @@ export default {
   // assets/moneyRecharge
   "MEMBERS_MONEYRECHARGE_QUERYPAGER":"/assets/moneyRecharge/queryPager",
   "MEMBERS_MONEYRECHARGE_QUERYGET":"/assets/moneyRecharge/queryByid",
+  //充值表
+  "ASSETS_MONEYRECHARGE_RECHARGE":"assets/moneyRecharge/recharge",//充值
+  //提现表
   "ASSETS_MONEYWITHDRAW_QUERYPAGER":"/assets/moneyWithdraw/queryPager",
-  //用户提现审核
-  "ASSETS_MONEYWITHDRAW_UPDATESTATE":"/assets/moneyWithdraw/updateState",
+  //用户体现表相关
+  "ASSETS_MONEYWITHDRAW_APPLICATION":"/assets/moneyWithdraw/applicatio",//这是用户提现
+  "ASSETS_MONEYWITHDRAW_UPDATESTATE":"/assets/moneyWithdraw/updateState",  //这是提现审核该状态
 
 
   ///////////// 资产模块请求配置  end /////////////

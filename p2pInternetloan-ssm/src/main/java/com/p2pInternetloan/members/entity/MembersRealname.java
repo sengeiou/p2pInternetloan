@@ -1,5 +1,7 @@
 package com.p2pInternetloan.members.entity;
 
+import com.p2pInternetloan.base.aspect.annotation.Dict;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -25,6 +27,7 @@ public class MembersRealname implements Serializable {
     //证件地址
     private String address;
     //状态（0审核成功，1待审核，2审核失败)
+    @Dict(dicCode = "is_identity_authentication")
     private Integer state;
     //身份证正面图片路径
     private String image1;

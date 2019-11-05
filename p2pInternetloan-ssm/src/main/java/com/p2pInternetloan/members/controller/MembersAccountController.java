@@ -1,5 +1,6 @@
 package com.p2pInternetloan.members.controller;
 
+import com.p2pInternetloan.base.utils.JwtSession;
 import com.p2pInternetloan.base.utils.PageUtils;
 import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.R;
@@ -20,6 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("membersAccount/account")
 public class MembersAccountController {
+
     /**
      * 服务对象
      */
@@ -59,4 +61,27 @@ public class MembersAccountController {
         return R.update(this.membersAccountService.update(membersAccount));
     }
 
+
+    /**
+     * 这是用户首页统计
+     * @return
+     */
+    @GetMapping("myHomeStatistics")
+    public R myHomeStatistics(){
+        R r = R.ok();
+        r.put("data", this.membersAccountService.myHomeStatistics(JwtSession.getCurrentMembersId()));
+        return  r;
+    }
+
+    /**
+     * 获取当前用户的账户
+     * @return
+     */
+    @GetMapping("getCurrentMembersAccount")
+    public MembersAccount getCurrentMembersAccount(){
+        Query query = new Query();
+        query.put("membersId", JwtSession.getCurrentMembersId());
+        List<MembersAccount> list = membersAccountService.queryPager(query);
+        return list.get(0);
+    }
 }

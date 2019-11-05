@@ -38,7 +38,6 @@
           </el-col>
           <el-col style="top: 0px; margin-top: 20px;">
             <el-col :span="6">借款说明: {{bidRequest.description}}</el-col>
-
           </el-col>
         </el-col>
         <el-col :span="6">
@@ -101,8 +100,8 @@
     <el-dialog top="25vh" width="45%" title="交易密码" :visible.visible="pwdDialogFormVisible" @close="doCancel()">
       <el-form :model="tenderParams" :rules="tenderRules" ref="tenderForm">
         <el-form-item label="交易密码" prop="pwd" label-width="100">
-          <el-input v-model="tenderParams.pwd" autocomplete="off"></el-input>
-        </el-form-item>
+          <el-input v-model="tenderParams.pwd" autocomplete="off"  show-password></el-input>
+        </el-form-item> 
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="doCancel()">关闭</el-button>
@@ -142,7 +141,6 @@
                 },
                 //这是投资记录想干属性 start
                 bidParams:{
-                    bidRequestId:null,
                     // 分页
                     page: 1,
                     rows: 10,
@@ -265,8 +263,7 @@
             //这是提交密码
             tenderSubmit(){
                 this.$refs['tenderForm'].validate((valid) => {
-                    if(valid){
-                        let url = this.axios.urls.BORROWING_BID_RENDER;
+                        let url =this.axios.urls.BORROWING_BID_RENDER;
                         //提交
                         commonUtils.doAjaxPost(url, this.tenderParams, (data) =>{
                             // console.log(data);
@@ -285,10 +282,11 @@
                                 this.doCancel();
                                 //清空金额框输入
                                 this.tenderParams.availableAmount = null;
+                            }else{
+                                //如果不是
+                                this.$message.error(data.msg);
                             }
-
                         }, true)
-                    }
                 });
             },
             doCancel(){

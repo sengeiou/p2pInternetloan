@@ -1,0 +1,9 @@
+
+nsquid:CommentedOutCodeLinez"<This block of commented-out lines of code should be removed.(žˆË“üÿÿÿÿ8§±àÌã-
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ú‘Ä¥þÿÿÿÿ
+|squid:S1149ž"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(¯Ó…âûÿÿÿÿ
+˜squid:S1186*"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ýÐô÷
+isquid:S3776\"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(Çæþ…
+\squid:S3252j"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(ŒÏè 
+?squid:S1872†"'Use an "instanceof" comparison instead.(Í‰«Ã
+bsquid:CommentedOutCodeLinem"<This block of commented-out lines of code should be removed.(æè·Â

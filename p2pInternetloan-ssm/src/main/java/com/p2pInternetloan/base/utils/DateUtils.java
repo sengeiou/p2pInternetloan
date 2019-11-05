@@ -3,6 +3,7 @@ package com.p2pInternetloan.base.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -45,6 +46,27 @@ public class DateUtils {
         }
         return null;
     }
+
+    /**
+     *
+     * @param str 这是要转换的字符串
+     * @param pattern 格式换规则
+     * @return
+     */
+    public static Date parse(String str, String pattern) throws ParseException {
+        if (str != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+            return sdf.parse(str);
+        }
+        return null;
+    }
+
+    public static void main(String[] args) throws ParseException {
+        System.out.println("是否成功");
+        System.out.println(DateUtils.parse("2019-02-01", "yyyy-MM-dd").toLocaleString());
+        System.out.println();
+    }
+
 
     /**
      * 计算距离现在多久，非精确
@@ -102,4 +124,7 @@ public class DateUtils {
         r += "前";
         return r;
     }
+
+
+
 }

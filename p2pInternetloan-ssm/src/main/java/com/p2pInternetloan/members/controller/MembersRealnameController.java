@@ -1,20 +1,31 @@
 package com.p2pInternetloan.members.controller;
 
-import com.p2pInternetloan.base.utils.PageUtils;
-import com.p2pInternetloan.base.utils.Query;
-import com.p2pInternetloan.base.utils.R;
+import cn.hutool.json.JSONObject;
+import com.p2pInternetloan.base.utils.*;
+import com.p2pInternetloan.members.entity.Members;
 import com.p2pInternetloan.members.entity.MembersRealname;
 import com.p2pInternetloan.members.service.MembersRealnameService;
+import com.p2pInternetloan.members.service.MembersService;
+import com.p2pInternetloan.members.utils.Authentication;
+import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.*;
-import sun.plugin2.message.SetAppletSizeMessage;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 /**
- * (MembersRealname)表控制层
+ * (MembersRealname)表控制层 身份证实名认证
  *
  * @author cpc
  * @since 2019-10-23 15:51:06
@@ -29,6 +40,8 @@ public class MembersRealnameController {
     @Resource
     private MembersRealnameService membersRealnameService;
 
+    @Resource
+    private MembersService membersService;
     /**
      * 分页查询
      *
@@ -49,10 +62,38 @@ public class MembersRealnameController {
      */
 //    @PostMapping("add")
     @PostMapping("add")
-    public R add(MembersRealname membersrealname){
-        System.out.println(membersrealname);
-        membersrealname.setApplyTime(new Date());
-        return R.update(this.membersRealnameService.insert(membersrealname));
+    public R add(MembersRealname membersrealname) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, ParseException {
+        //身份认证
+        JSONObject jsonObject = Authentication.verification(membersrealname.getIdNumber(), membersrealname.getRealname());
+//        判断是否验证通过
+        Integer code = Integer.parseInt(jsonObject.getStr("showapi_res_code"));
+        if(code == 0){
+            JSONObject obj = new JSONObject(jsonObject.getStr("showapi_res_body"));
+            code = Integer.parseInt(obj.getStr("ret_code"));
+            if(code == 0){
+                //验证开始
+                membersrealname.setBornDate(DateUtils.parse(obj.getStr("birthday"), "yyyy-MM-dd"));
+                //这是地址
+                membersrealname.setAddress(obj.getStr("address"));
+                //这是性别
+                membersrealname.setSex(obj.getStr("sex"));
+                //设置申请时间
+                membersrealname.setApplyTime(new Date());
+                //设置申请人编号
+                membersrealname.setMembersId(JwtSession.getCurrentMembersId());
+                //修改当前用户的身份证认证状态
+                Members members = this.membersService.queryById(JwtSession.getCurrentMembersId());
+                //这是设置成带认证状态
+                members.setIsIdentityAuthentication(2);
+                this.membersService.update(members);
+                //添加审核
+                return R.update(this.membersRealnameService.insert(membersrealname));
+            }else {
+                return R.error(obj.getStr("msg"));
+            }
+        }else {
+            return R.error("您输入的证据号码获取名称错误，无法找到对应的数据");
+        }
     }
 
     /**
@@ -62,27 +103,52 @@ public class MembersRealnameController {
      */
     @PostMapping("update")
     public R update(MembersRealname membersRealname){
+        //修改账户认证状态
+         Integer state = membersRealname.getState();
+        Members members = new Members();
+        members.setId(membersRealname.getMembersId());
+        members.setIsIdentityAuthentication(state);
+        membersService.update(members);
         return R.update(this.membersRealnameService.update(membersRealname));
     }
 
 
-//    /**
-//     * 删除字典项
-//     * @param id
-//     * @return
-//     */
-//    @PostMapping("del/{id}")
-//    @RequiresPermissions(value = {"member:user:view"})
-//    public R del(@PathVariable("id") Integer id){
-//        return R.update(this.membersRealnameService.deleteById(id));
-//    }
+    /////////////////////////////////////////// 我是身份证图片上传的代码 ////////////////////////////////////////////////
+    /**
+     * 文件上传 用于身份证的图片上传
+     * @param picture
+     * @param request
+     * @return
+     */
+    @RequestMapping("upload")
+    public R upload(@RequestParam("picture") MultipartFile picture, HttpServletRequest request) {
+        try {
+            //生成图片名称
+            //获取原始文件名称(包含格式)
+            String originalFileName = picture.getOriginalFilename();
+            System.out.println("原始文件名称：" + originalFileName);
+            //获取文件类型，以最后一个`.`为标识
+            String type = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+            System.out.println("文件类型：" + type);
+            //获取文件名称（不包含格式）
+            String name = originalFileName.substring(0, originalFileName.lastIndexOf("."));
 
-
-
-
-
-
-
+            //设置文件新名称: 当前时间+文件名称（不包含格式）
+            Date d = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            String date = sdf.format(d);
+            String fileName = date + name + "." + type;
+            System.out.println("新文件名称：" + fileName);
+            //上传图片
+            FileUtils.copyInputStreamToFile(picture.getInputStream(),new File("D://upload/"+fileName));
+            //图片上传成功返回图片访问地址
+            R r = R.ok("图片上车成功");
+            r.put("path", "/upload/" + fileName );
+            return r;
+        } catch (IOException e) {
+            return R.error("上传失败");
+        }
+    }
 
 
 }

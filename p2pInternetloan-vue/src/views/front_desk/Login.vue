@@ -70,7 +70,7 @@
                         });
                         //登录成功就直接跳入到首页吧
                         this.$router.push({
-                            path:'/Home'
+                            path:'/Investment'
                         })
                     }else{
                         this.$message({

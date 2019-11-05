@@ -45,8 +45,18 @@ public class ReturnDetail implements Serializable {
     private Integer fromMembersId;
     //收款人(即投标人)
     private String toMembersId;
+    //这是对应的投标 标题
+    private String title;
 
-    
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Integer getId() {
         return id;
     }

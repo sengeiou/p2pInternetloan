@@ -8,10 +8,16 @@
             <el-menu-item route="/PersonalData" index="PersonalData">个人资料</el-menu-item>
             <el-menu-item index="/loanManagement">借款项目</el-menu-item>
             <el-menu-item index="/lnvestmentManagement">投资管理</el-menu-item>
-            <el-menu-item index="3">资产管理</el-menu-item>
-            <el-menu-item index="3">消息通知</el-menu-item>
+            <el-submenu index="2">
+              <span class="magical-drag-tmp-submenu-name" slot="title">资产管理</span>
+              <el-menu-item index="/Recharge">用户充值</el-menu-item>
+              <el-menu-item index="/userwithdrawal">用户提现</el-menu-item>
+              <el-menu-item index="/transaction_record">充值记录</el-menu-item>
+              <el-menu-item index="/withdrawalsRecord">提现记录</el-menu-item>
+            </el-submenu>
           </el-menu>
         </el-col>
+
         <el-col :span="18">
           <router-view></router-view>
         </el-col>
@@ -20,8 +26,14 @@
 </template>
 
 <script>
+    import commonUtils from "../../../api/commonUtils";
     export default {
-        name: "PersonalCenterMain"
+        name: "PersonalCenterMain",
+        created() {
+            commonUtils.init(this);
+            //初始化跳转到 用户总览这个页
+            commonUtils.toRouter("/AccountManagement");
+        }
     }
 </script>
 

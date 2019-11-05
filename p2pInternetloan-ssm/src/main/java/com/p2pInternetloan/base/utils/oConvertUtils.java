@@ -34,18 +34,18 @@ public class oConvertUtils {
     }
 
 
-    public static boolean isEmpty(Object object) {
-        if (object == null) {
-            return (true);
+        public static boolean isEmpty(Object object) {
+            if (object == null) {
+                return (true);
+            }
+            if ("".equals(object)) {
+                return (true);
+            }
+            if ("null".equals(object)) {
+                return (true);
+            }
+            return (false);
         }
-        if ("".equals(object)) {
-            return (true);
-        }
-        if ("null".equals(object)) {
-            return (true);
-        }
-        return (false);
-    }
 
 
     /**

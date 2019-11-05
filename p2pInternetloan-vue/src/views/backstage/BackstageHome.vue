@@ -1,7 +1,6 @@
 <template>
   <div  style="padding: 20px;background-color: #FFFFFF">
-
-
+      <h1>首页</h1>
   </div>
 </template>
 

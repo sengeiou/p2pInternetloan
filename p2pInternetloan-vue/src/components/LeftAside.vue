@@ -5,7 +5,7 @@
 		<div class="logobox">
 			<img class="logoimg" src="../assets/img/logo.png" alt="">
 		</div>
-		<el-menu-item index="/setting">
+		<el-menu-item index="/BackstageHome">
 			<i class="el-icon-s-home"></i>
 			<span>首页</span>
 		</el-menu-item>
@@ -50,11 +50,11 @@
 				this.treeNodeLst=resp.data;
 			}).catch(resp=>{
 			});
-
 			//设置登录最初的页面
 			this.$router.push({
 				path:'/BackstageHome'
 			});
+
 		}
 	}
 </script>

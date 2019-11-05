@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card class="box-card">
+    <el-card class="box-card"   v-if="LoanRecordList.length > 0" style="margin-bottom: 20px;">
       <div class="clearfix" slot="header">
         <span>正在进行借款项目</span>
         <i style="float: right; padding: 3px 0" type="text">借款标题:{{bidRequest.title}}</i>
@@ -76,7 +76,7 @@
     </el-card>
 
 
-    <el-card style="margin-top: 20px;" header="我的所有借款">
+    <el-card header="我的所有借款">
       <el-table style="margin-top: 10px;" :data="LoanRecordList" :fit="true" :show-header="true">
         <el-table-column prop="title" label="标题">
         </el-table-column>

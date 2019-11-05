@@ -3,10 +3,11 @@
     <el-form class="demo-form-inline" style="margin-top: 10px;background:#FFFFFF;padding-top: 10px; height: 50px;padding-left: 10px;" :inline="true">
       <el-form-item label="状态">
         <el-select v-model="queryParams.state" filterable placeholder="请选择">
+          <el-option label="所有"></el-option>
           <el-option
             v-for="item in options"
             :key="item.value"
-            :label="item.label"
+            :label="item.title"
             :value="item.value"
              >
           </el-option>
@@ -20,17 +21,13 @@
         <el-input v-model="queryParams.address" placeholder="请输入地址">
         </el-input>
       </el-form-item>
-      <el-form-item label="申请时间">
-        <el-input v-model="queryParams.applyTime" placeholder="请输入时间">
-        </el-input>
-      </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="onQuery">查询</el-button>
       </el-form-item>
     </el-form>
 
     <!-- 数据表格-->
-    <el-table :data="dataList"  height="440" :fit="true" :show-header="true" v-loading="loading">
+    <el-table :data="dataList"  height="440" :fit="true" :show-header="true" v-loading="loading" style="margin-top: 15px;">
       <el-table-column  prop="id" label="ID" min-width="1">
       </el-table-column>
       <el-table-column prop="realname" label="真实姓名" min-width="3">
@@ -43,16 +40,12 @@
       </el-table-column>
       <el-table-column prop="address" label="证件地址" min-width="3">
       </el-table-column>
-      <el-table-column prop="state" label="审核状态" min-width="3">
+      <el-table-column prop="state_dictText" label="审核状态" min-width="3">
       </el-table-column>
-      <el-table-column prop="auditorId" label="审核人id" min-width="3">
-      </el-table-column>
-
       <el-table-column label="操作" min-width="3">
         <template slot-scope="scope">
           <el-button type="text" size="small"  @click="showSysdictItem(scope.$index, scope.row)">详情</el-button>
-
-          <el-button @click="" type="text" size="small"  @click="certified(scope.$index, scope.row)" v-if=" scope.row.state == 1">认证</el-button>
+          <el-button @click="" type="text" size="small"  @click="certified(scope.$index, scope.row)" v-if=" scope.row.state == 2">认证</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -65,14 +58,20 @@
 
 
     <!--这是 添加 修改 弹出 -->
-    <el-dialog top="20vh" width="50%" :title="dialogTitle" :visible="dialogFormVisible" @close="doCancel">
+    <el-dialog top="10vh" width="70%" :title="dialogTitle" :visible="dialogFormVisible" @close="doCancel">
       <el-form :model="tableForm" :rules="rules" ref="tableForm">
-        <el-form-item label="真实姓名" prop="realname" :label-width="formLabelWidth" disabled="false">
-          <el-input v-model="tableForm.realname" autocomplete="off" disabled="false"></el-input>
-        </el-form-item>
-        <el-form-item label="性别" prop="sex" :label-width="formLabelWidth">
-          <el-input v-model="tableForm.sex" autocomplete="off" disabled="false"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="真实姓名" prop="realname" :label-width="formLabelWidth" disabled="false">
+              <el-input v-model="tableForm.realname" autocomplete="off" disabled="false"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="性别" prop="sex" :label-width="formLabelWidth">
+              <el-input v-model="tableForm.sex" autocomplete="off" disabled="false"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-form-item label="出生日期" prop="bornDate" :label-width="formLabelWidth">
           <el-input v-model="tableForm.bornDate" autocomplete="off" disabled="false"></el-input>
         </el-form-item>
@@ -82,12 +81,27 @@
         <el-form-item label="证件地址" prop="address" :label-width="formLabelWidth">
           <el-input v-model="tableForm.address" autocomplete="off" disabled="false"></el-input>
         </el-form-item>
-        <el-form-item label="身份证正面图片" prop="image1" :label-width="formLabelWidth">
-          <el-input v-model="tableForm.image1" autocomplete="off" disabled="false"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证反面图片" prop="image2" :label-width="formLabelWidth">
-          <el-input v-model="tableForm.image2" autocomplete="off" disabled="false"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="身份证正面图片" prop="image1" :label-width="formLabelWidth">
+              <el-image
+                style="width: 200px; height: 200px"
+                :src="serverPath + tableForm.image1"
+                :preview-src-list="srcList">
+              </el-image>
+              <!--          <el-input v-model="tableForm.image1" autocomplete="off" disabled="false"></el-input>-->
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="身份证反面图片" prop="image2" :label-width="formLabelWidth">
+              <el-image
+                style="width: 200px; height: 200px"
+                :src="serverPath + tableForm.image2"
+                :preview-src-list="srcList">
+              </el-image>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button :plain="true" @click="doSubmit">审核成功</el-button>
@@ -108,48 +122,80 @@
       <hr>
       <div style="margin: 10px;" :title="dialogTitle" :visible="dialogFormVisible" @close="doCancel">
         <el-form v-model="tableForm">
-          <el-form-item label="真实姓名" prop="realname" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.realname" autocomplete="off" disabled="false"></el-input>
-          </el-form-item>
-          <el-form-item label="性别" prop="sex" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.sex" autocomplete="off" disabled="false"></el-input>
-          </el-form-item>
-          <el-form-item label="出生日期" prop="bornDate" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.bornDate" autocomplete="off" disabled="false"></el-input>
-          </el-form-item>
-          <el-form-item label="身份证号码" prop="idNumber" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.idNumber" autocomplete="off" disabled="false"></el-input>
-          </el-form-item>
-          <el-form-item label="证件地址" prop="address" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.address" autocomplete="off" disabled="false"></el-input>
-          </el-form-item>
-          <el-form-item label="审核状态" prop="state" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.state" autocomplete="off" disabled="false"></el-input>
-          </el-form-item>
-          <el-form-item label="资料图片" :label-width="formLabelWidth">
-            <div class="demo-image__preview">
-              <el-image
-                style="width: 100px; height: 100px"
-                :src="tableForm.image1"
-                :preview-src-list="srcList">
-              </el-image>
-            </div>
-          </el-form-item>
-          <el-form-item label="资料图片" :label-width="formLabelWidth">
-            <div class="demo-image__preview">
-              <el-image
-                style="width: 100px; height: 100px"
-                :src="tableForm.image2"
-                :preview-src-list="srcList">
-              </el-image>
-            </div>
-          </el-form-item>
-          <el-form-item label="审核时间" prop="auditTime" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.auditTime" autocomplete="off" disabled="false"></el-input>
-          </el-form-item>
-          <el-form-item label="申请时间" prop="applyTime" :label-width="formLabelWidth">
-            <el-input v-model="tableForm.applyTime" autocomplete="off" disabled="false"></el-input>
-          </el-form-item>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="真实姓名" prop="realname" :label-width="formLabelWidth">
+                <el-input v-model="tableForm.realname" autocomplete="off" disabled="false"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="性别" prop="sex" :label-width="formLabelWidth">
+                <el-input v-model="tableForm.sex" autocomplete="off" disabled="false"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="出生日期" prop="bornDate" :label-width="formLabelWidth">
+                <el-input v-model="tableForm.bornDate" autocomplete="off" disabled="false"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+
+              <el-form-item label="身份证号码" prop="idNumber" :label-width="formLabelWidth">
+                <el-input v-model="tableForm.idNumber" autocomplete="off" disabled="false"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="证件地址" prop="address" :label-width="formLabelWidth">
+                <el-input v-model="tableForm.address" autocomplete="off" disabled="false"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="审核状态" prop="state" :label-width="formLabelWidth">
+                <el-input v-model="tableForm.state_dictText" autocomplete="off" disabled="false"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+
+              <el-form-item label="身份证反面照" :label-width="formLabelWidth">
+                <div class="demo-image__preview">
+                  <el-image
+                    style="width: 200px; height: 200px"
+                    :src="serverPath + tableForm.image1"
+                    :preview-src-list="srcList">
+                  </el-image>
+                </div>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="身份证正面照" :label-width="formLabelWidth">
+                <div class="demo-image__preview">
+                  <el-image
+                    style="width: 200px; height: 200px"
+                    :src="serverPath + tableForm.image2"
+                    :preview-src-list="srcList">
+                  </el-image>
+                </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="申请时间" prop="applyTime" :label-width="formLabelWidth">
+                <el-input v-model="tableForm.applyTime" autocomplete="off" disabled="false"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="审核时间" prop="auditTime" :label-width="formLabelWidth">
+                <el-input v-model="tableForm.auditTime" autocomplete="off" disabled="false"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
           <el-form-item label="备注" prop="remark" :label-width="formLabelWidth">
             <el-input v-model="tableForm.remark" autocomplete="off" disabled="false"></el-input>
           </el-form-item>
@@ -160,23 +206,16 @@
 </template>
 
 <script>
+    import commonUtils from "../../../../api/commonUtils";
     export default {
         name: "DataDictionary",
         data:function(){
             return {
+                serverPath:null,
                 srcList: [
                 ],
                 //这是下拉框 数据动态绑定
-                options: [{
-                    value: '0',
-                    label: '审核成功'
-                }, {
-                    value: '1',
-                    label: '待审核'
-                }, {
-                    value: '2',
-                    label: '审核失败'
-                }],
+                options: [],
                 //这是查询参数
                 queryParams: {
                     //定义搜索维度
@@ -199,7 +238,7 @@
                 //这是新值修改弹出
                 dialogTitle:null,
                 //这是文本框中文字说明的长度
-                formLabelWidth: "100px",
+                formLabelWidth: "120px",
 
                 //弹出 form 数据动态绑定 用于添加和修改提交
                 tableForm:{
@@ -213,7 +252,7 @@
                     state:null,
                     auditTime:null,
                     applyTime:null,
-
+                    membersId:null
                 },
                 //填充是否显示
                 drawer: false,
@@ -233,7 +272,6 @@
             }
         },
         methods:{
-
             onQuery() {
                 this.queryParams.page = 1;
                 this.search();
@@ -272,7 +310,9 @@
                 this.tableForm.image1 = row.image1;
                 this.tableForm.image2 = row.image2;
                 this.tableForm.state = row.state;
-
+                this.tableForm.membersId = row.membersId;
+                debugger
+                console.log(this.tableForm);
                 this.dialogFormVisible = true;
             },
 
@@ -295,6 +335,8 @@
                       //发送请求
                         this.axios.post(url,{
                             id: this.tableForm.id,
+                            membersId:this.tableForm.membersId,
+                            //状态修改为成功
                             state: 0
                         }).then(response => {
                                 //这里是操作成功
@@ -304,7 +346,7 @@
                                 this.search();
                                 //打印成功信息
                                 this.$message({
-                                    message: '恭喜认证成功了',
+                                    message: '认证成功了',
                                     type: 'success'
                                 });
                         }).catch(function(error) {
@@ -318,12 +360,12 @@
                 this.$refs['tableForm'].validate((valid) => {
                     var url = null;
                     url = this.axios.urls.MEMBERS_MEN_UPDATE;
-
-
                     //发送请求
                     this.axios.post(url, {
                         id: this.tableForm.id,
-                        state: 2
+                        membersId:this.tableForm.membersId,
+                        //状态修改成审核失败
+                        state: 3
                     }).then(response => {
                         //这里是操作成功
                         this.doClearForm();
@@ -332,7 +374,7 @@
                         this.search();
                         //打印成功信息
                         this.$message({
-                            message: '错了哦认证失败',
+                            message: '操作成功',
                             type: 'warning'
                         });
                     }).catch(function(error) {
@@ -400,11 +442,16 @@
                 this.tableForm.image1 = row.image1;
                 this.tableForm.image2 = row.image2;
                 this.tableForm.state = row.state;
+                this.tableForm.applyTime = row.applyTime;
 
             },
         },
         created() {
+            this.serverPath = this.axios.urls.SERVER;
             this.onQuery();
+            commonUtils.init(this);
+            //加载下拉框
+            commonUtils.getDictSelect("is_identity_authentication", "options")
         }
     }
 </script>

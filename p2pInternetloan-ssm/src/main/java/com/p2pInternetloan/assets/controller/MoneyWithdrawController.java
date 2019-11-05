@@ -2,12 +2,16 @@ package com.p2pInternetloan.assets.controller;
 
 import com.p2pInternetloan.assets.entity.MoneyWithdraw;
 import com.p2pInternetloan.assets.service.MoneyWithdrawService;
+import com.p2pInternetloan.base.utils.JwtSession;
 import com.p2pInternetloan.base.utils.PageUtils;
 import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.R;
+import com.p2pInternetloan.members.entity.MembersAccount;
+import com.p2pInternetloan.members.service.MembersAccountService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +31,13 @@ public class MoneyWithdrawController {
     private MoneyWithdrawService moneyWithdrawService;
 
     /**
+     * 这是账户对象
+     */
+    @Resource
+    private MembersAccountService membersAccountService;
+
+
+    /**
      * 分页查询
      *
      * @param  params 请求参数集
@@ -40,7 +51,18 @@ public class MoneyWithdrawController {
     }
 
 
-//    管理员模块
+    /**
+     * 这是申请体现
+     * @param moneyWithdraw
+     * @return
+     */
+    @PostMapping("applicatio")
+    public R applicatio(MoneyWithdraw moneyWithdraw){
+        moneyWithdraw.setMembersId(JwtSession.getCurrentMembersId());
+        moneyWithdraw.setApplyTime(new Date());
+        return R.update(this.moneyWithdrawService.insert(moneyWithdraw));
+    }
+
     /**
      *  用户提现操作，状态改为待审核
      * @param state
@@ -48,13 +70,16 @@ public class MoneyWithdrawController {
      */
     @PostMapping("updateState")
     public R updateState(MoneyWithdraw state){
+        //记录
+        //如果是提现成功
+        if(state.getState() == 0){
+            //将用户账户上的钱减掉
+            MembersAccount membersAccount = membersAccountService.queryByMembersId(JwtSession.getCurrentMembersId());
+            //取的钱 + 手续费
+            membersAccount.setUsableAmount(membersAccount.getUsableAmount().subtract(state.getAmount().add(state.getFee())));
+            this.membersAccountService.update(membersAccount);
+        }
+        //执行修改
         return R.update(this.moneyWithdrawService.update(state));
     }
-
-
-
-//    用户模块
-
-
-
 }

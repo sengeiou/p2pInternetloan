@@ -81,8 +81,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into members_realname(realname, sex, born_date, id_number, address, state, image1, image2, remark, audit_time, apply_time, auditor_id, members_id)
-        values (#{realname}, #{sex}, #{bornDate}, #{idNumber}, #{address}, 1, #{image1}, #{image2}, #{remark}, #{auditTime}, #{applyTime}, #{auditorId}, #{membersId})
+        insert into members_realname(realname, sex, born_date, id_number, address, state, image1, image2, apply_time, members_id)
+        values (#{realname}, #{sex}, #{bornDate}, #{idNumber}, #{address}, 2, #{image1}, #{image2}, #{applyTime},#{membersId})
     </insert>
 
     <!--通过主键修改数据-->

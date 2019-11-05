@@ -63,4 +63,24 @@ public interface MembersService {
      */
     int deleteById(Integer id);
 
+
+    /**
+     * 获取当前最大id
+     * @return
+     */
+    Integer getMaxId();
+
+    /**
+     * 会员信息初始化(这是会员信息表)
+     * @param membersId 会员id
+     * @return
+     */
+    Integer initMembersDetail(Integer membersId);
+
+    /**
+     * 这是初始化会员账户表
+     * @param membersId 这是会员id
+     * @return
+     */
+    Integer initMembersAccount(Integer membersId);
 }

@@ -5,8 +5,6 @@
 		</el-button>
 		<el-submenu index="2" class="submenu">
 			<template slot="title">{{userName}}</template>
-			<el-menu-item index="2-1">设置</el-menu-item>
-			<el-menu-item index="2-2">个人中心</el-menu-item>
 			<el-menu-item @click="exit()" index="2-3">退出</el-menu-item>
 		</el-submenu>
 	</el-menu>
@@ -44,7 +42,7 @@
 //						jwt:null
 //					});
 					this.$router.push({
-						path:'/'
+						path:'/BackstageLogin'
 					});
 				}).catch(() => {
 					this.$message({
@@ -69,17 +67,17 @@
 	.el-menu-vertical-demo:not(.el-menu--collapse) {
 		border: none;
 	}
-	
+
 	.submenu {
 		float: right;
 	}
-	
+
 	.buttonimg {
 		height: 60px;
 		background-color: transparent;
 		border: none;
 	}
-	
+
 	.showimg {
 		width: 26px;
 		height: 26px;
@@ -87,7 +85,7 @@
 		top: 17px;
 		left: 17px;
 	}
-	
+
 	.showimg:active {
 		border: none;
 	}

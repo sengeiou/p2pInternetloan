@@ -1,13 +1,18 @@
 <template>
    <el-main  style="background-color: #FFFFFF;" >
+     <el-form class="demo-form-inline" style="margin-top: 10px;background:#FFFFFF;padding-top: 10px; height: 50px;padding-left: 10px;" :inline="true">
+       <el-form-item label="会员名名">
+         <el-input v-model="queryParams.membersName" placeholder="请输入会员名称">
+         </el-input>
+       </el-form-item>
+       <el-form-item>
+         <el-button type="primary" icon="el-icon-search" @click="onQuery">查询</el-button>
+       </el-form-item>
+     </el-form>
 
     <!-- 数据表格-->
     <el-table :data="dataList"  height="440" :fit="true" :show-header="true" v-loading="loading">
-      <el-table-column  prop="id" label="ID" min-width="1">
-      </el-table-column>
       <el-table-column prop="membersId" label="会员id" min-width="3">
-      </el-table-column>
-      <el-table-column prop="tradePassword" label="交易密码" min-width="3">
       </el-table-column>
       <el-table-column prop="usableAmount" label="账户可用余额" min-width="3">
       </el-table-column>
@@ -51,8 +56,8 @@
                 }],
                 //这是查询参数
                 queryParams: {
-                    //定义搜索维度
-                    membersState:null,
+                    //这是会员名称
+                    membersName:null,
                     // 分页
                     page: 1,
                     rows: 10,

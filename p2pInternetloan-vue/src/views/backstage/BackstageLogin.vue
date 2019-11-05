@@ -55,7 +55,7 @@
                         });
                         //跳转路由
                         this.$router.push({
-                            path:'/Main'
+                            path:'/BackstageMain'
                         })
                         //这是将用户信息保持下来
                         let user=resp.data.data

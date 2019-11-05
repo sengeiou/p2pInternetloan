@@ -1,5 +1,6 @@
 package com.p2pInternetloan.sys.controller;
 
+import com.p2pInternetloan.base.utils.JwtSession;
 import com.p2pInternetloan.base.utils.PageUtils;
 import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.R;
@@ -49,12 +50,8 @@ public class PermissionController {
     @ApiOperation(value = "获取用户菜单", notes = "这里会根据前台放在请求头中的 jwt 令牌来获取相关下拉菜单")
     @GetMapping("queryUserMenu")
     public List<Menu> queryUserMenu(HttpServletRequest request) {
-//        String jwt = request.getHeader(CommonConstant.JWT_HEADER_KEY);
-//        //获取用户id
-//        Claims claims = JwtUtils.parseJwt(jwt);
-//        String userName = (String) claims.get("userName");
-//        return permissionService.queryUserMenu(userService.queryByName(userName).getUserId());
-        return permissionService.queryUserMenu(1);
+        return permissionService.queryUserMenu(JwtSession.getCurrentUserId());
+//        return permissionService.queryUserMenu(1);
     }
 
 

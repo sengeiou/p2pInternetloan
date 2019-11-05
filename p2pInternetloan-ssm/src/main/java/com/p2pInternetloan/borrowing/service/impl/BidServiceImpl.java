@@ -21,9 +21,9 @@ import java.util.Map;
 public class BidServiceImpl implements BidService {
     @Resource
     private BidDao bidDao;
-
     @Resource
     private RefundDetailDao refundDetailDao;
+
     @Override
     public Map investmentCalculation(int membersId) {
         Map map = new HashMap();

@@ -118,6 +118,8 @@ public class DictAspect {
                             String textValue = translateDictValue(code, key);
 
                             log.debug(" 字典Val : "+ textValue);
+                            //  CommonConstant.DICT_TEXT_SUFFIX的值为，是模块
+                            // public static final String DICT_TEXT_SUFFIX = "_dictText";
                             log.debug(" __翻译字典字段__ "+field.getName() + CommonConstant.DICT_TEXT_SUFFIX+"： "+ textValue);
                             //如果给了文本名
                             if(!StringUtils.isEmpty(text)){

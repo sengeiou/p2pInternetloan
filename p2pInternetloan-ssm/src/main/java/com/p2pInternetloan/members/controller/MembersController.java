@@ -1,10 +1,7 @@
 package com.p2pInternetloan.members.controller;
 
 import com.p2pInternetloan.base.constant.CommonConstant;
-import com.p2pInternetloan.base.utils.PageUtils;
-import com.p2pInternetloan.base.utils.Query;
-import com.p2pInternetloan.base.utils.R;
-import com.p2pInternetloan.base.utils.RedisUtil;
+import com.p2pInternetloan.base.utils.*;
 import com.p2pInternetloan.members.entity.Members;
 import com.p2pInternetloan.members.service.MembersService;
 import com.p2pInternetloan.sys.utils.JwtUtils;
@@ -121,8 +118,12 @@ public class MembersController {
             return R.error("验证码错误");
         }
 
-        //验证通过注册偶记就Ok了
-        return R.update(this.membersService.insert(members));
+        R r = R.update(this.membersService.insert(members));
+        //初始化用户想干表的信息
+        Integer maxId = this.membersService.getMaxId();
+        this.membersService.initMembersDetail(maxId);
+        this.membersService.initMembersAccount(maxId);
+        return r;
     }
 
 
@@ -140,6 +141,15 @@ public class MembersController {
         return R.ok();
     }
 
+
+    /**
+     * 获取当前登录的用户
+     * @return
+     */
+    @GetMapping("getCurrentMembers")
+    public Members getCurrentMembers(){
+        return this.membersService.queryById(JwtSession.getCurrentMembersId());
+    }
 
 
 

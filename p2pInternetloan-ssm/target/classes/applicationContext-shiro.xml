@@ -17,14 +17,15 @@
         <property name="sessionValidationSchedulerEnabled" value="false"/>
     </bean>
 
+    <bean id="sessionStorageEvaluator" class="org.apache.shiro.mgt.DefaultSessionStorageEvaluator">
+        <property name="sessionStorageEnabled" value="false"/>
+    </bean>
     <!--解决报错，组装默认的subjectDAO-->
     <bean id="subjectDAO" class="org.apache.shiro.mgt.DefaultSubjectDAO">
         <property name="sessionStorageEvaluator" ref="sessionStorageEvaluator"/>
     </bean>
 
-    <bean id="sessionStorageEvaluator" class="org.apache.shiro.mgt.DefaultSessionStorageEvaluator">
-        <property name="sessionStorageEnabled" value="false"/>
-    </bean>
+
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -90,7 +91,8 @@
     <!--    springmvc整合 shiro 实现注解式权限-->
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
           depends-on="lifecycleBeanPostProcessor">
-        <property name="proxyTargetClass" value="true"></property>
+        <property name="proxyTarget
+        Class" value="true"></property>
     </bean>
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>

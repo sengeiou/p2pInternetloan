@@ -13,8 +13,10 @@ public class MembersAccount implements Serializable {
     private static final long serialVersionUID = 846702651727697249L;
     //id
     private Integer id;
-    //会员id
 
+   //这是会员名
+    private String membersName;
+    //会员id
     private Integer membersId;
     //交易密码
     private String tradePassword;
@@ -93,4 +95,16 @@ public class MembersAccount implements Serializable {
     public void setTradeCode(String tradeCode) {
         this.tradeCode = tradeCode;
     }
+
+
+
+    public String getMembersName() {
+        return membersName;
+    }
+
+    public void setMembersName(String membersName) {
+        this.membersName = membersName;
+    }
+
+
 }

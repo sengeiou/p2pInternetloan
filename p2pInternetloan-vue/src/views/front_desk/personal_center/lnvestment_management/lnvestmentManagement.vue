@@ -23,11 +23,6 @@
         <el-col :span="12">
         </el-col>
       </el-row>
-      <el-radio-group v-model="radio4" size="mini">
-        <el-radio label="1" border>投标中</el-radio>
-        <el-radio label="2" border size="mini">回款中</el-radio>
-        <el-radio label="2" border>已结束</el-radio>
-      </el-radio-group>
       <el-table style="margin-top: 10px;" :data="tableList" :fit="true" :show-header="true" v-loading="loading">
         <el-table-column prop="bid_time" label="交易时间">
           <template slot-scope="scope">

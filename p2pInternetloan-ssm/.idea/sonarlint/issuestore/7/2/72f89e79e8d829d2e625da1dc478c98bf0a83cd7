@@ -1,0 +1,6 @@
+
+Fsquid:EmptyStatementUsageCheck"Remove this empty statement.(´öÿÀ
+]squid:S2184"FCast one of the operands of this multiplication operation to a "long".(´öÿÀ
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(×¦ÍÞüÿÿÿÿ
+Vsquid:S1118	":Add a private constructor to hide the implicit public one.(±ÎÞèýÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×©àÛ

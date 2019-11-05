@@ -1,5 +1,6 @@
 package com.p2pInternetloan.borrowing.controller;
 
+import com.p2pInternetloan.base.utils.JwtSession;
 import com.p2pInternetloan.base.utils.PageUtils;
 import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.R;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 借口明细表 (ReturnDetail)表控制层
+ * 回款明(ReturnDetail)表控制层
  *
  * @author cpc
  * @since 2019-10-31 14:37:28
@@ -28,14 +29,23 @@ public class ReturnDetailController {
     /**
      * 分页查询
      *
-     * @param  params 请求参数集
-     * @return 结果集封装对象 
+     * @param params 请求参数集
+     * @return 结果集封装对象
      */
     @GetMapping("queryPager")
-    public  PageUtils queryPager(@RequestParam Map<String, Object> params) {
-         Query query = new Query(params);
-         List<ReturnDetail> list = returnDetailService.queryPager(query);
-         return new PageUtils(list, query.getTotal());
+    public PageUtils queryPager(@RequestParam Map<String, Object> params) {
+        Query query = new Query(params);
+        List<ReturnDetail> list = returnDetailService.queryPager(query);
+        return new PageUtils(list, query.getTotal());
+    }
+
+    @GetMapping()
+    public PageUtils queryMembersPager(@RequestParam Map<String, Object> params) {
+        Query query = new Query(params);
+        //这是put用户id到查询条件中
+        query.put("toMembersId", JwtSession.getCurrentMembersId());
+        List<ReturnDetail> list = returnDetailService.queryPager(query);
+        return new PageUtils(list, query.getTotal());
     }
     /**
      * 新增数据

@@ -1,16 +1,16 @@
 package com.p2pInternetloan.assets.controller;
 
-import com.p2pInternetloan.assets.entity.MoneyRecharge;
 import com.p2pInternetloan.assets.service.MoneyRechargeService;
+import com.p2pInternetloan.base.utils.JwtSession;
 import com.p2pInternetloan.base.utils.PageUtils;
 import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.base.utils.R;
 import com.p2pInternetloan.members.entity.MembersAccount;
 import com.p2pInternetloan.members.service.MembersAccountService;
-import org.apache.taglibs.standard.tag.el.sql.QueryTag;
 import org.springframework.web.bind.annotation.*;
-
+import com.p2pInternetloan.assets.entity.MoneyRecharge;
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,16 +36,13 @@ public class MoneyRechargeController {
      * 分页查询
      *
      * @param  params 请求参数集
-     * @return 结果集封装对象 
+     * @return 结果集封装对象
      */
     @GetMapping("queryPager")
     public  PageUtils queryPager(@RequestParam Map<String, Object> params) {
-        System.out.println("=-================================================开始");
-        System.out.println(params.get("tradeTime"));
-        System.out.println("=-================================================开始");
-         Query query = new Query(params);
-         List<MoneyRecharge> list = moneyRechargeService.queryPager(query);
-         return new PageUtils(list, query.getTotal());
+        Query query = new Query(params);
+        List<MoneyRecharge> list = moneyRechargeService.queryPager(query);
+        return new PageUtils(list, query.getTotal());
 
     }
 
@@ -60,20 +57,25 @@ public class MoneyRechargeController {
         return this.moneyRechargeService.queryById(moneyrechargeid);
     }
 
+
     /**
-     * (充值)向会员账户余额表和充值记录表插入数据
-     * @param membersAccount
+     * 这是充值的方法
      * @param moneyRecharge
      * @return
      */
-    @PostMapping("setAmount")
-    public R setAmount(MembersAccount membersAccount, MoneyRecharge moneyRecharge){
-        this.membersAccountService.update(membersAccount);
-        this.moneyRechargeService.update(moneyRecharge);
-        return R.update(this.moneyRechargeService.updateAmount(membersAccount,moneyRecharge));
+    @PostMapping("recharge")
+    public R recharge(MoneyRecharge moneyRecharge){
+        MembersAccount membersAccount = membersAccountService.queryByMembersId(JwtSession.getCurrentMembersId());
+        membersAccount.setUsableAmount(membersAccount.getUsableAmount().add(moneyRecharge.getAmount()));
+        membersAccountService.update(membersAccount);
+        //记录当前时间
+        moneyRecharge.setTradeTime(new Date());
+        //记录会员id
+        moneyRecharge.setMembersId(JwtSession.getCurrentMembersId());
+        //天津充值记录
+        return R.update(this.moneyRechargeService.insert(moneyRecharge));
     }
-
-
-
-
 }
+
+
+

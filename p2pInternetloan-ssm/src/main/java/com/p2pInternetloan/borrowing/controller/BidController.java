@@ -1,5 +1,4 @@
 package com.p2pInternetloan.borrowing.controller;
-
 import com.p2pInternetloan.base.utils.JwtSession;
 import com.p2pInternetloan.base.utils.PageUtils;
 import com.p2pInternetloan.base.utils.Query;
@@ -8,8 +7,10 @@ import com.p2pInternetloan.borrowing.entity.Bid;
 import com.p2pInternetloan.borrowing.entity.BidRequest;
 import com.p2pInternetloan.borrowing.service.BidRequestService;
 import com.p2pInternetloan.borrowing.service.BidService;
+import com.p2pInternetloan.members.entity.Members;
 import com.p2pInternetloan.members.entity.MembersAccount;
 import com.p2pInternetloan.members.service.MembersAccountService;
+import com.p2pInternetloan.members.service.MembersService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,7 +34,8 @@ public class BidController {
     private MembersAccountService membersAccountService;
     @Resource
     private BidRequestService requestService;
-
+    @Resource
+    private MembersService membersService;
     /**
      * 分页查询
      *
@@ -48,7 +50,7 @@ public class BidController {
     }
 
     /**
-     * 分页查询 这是针对 我的投标界面的
+     * 分页查询 查询当前用户投标
      *
      * @param  params 请求参数集
      * @return 结果集封装对象
@@ -56,6 +58,8 @@ public class BidController {
     @GetMapping("membersBidQueryPager")
     public  PageUtils membersBidQueryPager(@RequestParam Map<String, Object> params) {
         Query query = new Query(params);
+        //放入会员id
+        query.put("membersId", JwtSession.getCurrentMembersId());
         List list = bidService.membersBidQueryPager(query);
         return new PageUtils(list, query.getTotal());
     }
@@ -75,6 +79,7 @@ public class BidController {
     public  R tender(Bid bid, String pwd) {
         //这是查找出来当前用户的借贷对象
         MembersAccount membersAccount = this.membersAccountService.queryByMembersId(JwtSession.getCurrentMembersId());
+        Members members = this.membersService.queryById(JwtSession.getCurrentMembersId());
         //这是借贷额度的比较
         int flag = membersAccount.getUsableAmount().compareTo(bid.getAvailableAmount());
         //账号是否有那么多的钱 如果没有就不要来借贷了 早点滚蛋 穷鬼
@@ -95,14 +100,13 @@ public class BidController {
                 return R.error("你的投标额度超了借款额度");
             }
             //这是密码校验
-            if(!membersAccount.getTradePassword().equals(pwd)){
+            if(!members.getPassword().equals(pwd)){
                 return R.error("密码输入错误，请重新输入");
             }
             //修改借贷的当前收到投标的额度
             bidRequest.setCurrentSum(sum);
             //当前投资次数 ++
             bidRequest.setBidCount(bidRequest.getBidCount() +1);
-
             if(flag == 0){
                 //这是当钱够了后将标的状态修改车 满标
                 bidRequest.setBidRequestState(3);

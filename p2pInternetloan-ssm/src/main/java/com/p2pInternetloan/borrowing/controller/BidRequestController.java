@@ -88,7 +88,8 @@ public class BidRequestController {
     }
 
     /**
-     * 这是申请信用贷调用的方法
+     * 这是
+     * 的方法
      * @param bidRequest
      * @return
      */

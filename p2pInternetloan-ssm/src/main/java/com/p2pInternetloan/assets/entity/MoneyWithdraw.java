@@ -1,5 +1,7 @@
 package com.p2pInternetloan.assets.entity;
 
+import com.p2pInternetloan.base.aspect.annotation.Dict;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.io.Serializable;
@@ -15,7 +17,7 @@ public class MoneyWithdraw implements Serializable {
     //id
     private Integer id;
     //状态 (0 成功，1 失败，2 待审核)
-
+    @Dict(dicCode = "money_withdraw_state")
     private Integer state;
     //备注
 

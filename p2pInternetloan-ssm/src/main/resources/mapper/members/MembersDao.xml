@@ -19,7 +19,7 @@
     <select id="queryById" resultMap="MembersMap">
         select
           id, name, password, certification_score, is_identity_authentication, members_state, rate, rate_time, bid_request_id
-        from memberse
+        from members
         where id = #{id}
     </select>
 
@@ -106,4 +106,17 @@
     <delete id="deleteById">
         delete from members where id = #{id}
     </delete>
+
+    <!--这是获取最大id-->
+    <select id="getMaxId" resultType="java.lang.Integer">
+        select max(id) from members
+    </select>
+
+    <insert id="initMembersDetail" parameterType="java.lang.Integer">
+        insert into members_detail (members_id) values(#{membersId});
+    </insert>
+
+    <insert id="initMembersAccount" parameterType="java.lang.Integer">
+        insert into members_account(members_id) values(#{membersId});
+    </insert>
 </mapper>

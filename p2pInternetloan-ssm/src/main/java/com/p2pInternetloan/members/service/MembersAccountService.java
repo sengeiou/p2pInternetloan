@@ -4,6 +4,7 @@ import com.p2pInternetloan.base.utils.Query;
 import com.p2pInternetloan.members.entity.MembersAccount;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * (MembersAccount)表服务接口
@@ -57,6 +58,14 @@ public interface MembersAccountService {
      */
     int deleteById(Integer id);
 
+
+
+
+    /**
+     * 这是用户首页统计
+     * @return
+     */
+    public Map myHomeStatistics(Integer membersId);
 
 
 

@@ -62,5 +62,4 @@ public interface MembersAccountDao {
      */
     int deleteById(Integer id);
 
-
 }

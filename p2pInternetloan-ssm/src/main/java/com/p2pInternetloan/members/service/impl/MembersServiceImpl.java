@@ -79,4 +79,21 @@ public class MembersServiceImpl implements MembersService {
     public int deleteById(Integer id) {
         return this.membersDao.deleteById(id);
     }
+
+    @Override
+    public Integer getMaxId() {
+        return this.membersDao.getMaxId();
+    }
+
+    @Override
+    public Integer initMembersDetail(Integer membersId) {
+        return this.membersDao.initMembersDetail(membersId);
+    }
+
+    @Override
+    public Integer initMembersAccount(Integer membersId) {
+        return this.membersDao.initMembersAccount(membersId);
+    }
+
+
 }

@@ -1,13 +1,16 @@
 package com.p2pInternetloan.members.service.impl;
 
 import com.p2pInternetloan.base.utils.Query;
+import com.p2pInternetloan.borrowing.dao.RefundDetailDao;
 import com.p2pInternetloan.members.dao.MembersAccountDao;
 import com.p2pInternetloan.members.entity.MembersAccount;
 import com.p2pInternetloan.members.service.MembersAccountService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (MembersAccount)表服务实现类
@@ -19,6 +22,8 @@ import java.util.List;
 public class MembersAccountServiceImpl implements MembersAccountService {
     @Resource
     private MembersAccountDao membersAccountDao;
+    @Resource
+    private RefundDetailDao refundDetailDao;
 
     /**
      * 通过ID查询单条数据
@@ -78,5 +83,24 @@ public class MembersAccountServiceImpl implements MembersAccountService {
     @Override
     public int deleteById(Integer id) {
         return this.membersAccountDao.deleteById(id);
+    }
+
+
+    @Override
+    public Map myHomeStatistics(Integer membersId) {
+        Map map = new HashMap();
+        //这是根据会员id查找出账户信息 
+        MembersAccount membersAccount = this.membersAccountDao.queryByMembersId(membersId);
+        //累计收益
+        map.put("membersInterestSum", this.refundDetailDao.membersInterestSum(membersId));
+        //账户余额
+        map.put("usableAmount", membersAccount.getUsableAmount());
+        //代收本金
+        map.put("unReceivePrincipal", membersAccount.getUnReceivePrincipal());
+        //代收利息
+        map.put("unReceiveInterest", membersAccount.getUnReceiveInterest());
+        //授信额度
+        map.put("borrowLimit", membersAccount.getBorrowLimit());
+        return map;
     }
 }

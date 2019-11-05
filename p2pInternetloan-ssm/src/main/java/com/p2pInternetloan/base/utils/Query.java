@@ -32,6 +32,9 @@ public class Query extends LinkedHashMap<String, Object> {
 	}
 
 
+	public Query(){
+		super();
+	}
 
 	public int getPage() {
 		return page;
